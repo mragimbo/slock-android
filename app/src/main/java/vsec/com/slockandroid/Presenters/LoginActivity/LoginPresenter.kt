@@ -1,12 +1,12 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
+import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
+import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.Presenters.LoginActivity.models.User
-import java.security.MessageDigest
 
 class LoginPresenter(private val view: View) {
 
     private val user: User
-    //salt for mitegating rainbowtables
     init {
         user = User()
     }
@@ -21,15 +21,20 @@ class LoginPresenter(private val view: View) {
     }
 
     fun sendLoginRequestToApi(){
+        var succeeded: Boolean = ApiController.loginUser(user)
         //do api call
-        user.setHashedPassword("");
+        if(succeeded){
+            //change activity
+            view.changeActivity(HomeView::class.java)
+        }
+        user.clear()
     }
 
-    fun getUserPassHash(): String{
-        return user.getPassHash();
+    fun getuserObject(): String{
+        return user.toJSON()
     }
 
     interface View {
-
+        fun changeActivity(toActivity: Class<HomeView>, extra: Map<String, String> = HashMap<String, String>())
     }
 }

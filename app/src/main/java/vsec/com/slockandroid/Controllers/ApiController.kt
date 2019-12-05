@@ -11,12 +11,13 @@ import java.net.URL
 import java.nio.charset.StandardCharsets
 import javax.net.ssl.HttpsURLConnection
 
-object WiFiController {
+object ApiController {
     private val apiDomain: String =  "127.0.0.1"
     private val apiPort: Int = 8080
 
-    @ImplicitReflectionSerializer
-    fun loginUser(user: User) {
+    fun loginUser(user: User): Boolean {
+        return true;
+
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
 
         with(url.openConnection() as HttpsURLConnection) {
