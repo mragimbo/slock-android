@@ -1,14 +1,16 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 
 import android.app.Activity
+import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
-import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
-import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
+import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
+
 
 class LoginView : Activity(), LoginPresenter.View {
 
@@ -17,6 +19,13 @@ class LoginView : Activity(), LoginPresenter.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        val bleSucceeded = BluetoothController.initBleAdapter(applicationContext)
+
+        if(!bleSucceeded){
+            val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            val REQUEST_ENABLE_BT = 1
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+        }
 
         this.presenter = LoginPresenter(this)
         setContentView(R.layout.activity_login)
