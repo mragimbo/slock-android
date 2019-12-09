@@ -1,4 +1,5 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
+import android.app.Activity
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
@@ -25,7 +26,7 @@ class LoginPresenter(private val view: View) {
         //do api call
         if(succeeded){
             //change activity
-            view.changeActivity(HomeView::class.java)
+            view.changeActivity(HomeView::class.java as Class<Activity>)
         }
         user.clear()
     }
@@ -35,6 +36,6 @@ class LoginPresenter(private val view: View) {
     }
 
     interface View {
-        fun changeActivity(toActivity: Class<HomeView>, extra: Map<String, String> = HashMap<String, String>())
+        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
     }
 }

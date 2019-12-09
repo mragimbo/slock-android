@@ -12,8 +12,9 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".Presenters.HomeActivity.HomeView"></activity>
+            android:theme="@style/MyTheme">
+        <activity android:name=".Presenters.RegisterActivity.RegisterView"></activity>
+        <activity android:name=".Presenters.HomeActivity.HomeView" />
         <activity android:name=".Presenters.LoginActivity.LoginView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-                android:name=".Presenters.RegisterActivity.RegisterActivity"
-                android:label="@string/title_activity_register"></activity>
     </application>
 
 </manifest>

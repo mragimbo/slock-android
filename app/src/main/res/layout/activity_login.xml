@@ -1,55 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Presenters.LoginActivity.LoginView"
->
-
-    <TextView
-            android:id="@+id/tv_userpassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        tools:context=".Presenters.LoginActivity.LoginView">
 
     <EditText
             android:id="@+id/in_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="128dp"
             android:ems="10"
+            android:hint="email"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            android:textColor="@color/colorTextDark"
             android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/in_password"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_userpassword"
-            app:layout_constraintVertical_bias="0.627" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
             android:id="@+id/in_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="188dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
+            android:hint="password"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            android:textColor="@color/colorTextDark"
             android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/in_email"
+            app:layout_constraintStart_toStartOf="@+id/in_email"
+            app:layout_constraintTop_toBottomOf="@+id/in_email" />
 
     <Button
             android:id="@+id/btn_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Button"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
+            android:text="Log In"
+            android:background="@drawable/rounded_shape_button_primary"
+            app:layout_constraintEnd_toEndOf="@+id/in_password"
+            app:layout_constraintStart_toStartOf="@+id/in_password"
+            app:layout_constraintTop_toBottomOf="@+id/in_password" />
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="Welcome to Slock"
+            android:textColor="@color/colorTextDark"
+            android:textAlignment="center"
+            android:textSize="80px"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+            android:id="@+id/btn_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_shape_button_secondary"
+            android:textColor="@color/colorTextDark"
+            android:text="Sign Up!"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Not a user yet?"
+            android:textColor="@color/colorTextDark"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+            app:layout_constraintStart_toStartOf="@+id/btn_login"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
 </android.support.constraint.ConstraintLayout>

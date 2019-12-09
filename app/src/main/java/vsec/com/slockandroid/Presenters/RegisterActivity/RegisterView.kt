@@ -1,13 +1,13 @@
-package vsec.com.slockandroid.Presenters.HomeActivity
+package vsec.com.slockandroid.Presenters.RegisterActivity
 
 import android.app.Activity
 import android.os.Bundle
 import vsec.com.slockandroid.R
 
-class HomeView : Activity(), HomePresenter.View  {
+class RegisterView : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_register)
     }
 }
