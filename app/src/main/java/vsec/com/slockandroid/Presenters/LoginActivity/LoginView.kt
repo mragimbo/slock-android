@@ -22,7 +22,7 @@ class LoginView : Activity(), LoginPresenter.View {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(Array<String>(1){ Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+            requestPermissions(Array<String>(1){ Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION)
         }else{
             this.onRequestPermissionsResult(0,Array<String>(1){""}, IntArray(0))
         }
@@ -40,7 +40,7 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
-        BluetoothController.scanLeDevice(true);
+        BluetoothController.scanLeDevice(true)
 
         this.presenter = LoginPresenter(this)
         setContentView(R.layout.activity_login)
