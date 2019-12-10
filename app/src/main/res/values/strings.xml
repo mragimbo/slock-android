@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">SlockAndroid</string>
-    <string name="title_activity_register">Sign in</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
@@ -11,4 +10,17 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <!--Strings related to register-->
+    <string name="reg_firstName">first name</string>
+    <string name="reg_lastName">last name</string>
+    <string name="reg_email">email</string>
+    <string name="reg_conf_email">confirm email</string>
+    <string name="reg_screen1">Step 1</string>
+    <string name="reg_screen2">Step 2</string>
+    <string name="reg_screen1_next">Next</string>
+    <string name="reg_screen2_register">Register!</string>
+    <string name="reg_screen1_logo">Register</string>
+    <string name="reg_screen2_passwd">Password</string>
+    <string name="reg_screen2_conf_passwd">Confirm Password</string>
+
 </resources>
