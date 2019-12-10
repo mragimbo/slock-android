@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Log In"
+            android:enabled="false"
             android:background="@drawable/rounded_shape_button_primary"
             app:layout_constraintEnd_toEndOf="@+id/in_password"
             app:layout_constraintStart_toStartOf="@+id/in_password"
