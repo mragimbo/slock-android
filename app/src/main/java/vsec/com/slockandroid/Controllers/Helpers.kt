@@ -1,5 +1,6 @@
 package vsec.com.slockandroid.Controllers
 
+import vsec.com.slockandroid.generalModels.PasswordScore
 import java.security.MessageDigest
 
 object Helpers {
@@ -14,6 +15,16 @@ object Helpers {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun checkPasswordIsStrong(){
+    fun checkPasswordIsStrong(passwordScore: Int): PasswordScore{
+        if(passwordScore in 0..12)
+            return PasswordScore.WEAK
+        if(passwordScore in 13..20)
+            return PasswordScore.AVERAGE
+        if(passwordScore in 21..33)
+            return PasswordScore.STRONG
+        if(passwordScore in 34..55)
+            return PasswordScore.MARVELOUS
+
+        return PasswordScore.WEAK
     }
 }
