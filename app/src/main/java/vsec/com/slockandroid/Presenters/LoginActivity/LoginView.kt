@@ -65,7 +65,7 @@ class LoginView : Activity(), LoginPresenter.View {
     }
 
     fun updateButtonState(){
-        btn_login.isEnabled = buttonState.containsAll(List(2){ButtonState.EMAIL_VALID; ButtonState.PASSWORD_VALID })
+        btn_login.isEnabled = buttonState.contains(ButtonState.EMAIL_VALID) && buttonState.contains(ButtonState.PASSWORD_VALID)
     }
 
     override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
