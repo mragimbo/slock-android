@@ -31,6 +31,9 @@ class LoginPresenter(private val view: View) {
         user.clear()
     }
 
+    fun checkEmailValid(email: String): Boolean{
+        return Helpers.checkEmailIsValid(email)
+    }
     fun getuserObject(): String{
         return user.toJSON()
     }
