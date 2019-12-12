@@ -5,7 +5,7 @@ import android.os.Bundle
 import vsec.com.slockandroid.R
 
 
-class RegisterViewStep2 : Activity() {
+class RegisterViewStep2 : Activity(), RegisterPresenter.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,4 +21,6 @@ class RegisterViewStep2 : Activity() {
 
 
     }
+
+    override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {}
 }
