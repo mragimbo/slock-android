@@ -17,10 +17,11 @@
             android:inputType="textPersonName"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorBackgroundSecondaryDark"
-            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_step1" />
+            app:layout_constraintEnd_toEndOf="@+id/reg_progressBar_step1"
+            app:layout_constraintStart_toStartOf="@+id/reg_progressBar_step1"
+            app:layout_constraintTop_toBottomOf="@+id/reg_progressBar_step1" />
 
     <EditText
             android:id="@+id/in_lastName"
@@ -98,11 +99,12 @@
             android:layout_marginTop="16dp"
             android:background="#00FDFDFD"
             android:progressTint="#4CAF50"
-            app:layout_constraintEnd_toEndOf="@+id/btn_next"
-            app:layout_constraintStart_toStartOf="@+id/btn_next"
-            app:layout_constraintTop_toBottomOf="@+id/btn_next"
+
             android:min = "0"
-            android:max = "9"/>
+            android:max = "8"
+            app:layout_constraintEnd_toEndOf="@+id/tx_step1"
+            app:layout_constraintStart_toStartOf="@+id/tx_step1"
+            app:layout_constraintTop_toBottomOf="@+id/tx_step1"/>
 
     <Button
             android:id="@+id/btn_next"

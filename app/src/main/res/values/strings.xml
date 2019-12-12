@@ -18,4 +18,10 @@
     <string name="reg_screen1_logo">Register</string>
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
+    <string name="reg_screen2_passwd_empty">Empty</string>
+    <string name="reg_screen2_passwd_weak">Weak</string>
+    <string name="reg_screen2_passwd_avg">Average</string>
+    <string name="reg_screen2_passwd_strong">Strong</string>
+    <string name="reg_screen2_passwd_marv">Marvelous</string>
+
 </resources>

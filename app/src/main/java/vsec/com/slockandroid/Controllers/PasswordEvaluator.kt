@@ -1,5 +1,7 @@
 package vsec.com.slockandroid.Controllers
 
+import kotlin.math.roundToInt
+
 object PasswordEvaluator{
     private val lowercaseLetters: String = "abcdefghijklmnopqrstuvwxyz"
     private val uppercaseLetters: String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -21,15 +23,16 @@ object PasswordEvaluator{
 
         if( password.matches( Regex(".*["+this.lowercaseLetters+"].*") ) ) { score += 2 }
         if( password.matches( Regex(".*["+this.uppercaseLetters+"].*") ) ){ score += 2 }
-        if( password.matches( Regex(".*["+this.numbers+"].*") ) ){ score += 1 }
-        if( password.matches( Regex(".*["+this.specialCharacters+"].*") ) ){ score += 5 }
+        if( password.matches( Regex(".*["+this.numbers+"].*") ) ){ score += 2 }
+        if( password.matches( Regex(".*["+this.specialCharacters+"].*") ) ){ score += 3 }
 
         //if all itemes are used give bonus points
         if(score >= 10){score += 3}
 
         for(x in minPasswordSize..maxPasswordScore){
             if(password.length > x){
-                score += 1
+                for (i in password){score += 1}
+                score = (score/1.5).roundToInt()
             }
         }
         return score

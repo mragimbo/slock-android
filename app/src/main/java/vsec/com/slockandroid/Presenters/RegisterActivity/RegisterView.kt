@@ -96,13 +96,13 @@ class RegisterView : Activity(), RegisterPresenter.View {
         }
     private fun updateProgressbar(){
         reg_progressBar_step1.progress = 1
-        if (buttonState.contains(ButtonState.FIRST_NAME_VALID)){reg_progressBar_step1.progress +=1}
+        if (buttonState.contains(ButtonState.FIRST_NAME_VALID)){reg_progressBar_step1.progress++}
             else{reg_progressBar_step1.progress -1}
-        if (buttonState.contains(ButtonState.LAST_NAME_VALID)){reg_progressBar_step1.progress +=1}
+        if (buttonState.contains(ButtonState.LAST_NAME_VALID)){reg_progressBar_step1.progress++}
             else{reg_progressBar_step1.progress -1}
-        if (buttonState.contains(ButtonState.EMAIL_VALID)){reg_progressBar_step1.progress +=1}
+        if (buttonState.contains(ButtonState.EMAIL_VALID)){reg_progressBar_step1.progress++}
             else{reg_progressBar_step1.progress -1}
-        if (buttonState.contains(ButtonState.EMAIL_EQUAL)){reg_progressBar_step1.progress +=1}
+        if (buttonState.contains(ButtonState.EMAIL_EQUAL)){reg_progressBar_step1.progress++}
             else{reg_progressBar_step1.progress -1}
 
 
