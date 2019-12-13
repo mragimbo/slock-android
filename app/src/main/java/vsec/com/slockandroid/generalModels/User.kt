@@ -1,4 +1,4 @@
-package vsec.com.slockandroid.Presenters.LoginActivity.models
+package vsec.com.slockandroid.generalModels
 
 import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
