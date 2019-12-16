@@ -1,6 +1,7 @@
 package vsec.com.slockandroid.Presenters.RegisterLockActivity
 
 import android.app.Activity
+import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import vsec.com.slockandroid.R
 class RegisterLockView : Activity(), RegisterLockPresenter.View{
 
     private lateinit var presenter: RegisterLockPresenter
+    private lateinit var lock: BluetoothDevice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,7 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View{
         this.presenter.lookForRegisterableLock()
 
         btn_register_lock.setOnClickListener{
-            this.presenter.connectToRegisterableLock()
+            this.presenter.registerLock(this.lock)
         }
     }
 
@@ -29,7 +31,8 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onRegisterableLockFound(){
+    override fun onRegisterableLockFound(lock: BluetoothDevice){
+        this.lock = lock
         btn_register_lock.isEnabled = true
     }
 }

@@ -10,17 +10,13 @@ import vsec.com.slockandroid.Controllers.Helpers
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     fun lookForRegisterableLock() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    fun connectToRegisterableLock() {
         BluetoothController.scanLeDevice(true, ::onScanDone)
-
     }
 
-    private fun registerLock(lock: BluetoothDevice){
-        var uuid: String = Helpers.
-        lock?.connectGatt(BluetoothController.context,false, BluetoothLockRegister())
+    fun registerLock(lock: BluetoothDevice): String{
+        var uuid: String = Helpers.newBase64Uuid()
+        var secret: String = Helpers.newBase64Token()
+        lock?.connectGatt(BluetoothController.context,false, BluetoothLockRegister(uuid, secret))
     }
 
 
@@ -29,12 +25,12 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         var lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.name.contains("SLOCK") }
         if(lock != null){
             Log.e("b", lock.name)
-            this.registerLock(lock)
+            view.onRegisterableLockFound(lock)
         }
     }
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>)
-        fun onRegisterableLockFound()
+        fun onRegisterableLockFound(lock: BluetoothDevice)
     }
 }
