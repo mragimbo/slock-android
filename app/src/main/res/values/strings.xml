@@ -17,4 +17,5 @@
     <string name="reg_screen2_register">Register!</string>
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
+    <string name="title_activity_owned_locks">OwnedLocksActivity</string>
 </resources>

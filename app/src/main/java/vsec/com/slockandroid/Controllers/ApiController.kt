@@ -1,6 +1,7 @@
 package vsec.com.slockandroid.Controllers
 
-import vsec.com.slockandroid.Presenters.LoginActivity.models.User
+
+import vsec.com.slockandroid.generalModels.User
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader

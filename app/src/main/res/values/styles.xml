@@ -5,5 +5,15 @@
         <item name="android:windowBackground">@color/colorBackgroundDark</item>
         <!-- Customize your theme here. -->
     </style>
+
     <color name="background_dark" />
+
+    <style name="MyTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
