@@ -11,7 +11,8 @@ private const val CHARACTERISTIC_REGISTER_NAME = "c3465381-d3fe-4234-bd2b-a642ea
 private const val CHARACTERISTIC_REGISTER_SECRET = "7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
 
 
-object BluetoothGattConnectCallback: BluetoothGattCallback() {
+class BluetoothLockRegister(private val lockUuid: String, private val lockTokenSeed: String): BluetoothGattCallback() {
+
     override fun onConnectionStateChange(
         gatt: BluetoothGatt,
         status: Int,
@@ -62,7 +63,7 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
 
         val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(
             CHARACTERISTIC_REGISTER_NAME))
-        registerNameCharacteristic.setValue("uuid")
+        registerNameCharacteristic.setValue(this.lockUuid)
 
         gatt.writeCharacteristic(registerNameCharacteristic)
     }
@@ -74,7 +75,7 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
         val registerservice: BluetoothGattService = gatt.getService(UUID.fromString(SERVICE_REGISTER_ID))
 
         val registerSecretCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(CHARACTERISTIC_REGISTER_SECRET))
-        registerSecretCharacteristic.setValue("tokenseed")
+        registerSecretCharacteristic.setValue(this.lockTokenSeed)
         gatt.writeCharacteristic(registerSecretCharacteristic)
     }
 }

@@ -8,7 +8,7 @@ import vsec.com.slockandroid.Controllers.BluetoothController
 
 
 object BluetoothScanCallback: ScanCallback() {
-    private var scannedBleDevices: ArrayList<BluetoothDevice> = ArrayList()
+    var scannedBleDevices: ArrayList<BluetoothDevice> = ArrayList()
 
     override fun onBatchScanResults(results: MutableList<ScanResult>?) {
         super.onBatchScanResults(results)

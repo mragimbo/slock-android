@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
@@ -26,6 +25,9 @@ class LoginView : Activity(), LoginPresenter.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+        this.presenter = LoginPresenter(this)
+        setContentView(R.layout.activity_login)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(Array<String>(1){ Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION)
@@ -46,10 +48,6 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
-        BluetoothController.scanLeDevice(true)
-
-        this.presenter = LoginPresenter(this)
-        setContentView(R.layout.activity_login)
 
         btn_login.setOnClickListener{
             this.presenter.updateEmail(in_email.text.toString())
@@ -58,7 +56,7 @@ class LoginView : Activity(), LoginPresenter.View {
             this.presenter.sendLoginRequestToApi()
         }
 
-        btn_register.setOnClickListener{
+        btn_register_lock.setOnClickListener{
             this.changeActivity(RegisterView::class.java as Class<Activity>)
         }
 
