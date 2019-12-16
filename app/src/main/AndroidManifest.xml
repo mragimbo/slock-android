@@ -4,15 +4,14 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
-    <!--To connect to BLE lock -->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- To connect to BLE lock -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- Check if device supports BLE -->
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Check if device supports BLE -->
+    <uses-feature
+            android:name="android.hardware.bluetooth_le"
+            android:required="true" />
 
     <application
             android:allowBackup="true"
@@ -21,7 +20,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/MyTheme">
-        <activity android:name=".Presenters.RegisterActivity.RegisterViewStep2"></activity>
+        <activity android:name=".Presenters.RegisterLockActivity.RegisterLockActivity"></activity>
+        <activity
+                android:name=".Presenters.OwnedLocksActivity.OwnedLocksActivity"
+                android:label="@string/title_activity_owned_locks"
+                android:theme="@style/MyTheme.NoActionBar" />
+        <activity android:name=".Presenters.RegisterActivity.RegisterViewStep2" />
         <activity android:name=".Presenters.RegisterActivity.RegisterView" />
         <activity android:name=".Presenters.HomeActivity.HomeView" />
         <activity android:name=".Presenters.LoginActivity.LoginView">
