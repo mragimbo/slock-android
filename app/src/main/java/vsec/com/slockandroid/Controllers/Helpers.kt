@@ -2,8 +2,14 @@ package vsec.com.slockandroid.Controllers
 
 import vsec.com.slockandroid.generalModels.PasswordScore
 import java.security.MessageDigest
+import java.security.SecureRandom
+import java.util.*
 
 object Helpers {
+    private lateinit var secureRandom: SecureRandom
+    init {
+        secureRandom = SecureRandom()
+    }
 
     fun makeSha512Hash(payload: String, salt: String): String {
         val md = MessageDigest.getInstance("SHA-512")
@@ -26,5 +32,20 @@ object Helpers {
             return PasswordScore.MARVELOUS
 
         return PasswordScore.WEAK
+    }
+
+    fun newBase64Uuid(): String{
+        var input = UUID.randomUUID().toString().filterNot { it == '-' }
+        val bytes = input.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+        var uuid = Base64.getEncoder().encodeToString(bytes)
+
+        return uuid.toString()
+    }
+
+    fun newBase64Token(size: Int = 16): String {
+        val bytes: ByteArray = ByteArray(size)
+        secureRandom.nextBytes(bytes)
+        var token = Base64.getEncoder().encodeToString(bytes)
+        return token
     }
 }

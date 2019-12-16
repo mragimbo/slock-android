@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.view.View
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
+import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
@@ -47,7 +48,6 @@ class LoginView : Activity(), LoginPresenter.View {
             startActivity(enableBtIntent)
         }
         BluetoothController.scanLeDevice(true)
-
         this.presenter = LoginPresenter(this)
         setContentView(R.layout.activity_login)
 

@@ -3,12 +3,13 @@ package vsec.com.slockandroid.Controllers.Callback
 import android.bluetooth.*
 import android.content.ContentValues
 import android.util.Log
+import vsec.com.slockandroid.Controllers.Helpers
 import java.util.*
 import kotlin.collections.ArrayList
 
 private const val SERVICE_REGISTER_ID = "7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
 private const val CHARACTERISTIC_REGISTER_NAME = "c3465381-d3fe-4234-bd2b-a642eaedb1fe"
-private const val CHARACTERISTIC_REGISTER_SECRET = "7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
+private const val CHARACTERISTIC_REGISTER_SECRET = "1f894374-6b00-4c13-9782-bfa63a479ed6"
 
 
 object BluetoothGattConnectCallback: BluetoothGattCallback() {
@@ -62,7 +63,7 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
 
         val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(
             CHARACTERISTIC_REGISTER_NAME))
-        registerNameCharacteristic.setValue("uuid")
+        registerNameCharacteristic.setValue("SLOCK_" + Helpers.newBase64Uuid())
 
         gatt.writeCharacteristic(registerNameCharacteristic)
     }
@@ -74,7 +75,7 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
         val registerservice: BluetoothGattService = gatt.getService(UUID.fromString(SERVICE_REGISTER_ID))
 
         val registerSecretCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(CHARACTERISTIC_REGISTER_SECRET))
-        registerSecretCharacteristic.setValue("tokenseed")
+        registerSecretCharacteristic.setValue(Helpers.newBase64Token())
         gatt.writeCharacteristic(registerSecretCharacteristic)
     }
 }
