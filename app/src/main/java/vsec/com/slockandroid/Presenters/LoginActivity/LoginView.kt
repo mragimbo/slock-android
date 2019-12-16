@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
+import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
@@ -48,6 +49,12 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
+<<<<<<< HEAD
+=======
+        BluetoothController.scanLeDevice(true)
+        this.presenter = LoginPresenter(this)
+        setContentView(R.layout.activity_login)
+>>>>>>> BluetoothController
 
         btn_login.setOnClickListener{
             this.presenter.updateEmail(in_email.text.toString())
