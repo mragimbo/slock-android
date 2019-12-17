@@ -29,6 +29,7 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_2)
+        tx_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_empty)
 
         this.presenter = RegisterPresenter(this)
 

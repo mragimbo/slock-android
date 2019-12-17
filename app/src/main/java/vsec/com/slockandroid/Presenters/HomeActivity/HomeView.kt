@@ -19,7 +19,7 @@ class HomeView : Activity(), HomePresenter.View  {
 
         this.presenter = HomePresenter(this)
 
-        btn_to_own_locks.setOnClickListener{
+        btn_own_locks.setOnClickListener{
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
             this.changeActivity(OwnedLocksActivity::class.java as Class<Activity>,extras)

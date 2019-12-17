@@ -7,13 +7,143 @@
         android:layout_height="match_parent"
         tools:context=".Presenters.HomeActivity.HomeView">
 
-    <Button
-            android:id="@+id/btn_to_own_locks"
+    <TextView
+            android:id="@+id/tx_welcome_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OwnedLocks"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="64dp"
+            android:text="@string/title_activity_HomeView"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextDark"
+            android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/tx_additional_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/title_activity_HomeView_additional"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextDark"
+            android:textSize="60px"
+            app:layout_constraintEnd_toEndOf="@id/tx_welcome_header"
+            app:layout_constraintStart_toStartOf="@id/tx_welcome_header"
+            app:layout_constraintTop_toTopOf="@id/tx_welcome_header" />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tx_additional_info"
+            app:layout_constraintStart_toStartOf="@+id/tx_additional_info"
+            app:layout_constraintTop_toBottomOf="@+id/tx_additional_info">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btn_own_locks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_own_locks"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+
+            <Button
+                    android:id="@+id/btn_accessible_locks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_accessible_locks"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btn_template3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_temp"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+
+            <Button
+                    android:id="@+id/btn_template4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_temp"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btn_template5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_temp"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+
+            <Button
+                    android:id="@+id/btn_template6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/roundcorner"
+                    android:drawableTop="@drawable/ic_launcher_foreground"
+                    android:drawablePadding="-8dp"
+                    android:text="@string/btn_temp"
+                    android:textAlignment="center"
+                    android:textColor="#9A000000" />
+        </LinearLayout>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

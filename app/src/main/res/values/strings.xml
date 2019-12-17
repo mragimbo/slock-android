@@ -25,4 +25,12 @@
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
     <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+    <!-- Strings related to HomeView -->
+    <string name="title_activity_HomeView">Welcome!</string>
+    <string name="title_activity_HomeView_additional"></string>
+    <string name="btn_own_locks">Own Locks</string>
+    <string name="btn_accessible_locks">Accessible Locks</string>
+    <string name="btn_temp">button_name_here</string>
+
+
 </resources>
