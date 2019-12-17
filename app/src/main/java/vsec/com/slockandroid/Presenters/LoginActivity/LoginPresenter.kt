@@ -6,11 +6,7 @@ import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.generalModels.User
 
 class LoginPresenter(private val view: View) {
-
-    private val user: User
-    init {
-        user = User()
-    }
+    private val user: User = User()
 
     fun updateEmail(email: String) {
         user.setEmail(email)

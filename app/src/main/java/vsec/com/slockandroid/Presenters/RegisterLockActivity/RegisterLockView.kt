@@ -2,12 +2,8 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_owned_locks.*
-import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksView
 import vsec.com.slockandroid.R
 
 class RegisterLockView : Activity(), RegisterLockPresenter.View{
@@ -20,7 +16,7 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View{
         setContentView(R.layout.activity_register_lock)
 
         this.presenter = RegisterLockPresenter(this)
-        this.presenter.lookForRegisterableLock()
+        this.presenter.lookForRegistrableLock()
 
         btn_register_lock.setOnClickListener{
             this.presenter.registerLock(this.lock)
