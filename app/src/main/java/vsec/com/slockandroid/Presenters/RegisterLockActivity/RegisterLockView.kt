@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_owned_locks.*
 import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksActivity
 import vsec.com.slockandroid.R
 
-class RegisterLockActivity : Activity(), RegisterLockPresenter.View{
+class RegisterLockView : Activity(), RegisterLockPresenter.View{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

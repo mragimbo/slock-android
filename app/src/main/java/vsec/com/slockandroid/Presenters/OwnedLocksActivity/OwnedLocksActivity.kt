@@ -6,7 +6,7 @@ import android.os.Bundle
 
 import kotlinx.android.synthetic.main.activity_owned_locks.*
 
-import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockActivity
+import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockView
 import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockPresenter
 import vsec.com.slockandroid.R
 
@@ -20,7 +20,7 @@ class OwnedLocksActivity : Activity(), RegisterLockPresenter.View {
         btn_add_lock.setOnClickListener {
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
-            changeActivity(RegisterLockActivity::class.java as Class<Activity>, extras)
+            changeActivity(RegisterLockView::class.java as Class<Activity>, extras)
 
         }
     }

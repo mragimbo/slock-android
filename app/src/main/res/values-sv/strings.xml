@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="app_name">Slock Android</string>
+        <!-- Strings related to login -->
+        <string name="prompt_email">E-postadress</string>
+        <string name="prompt_password">Lösenord</string>
+        <string name="action_sign_up">Registrera</string>
+        <string name="action_sign_in">Logga in</string>
+        <string name="not_a_user_yet">Bli medlem?</string>
+        <!--Strings related to register-->
+        <string name="reg_firstName">förnamn</string>
+        <string name="reg_lastName">efternamn</string>
+        <string name="reg_email">e-postadress</string>
+        <string name="reg_conf_email">bekräfta e-postadressen</string>
+        <string name="reg_screen1">Del 1</string>
+        <string name="reg_screen2">Del 2</string>
+        <string name="reg_screen1_next">Nästa</string>
+        <string name="reg_screen1_logo">Registrera</string>
+        <string name="reg_screen2_passwd_empty">Blank</string>
+        <string name="reg_screen2_passwd_weak">Svag</string>
+        <string name="reg_screen2_passwd_avg">Någorlunda</string>
+        <string name="reg_screen2_passwd_strong">Stark</string>
+        <string name="reg_screen2_passwd_marv">Lysande</string>
+        <string name="reg_screen2_passwd_too_long">För länge!</string>
+        <string name="reg_screen2_register">Registrera!</string>
+        <string name="reg_screen2_passwd">Lösenord</string>
+        <string name="reg_screen2_conf_passwd">Bekräfta lösenord</string>
+        <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+        <!-- Strings related to HomeView -->
+        <string name="title_activity_HomeView">Välkommen!</string>
+        <string name="title_activity_HomeView_additional"></string>
+        <string name="btn_own_locks">Egna lås</string>
+        <string name="btn_accessible_locks">Tillgängliga\n lås</string>
+        <string name="btn_temp">knapp_namn_här</string>
+
+</resources>

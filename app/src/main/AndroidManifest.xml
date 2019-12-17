@@ -17,18 +17,30 @@
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/MyTheme">
-        <activity android:name=".Presenters.RegisterLockActivity.RegisterLockActivity"></activity>
+        <activity
+                android:name=".Presenters.RegisterLockActivity.RegisterLockView"
+                android:screenOrientation="portrait"></activity>
         <activity
                 android:name=".Presenters.OwnedLocksActivity.OwnedLocksActivity"
                 android:label="@string/title_activity_owned_locks"
-                android:theme="@style/MyTheme.NoActionBar" />
-        <activity android:name=".Presenters.RegisterActivity.RegisterViewStep2" />
-        <activity android:name=".Presenters.RegisterActivity.RegisterView" />
-        <activity android:name=".Presenters.HomeActivity.HomeView" />
-        <activity android:name=".Presenters.LoginActivity.LoginView">
+                android:theme="@style/MyTheme.NoActionBar"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.RegisterActivity.RegisterViewStep2"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.RegisterActivity.RegisterView"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.HomeActivity.HomeView"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.LoginActivity.LoginView"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
