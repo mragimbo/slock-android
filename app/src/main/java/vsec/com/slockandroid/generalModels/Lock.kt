@@ -23,7 +23,7 @@ class Lock {
         }
     }
     fun setUuid(uuid: String){
-        this.uuid = uuid
+        this.uuid = "SLOCK_$uuid"
     }
 
     fun getUuid(): String?{

@@ -13,7 +13,7 @@ private const val CHARACTERISTIC_REGISTER_NAME = "c3465381-d3fe-4234-bd2b-a642ea
 private const val CHARACTERISTIC_REGISTER_SECRET = "1f894374-6b00-4c13-9782-bfa63a479ed6"
 
 
-class BluetoothLockRegister(private val lock: Lock): BluetoothGattCallback() {
+class BluetoothLockRegister(private val lock: Lock, private val registerDone: () -> Unit): BluetoothGattCallback() {
 
     override fun onConnectionStateChange(
         gatt: BluetoothGatt,
@@ -22,6 +22,7 @@ class BluetoothLockRegister(private val lock: Lock): BluetoothGattCallback() {
     ) {
         when (newState) {
             BluetoothProfile.STATE_CONNECTED -> {
+                Log.i(ContentValues.TAG, "connected from GATT server.")
                 gatt.beginReliableWrite()
                 gatt.discoverServices()
             }
@@ -50,6 +51,7 @@ class BluetoothLockRegister(private val lock: Lock): BluetoothGattCallback() {
 
         if(hasName && hasSecret){
             gatt?.executeReliableWrite()
+            this.registerDone()
         }else if(hasName) {
             sendSecretCharacteristic(gatt)
         }else if(hasSecret){
