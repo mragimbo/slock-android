@@ -33,10 +33,10 @@ object BluetoothScanCallback: ScanCallback() {
         //b?.connectGatt(BluetoothController.context,false,BluetoothGattConnectCallback)
     }
 
-    fun connectGatt(name: String){
-        Log.e("test", "t: " + this.scannedBleDevices.find { it.name == name }?.name)
-        this.scannedBleDevices.find { it.name == name }?.connectGatt(BluetoothController.context, false, BluetoothGattConnectCallback)
-    }
+    //fun connectGatt(name: String){
+    //    Log.e("test", "t: " + this.scannedBleDevices.find { it.name == name }?.name)
+    //    this.scannedBleDevices.find { it.name == name }?.connectGatt(BluetoothController.context, false, BluetoothGattConnectCallback)
+    //}
     fun clearScannedDevices(){
         this.scannedBleDevices.clear()
     }

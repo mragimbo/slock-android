@@ -64,11 +64,7 @@ class BluetoothLockRegister(private val lockUuid: String, private val lockTokenS
 
         val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(
             CHARACTERISTIC_REGISTER_NAME))
-<<<<<<< HEAD:app/src/main/java/vsec/com/slockandroid/Controllers/Callback/BluetoothLockRegister.kt
         registerNameCharacteristic.setValue(this.lockUuid)
-=======
-        registerNameCharacteristic.setValue("SLOCK_" + Helpers.newBase64Uuid())
->>>>>>> BluetoothController:app/src/main/java/vsec/com/slockandroid/Controllers/Callback/BluetoothGattConnectCallback.kt
 
         gatt.writeCharacteristic(registerNameCharacteristic)
     }
@@ -80,11 +76,7 @@ class BluetoothLockRegister(private val lockUuid: String, private val lockTokenS
         val registerservice: BluetoothGattService = gatt.getService(UUID.fromString(SERVICE_REGISTER_ID))
 
         val registerSecretCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(CHARACTERISTIC_REGISTER_SECRET))
-<<<<<<< HEAD:app/src/main/java/vsec/com/slockandroid/Controllers/Callback/BluetoothLockRegister.kt
         registerSecretCharacteristic.setValue(this.lockTokenSeed)
-=======
-        registerSecretCharacteristic.setValue(Helpers.newBase64Token())
->>>>>>> BluetoothController:app/src/main/java/vsec/com/slockandroid/Controllers/Callback/BluetoothGattConnectCallback.kt
         gatt.writeCharacteristic(registerSecretCharacteristic)
     }
 }

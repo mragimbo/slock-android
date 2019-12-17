@@ -1,16 +1,17 @@
 package vsec.com.slockandroid.Presenters.OwnedLocksActivity
 
 import android.app.Activity
+import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Bundle
 
 import kotlinx.android.synthetic.main.activity_owned_locks.*
 
-import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockActivity
+import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockView
 import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockPresenter
 import vsec.com.slockandroid.R
 
-class OwnedLocksActivity : Activity(), RegisterLockPresenter.View {
+class OwnedLocksView : Activity(), RegisterLockPresenter.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,7 @@ class OwnedLocksActivity : Activity(), RegisterLockPresenter.View {
         btn_add_lock.setOnClickListener {
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
-            changeActivity(RegisterLockActivity::class.java as Class<Activity>, extras)
+            changeActivity(RegisterLockView::class.java as Class<Activity>, extras)
 
         }
     }
@@ -32,5 +33,9 @@ class OwnedLocksActivity : Activity(), RegisterLockPresenter.View {
             }
         }
         startActivity(intent)
+    }
+
+    override fun onRegisterableLockFound(lock: BluetoothDevice) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

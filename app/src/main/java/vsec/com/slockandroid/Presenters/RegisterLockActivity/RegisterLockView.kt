@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_owned_locks.*
-import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksActivity
+import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksView
 import vsec.com.slockandroid.R
 
 class RegisterLockView : Activity(), RegisterLockPresenter.View{

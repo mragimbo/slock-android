@@ -49,17 +49,11 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
-<<<<<<< HEAD
-=======
-        BluetoothController.scanLeDevice(true)
-        this.presenter = LoginPresenter(this)
-        setContentView(R.layout.activity_login)
->>>>>>> BluetoothController
 
         btn_login.setOnClickListener{
             this.presenter.updateEmail(in_email.text.toString())
             this.presenter.updatePassword(in_password.text.toString())
-            in_password.text.clear();
+            in_password.text.clear()
             this.presenter.sendLoginRequestToApi()
         }
 
