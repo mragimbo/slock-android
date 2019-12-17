@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slock Android</string>
+    <string name="action_sign_in">Aanmelden</string>
+    <string name="action_sign_up">Registreren</string>
+    <string name="btn_own_locks">Eigen Sloten</string>
+    <string name="btn_accessible_locks">Toegankelijke Sloten</string>
+    <string name="btn_temp">knopnaam hier tovoegen</string>
+    <string name="not_a_user_yet">Ben je nog geen gebruiker?</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Wachtwoord</string>
+    <string name="reg_conf_email">Bevestig Email</string>
+    <string name="reg_email">email</string>
+    <string name="reg_firstName">Voornaam</string>
+    <string name="reg_lastName">Achternaam</string>
+    <string name="reg_screen1">Stap 1</string>
+    <string name="reg_screen1_logo">Registreer</string>
+    <string name="reg_screen1_next">Volgende</string>
+    <string name="reg_screen2">Stap 2</string>
+    <string name="reg_screen2_conf_passwd">Bevestig Wachtwoord</string>
+    <string name="reg_screen2_passwd">Wachtwoord</string>
+    <string name="reg_screen2_passwd_avg">Gemiddeld</string>
+    <string name="reg_screen2_passwd_empty">Leeg</string>
+    <string name="reg_screen2_passwd_marv">Brilliant</string>
+    <string name="reg_screen2_passwd_strong">Sterk</string>
+    <string name="reg_screen2_passwd_too_long">Te lang</string>
+    <string name="reg_screen2_passwd_weak">Zwak</string>
+    <string name="reg_screen2_register">Aanmelden!</string>
+    <string name="title_activity_HomeView">Welkom!</string>
+    <string name="title_activity_owned_locks">O</string>
+</resources>
