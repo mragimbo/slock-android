@@ -22,7 +22,7 @@ object Helpers {
             return PasswordScore.AVERAGE
         if(passwordScore in 21..33)
             return PasswordScore.STRONG
-        if(passwordScore in 34..55)
+        if(passwordScore > 33)
             return PasswordScore.MARVELOUS
 
         return PasswordScore.WEAK
