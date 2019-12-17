@@ -6,10 +6,7 @@ import java.security.SecureRandom
 import java.util.*
 
 object Helpers {
-    private lateinit var secureRandom: SecureRandom
-    init {
-        secureRandom = SecureRandom()
-    }
+    private var secureRandom: SecureRandom = SecureRandom()
 
     fun makeSha512Hash(payload: String, salt: String): String {
         val md = MessageDigest.getInstance("SHA-512")
@@ -35,9 +32,9 @@ object Helpers {
     }
 
     fun newBase64Uuid(): String{
-        var input = UUID.randomUUID().toString().filterNot { it == '-' }
+        val input = UUID.randomUUID().toString().filterNot { it == '-' }
         val bytes = input.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
-        var uuid = Base64.getEncoder().encodeToString(bytes)
+        val uuid = Base64.getEncoder().encodeToString(bytes)
 
         return uuid.toString()
     }
@@ -45,7 +42,7 @@ object Helpers {
     fun newBase64Token(size: Int = 16): String {
         val bytes: ByteArray = ByteArray(size)
         secureRandom.nextBytes(bytes)
-        var token = Base64.getEncoder().encodeToString(bytes)
+        val token = Base64.getEncoder().encodeToString(bytes)
         return token
     }
 }

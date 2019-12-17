@@ -8,7 +8,6 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.generalModels.Lock
-import vsec.com.slockandroid.generalModels.User
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     private val lock: Lock = Lock()
@@ -21,17 +20,18 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     fun registerLock(lock: BluetoothDevice) {
         this.lock.setUuid(Helpers.newBase64Uuid())
         this.lock.setSecret(Helpers.newBase64Token())
-
         lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock))
     }
 
 
 
     fun onScanDone(){
-        var lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.name.contains("SLOCK") }
-        if(lock != null){
-            Log.e("b", lock.name)
-            view.onRegisterableLockFound(lock)
+        if(!BluetoothScanCallback.scannedBleDevices.isNullOrEmpty()){
+            val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.name.contains("SLOCK") }
+            if(lock != null){
+                Log.e("b", lock.name)
+                view.onRegisterableLockFound(lock)
+            }
         }
     }
 

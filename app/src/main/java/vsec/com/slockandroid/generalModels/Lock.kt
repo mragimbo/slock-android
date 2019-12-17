@@ -8,6 +8,7 @@ class Lock {
     @Transient private var uuid: String? = null
     private var secret: String? = null
     private var description: String? = null
+    private var name: String? = null
 
     @Serializer(forClass = User::class)
     companion object: KSerializer<Lock> {
@@ -16,6 +17,8 @@ class Lock {
             if (obj.uuid != null) elemOutput.encodeStringElement(descriptor, 0, obj.uuid as String)
             if (obj.secret != null) elemOutput.encodeStringElement(descriptor, 1, obj.secret as String)
             if (obj.description != null) elemOutput.encodeStringElement(descriptor, 2, obj.description as String)
+            if (obj.name != null) elemOutput.encodeStringElement(descriptor, 2, obj.name as String)
+
             elemOutput.endStructure(descriptor)
         }
     }
@@ -23,12 +26,24 @@ class Lock {
         this.uuid = uuid
     }
 
+    fun getUuid(): String?{
+        return this.uuid
+    }
+
     fun setSecret(secret: String){
         this.secret = secret
     }
 
+    fun getSecret(): String?{
+        return this.secret
+    }
+
     fun setDiscription(lastName: String){
         this.description = lastName
+    }
+
+    fun setName(name: String){
+        this.name = name
     }
 
     fun clear(){
