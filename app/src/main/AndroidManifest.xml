@@ -24,7 +24,9 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/MyTheme">
-        <activity android:name=".Presenters.SettingsActivity.SettingsView"></activity>
+        <activity
+                android:name=".Presenters.SettingsActivity.SettingsView"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".Presenters.RegisterLockActivity.RegisterLockView"
                 android:screenOrientation="portrait" />
