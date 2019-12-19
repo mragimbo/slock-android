@@ -3,7 +3,7 @@ import android.app.Activity
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
-import vsec.com.slockandroid.Presenters.LoginActivity.models.User
+import vsec.com.slockandroid.generalModels.User
 
 class LoginPresenter(private val view: View) {
 
@@ -31,6 +31,9 @@ class LoginPresenter(private val view: View) {
         user.clear()
     }
 
+    fun checkEmailValid(email: String): Boolean{
+        return Helpers.checkEmailIsValid(email)
+    }
     fun getuserObject(): String{
         return user.toJSON()
     }
