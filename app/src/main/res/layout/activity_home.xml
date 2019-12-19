@@ -132,7 +132,7 @@
                     android:textColor="#9A000000" />
 
             <Button
-                    android:id="@+id/btn_template6"
+                    android:id="@+id/btn_settings"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
@@ -140,7 +140,7 @@
                     android:background="@drawable/roundcorner"
                     android:drawableTop="@drawable/ic_launcher_foreground"
                     android:drawablePadding="-8dp"
-                    android:text="@string/btn_temp"
+                    android:text="@string/title_activity_SettingsView"
                     android:textAlignment="center"
                     android:textColor="#9A000000" />
         </LinearLayout>
