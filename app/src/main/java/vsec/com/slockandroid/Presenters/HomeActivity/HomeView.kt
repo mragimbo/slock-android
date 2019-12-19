@@ -6,6 +6,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
 import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksActivity
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
+import vsec.com.slockandroid.Presenters.SettingsActivity.SettingsView
 import vsec.com.slockandroid.R
 
 class HomeView : Activity(), HomePresenter.View  {
@@ -23,6 +24,12 @@ class HomeView : Activity(), HomePresenter.View  {
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
             this.changeActivity(OwnedLocksActivity::class.java as Class<Activity>,extras)
+        }
+
+        btn_settings.setOnClickListener{
+            var extras: MutableMap<String, String> = mutableMapOf()
+            extras.put("empty_field", "")
+            this.changeActivity(SettingsView::class.java as Class<Activity>,extras)
         }
 
     }
