@@ -31,6 +31,13 @@
     <string name="btn_own_locks">Own Locks</string>
     <string name="btn_accessible_locks">Accessible Locks</string>
     <string name="btn_temp">button_name_here</string>
+    <!--Strings for settings -->
+    <string name="title_activity_SettingsView">Settings</string>
+    <string name="set_change_passwd">Change Password</string>
+    <string name="set_old_passwd">Old Password</string>
+    <string name="set_new_passwd">New Password</string>
+    <string name="set_conf_passwd">Confirm Password</string>
+    <string name="set_logout">Log Out</string>
 
 
 </resources>
