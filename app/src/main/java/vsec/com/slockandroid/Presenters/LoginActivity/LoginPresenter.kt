@@ -2,6 +2,7 @@ package vsec.com.slockandroid.Presenters.LoginActivity
 import android.app.Activity
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
+import vsec.com.slockandroid.Controllers.Tasks.LoginTask
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.generalModels.User
 
@@ -22,13 +23,15 @@ class LoginPresenter(private val view: View) {
     }
 
     fun sendLoginRequestToApi(){
-        var succeeded: Boolean = ApiController.loginUser(user)
+        var l = LoginTask()
+        l.execute(this.user)
+        //var succeeded: Boolean = ApiController.loginUser(user)
         //do api call
-        if(succeeded){
+        //if(succeeded){
             //change activity
-            view.changeActivity(HomeView::class.java as Class<Activity>)
-        }
-        user.clear()
+        //    view.changeActivity(HomeView::class.java as Class<Activity>)
+        //}
+        //user.clear()
     }
 
     fun checkEmailValid(email: String): Boolean{
