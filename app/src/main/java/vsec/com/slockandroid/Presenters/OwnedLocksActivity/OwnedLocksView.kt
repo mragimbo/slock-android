@@ -46,4 +46,8 @@ class OwnedLocksView : Activity(), RegisterLockPresenter.View {
     override fun toVerificationScreen() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun disableLoader() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

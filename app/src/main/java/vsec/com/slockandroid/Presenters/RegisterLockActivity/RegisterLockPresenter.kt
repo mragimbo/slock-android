@@ -28,7 +28,13 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
 
     fun onRegistrationDone(){
         this.view.toVerificationScreen()
+        //search for the device, if found. add lock to backend
+
         //this.view.changeActivity(HomeView::class.java as Class<Activity>)
+    }
+
+    fun onLockAddedToBackend(){
+
     }
 
 
@@ -37,6 +43,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         if(lock != null){
             Log.e("b", lock.name)
             view.onRegisterableLockFound(lock)
+            view.disableLoader()
         }else{
             this.view.onNoRegisterableDeviceFound()
         }
@@ -47,5 +54,6 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         fun onRegisterableLockFound(lock: BluetoothDevice)
         fun onNoRegisterableDeviceFound()
         fun toVerificationScreen()
+        fun disableLoader()
     }
 }

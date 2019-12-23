@@ -92,4 +92,8 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
 
         img_spinner.visibility = View.VISIBLE
     }
+
+    override fun disableLoader() {
+        img_spinner.visibility = View.INVISIBLE
+    }
 }
