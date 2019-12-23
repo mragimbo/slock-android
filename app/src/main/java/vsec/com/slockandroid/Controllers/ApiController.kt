@@ -1,7 +1,6 @@
 package vsec.com.slockandroid.Controllers
 
 
-import android.util.Log
 import vsec.com.slockandroid.generalModels.User
 import java.io.BufferedReader
 import java.io.DataOutputStream
@@ -13,14 +12,11 @@ import java.nio.charset.StandardCharsets
 import javax.net.ssl.HttpsURLConnection
 
 object ApiController {
-    //private val apiDomain: String =  "127.0.0.1"
-    private val apiDomain: String = "slock.wtf"
+    private val apiDomain: String =  "slock.wtf"
     private val apiPort: Int = 54319
 
     fun loginUser(user: User): String {
-        //return true;
-
-        val url = URL("http://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
+        val url = URL("http://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
 
         with(url.openConnection() as HttpURLConnection) {
             requestMethod = "POST"
@@ -34,24 +30,28 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-                Log.e("tag",exeption.message)
-            }
-            val response = StringBuffer()
-            BufferedReader(InputStreamReader(inputStream)).use {
 
-                var inputLine = it.readLine()
-                while (inputLine != null) {
-                    response.append(inputLine)
-                    inputLine = it.readLine()
-                }
-                it.close()
-                return response.toString()
             }
+
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+                try {
+                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val output: String = reader.readLine()
+
+                    println("There was error while connecting the chat $output")
+                    System.exit(0)
+
+                } catch (exception: Exception) {
+                    throw Exception("Exception while push the notification  $exception.message")
+                }
+            }
+
         }
+        return ""
     }
 
     fun registerUser(user: User): Boolean {
-        return true
+        return true;
 
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register");
 
