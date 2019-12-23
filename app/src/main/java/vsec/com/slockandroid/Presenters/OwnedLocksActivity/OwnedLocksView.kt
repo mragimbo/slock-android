@@ -26,9 +26,9 @@ class OwnedLocksView : Activity(), RegisterLockPresenter.View {
         }
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {
+    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
         val intent: Intent = Intent(this, toActivity).apply{
-            for(e in extra){
+            for(e in extras){
                 putExtra(e.key, e.value)
             }
         }
@@ -36,6 +36,14 @@ class OwnedLocksView : Activity(), RegisterLockPresenter.View {
     }
 
     override fun onRegisterableLockFound(lock: BluetoothDevice) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onNoRegisterableDeviceFound() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun toVerificationScreen() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

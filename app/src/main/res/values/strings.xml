@@ -18,4 +18,5 @@
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
     <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+    <string name="registerable_device_not_found">No registerable devices found</string>
 </resources>

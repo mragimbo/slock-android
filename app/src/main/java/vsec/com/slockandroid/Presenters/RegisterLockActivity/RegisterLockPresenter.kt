@@ -27,7 +27,8 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     }
 
     fun onRegistrationDone(){
-        this.view.changeActivity(HomeView::class.java as Class<Activity>)
+        this.view.toVerificationScreen()
+        //this.view.changeActivity(HomeView::class.java as Class<Activity>)
     }
 
 
@@ -36,11 +37,15 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         if(lock != null){
             Log.e("b", lock.name)
             view.onRegisterableLockFound(lock)
+        }else{
+            this.view.onNoRegisterableDeviceFound()
         }
     }
 
     interface View {
-        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = emptyMap())
+        fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String> = emptyMap())
         fun onRegisterableLockFound(lock: BluetoothDevice)
+        fun onNoRegisterableDeviceFound()
+        fun toVerificationScreen()
     }
 }

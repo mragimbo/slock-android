@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.btn_register_lock
 import kotlinx.android.synthetic.main.activity_register_lock.*
@@ -60,14 +62,14 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
     private fun updateButtonState(){
         btn_register_lock.isEnabled = (
                 buttonState.contains(ButtonState.LOCK_NAME_VALID) &&
-                buttonState.contains(ButtonState.LOCK_DESCRIPTION_VALID) &&
+                //buttonState.contains(ButtonState.LOCK_DESCRIPTION_VALID) &&
                 buttonState.contains(ButtonState.REGISTERABLE_LOCK_FOUND)
         )
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
+    override fun changeActivity(toActivity: Class<Activity>, extraPayload: Map<String, String>) {
         var intent: Intent = Intent(this, toActivity)
-        for(extra in extras){
+        for(extra in extraPayload){
             intent.putExtra(extra.key, extra.value)
         }
         startActivity(intent)
@@ -75,7 +77,19 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
 
     override fun onRegisterableLockFound(lock: BluetoothDevice){
         this.lock = lock
-        Log.e("lock found", this.lock.name)
         buttonState.add(ButtonState.REGISTERABLE_LOCK_FOUND)
+    }
+
+    override fun onNoRegisterableDeviceFound() {
+        Toast.makeText(this,R.string.registerable_device_not_found, Toast.LENGTH_SHORT).show()
+        img_spinner.visibility = View.INVISIBLE
+    }
+
+    override fun toVerificationScreen() {
+        in_lock_name.visibility = View.INVISIBLE
+        in_lock_description.visibility = View.INVISIBLE
+        tv_connected_to_lock.text = "Waiting for slock to come back online"
+
+        img_spinner.visibility = View.VISIBLE
     }
 }
