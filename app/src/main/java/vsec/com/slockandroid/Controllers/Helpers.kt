@@ -1,5 +1,6 @@
 package vsec.com.slockandroid.Controllers
 
+import com.fasterxml.uuid.Generators
 import vsec.com.slockandroid.generalModels.PasswordScore
 import java.security.MessageDigest
 import java.security.SecureRandom
@@ -32,8 +33,10 @@ object Helpers {
     }
 
     fun newBase64Uuid(): String{
-        val input = UUID.randomUUID().toString().filterNot { it == '-' }
-        val bytes = input.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
+
+        val input = Generators.timeBasedGenerator().generate().toString().filterNot { it == '-' }
+        val bytes = input.chunked(2).
+            map { it.toInt(16).toByte() }.toByteArray()
         val uuid = Base64.getEncoder().encodeToString(bytes)
 
         return uuid.toString()

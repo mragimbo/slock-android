@@ -3,6 +3,7 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.util.Log
+import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
@@ -23,20 +24,15 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     fun registerLock(lock: BluetoothDevice) {
         this.lock.setUuid(Helpers.newBase64Uuid())
         this.lock.setSecret(Helpers.newBase64Token())
+        ApiController.registerLock(this.lock)
         lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
+
     }
 
-    fun onRegistrationDone(){
-        this.view.toVerificationScreen()
+    fun onRegistrationDone() {
         //search for the device, if found. add lock to backend
-
-        //this.view.changeActivity(HomeView::class.java as Class<Activity>)
+        this.view.changeActivity(HomeView::class.java as Class<Activity>)
     }
-
-    fun onLockAddedToBackend(){
-
-    }
-
 
     fun onScanDone(){
         val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.contains("SLOCK") }
@@ -53,7 +49,6 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String> = emptyMap())
         fun onRegisterableLockFound(lock: BluetoothDevice)
         fun onNoRegisterableDeviceFound()
-        fun toVerificationScreen()
         fun disableLoader()
     }
 }

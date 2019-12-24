@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Helpers

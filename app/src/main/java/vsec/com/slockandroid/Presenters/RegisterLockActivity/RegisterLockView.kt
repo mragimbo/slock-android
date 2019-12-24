@@ -84,15 +84,6 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         Toast.makeText(this,R.string.registerable_device_not_found, Toast.LENGTH_SHORT).show()
         img_spinner.visibility = View.INVISIBLE
     }
-
-    override fun toVerificationScreen() {
-        in_lock_name.visibility = View.INVISIBLE
-        in_lock_description.visibility = View.INVISIBLE
-        tv_connected_to_lock.text = "Waiting for slock to come back online"
-
-        img_spinner.visibility = View.VISIBLE
-    }
-
     override fun disableLoader() {
         img_spinner.visibility = View.INVISIBLE
     }
