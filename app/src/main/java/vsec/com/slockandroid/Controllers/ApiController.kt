@@ -13,7 +13,7 @@ import javax.net.ssl.HttpsURLConnection
 
 object ApiController {
     private val apiDomain: String =  "slock.wtf"
-    private val apiPort: Int = 54319
+    private val apiPort: Int = 443//54319
 
     fun loginUser(user: User): String {
         val url = URL("http://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
@@ -51,14 +51,10 @@ object ApiController {
     }
 
     fun registerUser(user: User): Boolean {
-        val a = user.toJSON()
-        val b = a
-
-        return true;
-
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register");
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register")
 
         with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "POST"
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
@@ -70,10 +66,10 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-
+                val e = exeption
             }
 
-            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
+            if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
@@ -87,5 +83,7 @@ object ApiController {
             }
 
         }
+
+        return false
     }
 }
