@@ -51,6 +51,9 @@ object ApiController {
     }
 
     fun registerUser(user: User): Boolean {
+        val a = user.toJSON()
+        val b = a
+
         return true;
 
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register");
