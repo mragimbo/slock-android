@@ -1,12 +1,14 @@
 package vsec.com.slockandroid.Presenters.RegisterActivity
 import android.app.Activity
+import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
+import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.generalModels.User
+import java.lang.Class
 
-
-class RegisterPresenter(private val view: View) {
+class RegisterPresenter(private val view: View) : AsyncTask<User, Void, Boolean>(){
 
     private val user: User
     init {
@@ -41,12 +43,23 @@ class RegisterPresenter(private val view: View) {
         }
 
 
-    fun sendRegisterRequestToApi(): Boolean{
-        return ApiController.registerUser(user)
-
+    fun sendRegisterRequestToApi(): Boolean {
+        this.execute(this.user)
+        return true
     }
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+    }
+
+    override fun onPostExecute(result: Boolean?) {
+        this.view.changeActivity(LoginView::class.java  as Class<Activity>)
+    }
+
+    override fun doInBackground(vararg params: User?): Boolean {
+        if(params[0] != null){
+            return ApiController.registerUser(params[0] as User)
+        }
+        return false
     }
 }

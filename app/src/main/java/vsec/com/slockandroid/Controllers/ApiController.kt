@@ -12,15 +12,13 @@ import java.nio.charset.StandardCharsets
 import javax.net.ssl.HttpsURLConnection
 
 object ApiController {
-    private val apiDomain: String =  "127.0.0.1"
-    private val apiPort: Int = 8080
+    private val apiDomain: String =  "slock.wtf"
+    private val apiPort: Int = 443//54319
 
-    fun loginUser(user: User): Boolean {
-        return true;
+    fun loginUser(user: User): String {
+        val url = URL("http://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
 
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
-
-        with(url.openConnection() as HttpsURLConnection) {
+        with(url.openConnection() as HttpURLConnection) {
             requestMethod = "POST"
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
@@ -35,7 +33,7 @@ object ApiController {
 
             }
 
-            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
+            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
@@ -49,14 +47,14 @@ object ApiController {
             }
 
         }
+        return ""
     }
 
     fun registerUser(user: User): Boolean {
-        return true;
-
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register");
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register")
 
         with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "POST"
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
@@ -68,10 +66,10 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-
+                val e = exeption
             }
 
-            if (responseCode != HttpURLConnection.HTTP_OK && responseCode != HttpURLConnection.HTTP_CREATED) {
+            if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
@@ -85,5 +83,7 @@ object ApiController {
             }
 
         }
+
+        return false
     }
 }

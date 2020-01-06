@@ -1,11 +1,12 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 import android.app.Activity
+import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.generalModels.User
 
-class LoginPresenter(private val view: View) {
+class LoginPresenter(private val view: View) : AsyncTask<User, Void, String>() {
 
     private val user: User
     init {
@@ -22,13 +23,7 @@ class LoginPresenter(private val view: View) {
     }
 
     fun sendLoginRequestToApi(){
-        var succeeded: Boolean = ApiController.loginUser(user)
-        //do api call
-        if(succeeded){
-            //change activity
-            view.changeActivity(HomeView::class.java as Class<Activity>)
-        }
-        user.clear()
+        this.execute(this.user)
     }
 
     fun checkEmailValid(email: String): Boolean{
@@ -41,4 +36,15 @@ class LoginPresenter(private val view: View) {
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
     }
+
+    override fun onPostExecute(result: String) {
+        //local storage safe token
+        super.onPostExecute(result)
+        this.view.changeActivity(HomeView::class.java  as Class<Activity>)
+    }
+
+    override fun doInBackground(vararg params: User): String {
+        return ApiController.loginUser(params[0])
+    }
 }
+
