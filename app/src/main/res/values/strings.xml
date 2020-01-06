@@ -24,13 +24,13 @@
     <string name="reg_screen2_register">Register!</string>
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
-    <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+    <string name="title_activity_owned_locks" translatable="false">OwnedLocksActivity</string>
     <!-- Strings related to HomeView -->
     <string name="title_activity_HomeView">Welcome!</string>
     <string name="title_activity_HomeView_additional"></string>
-    <string name="btn_own_locks">Own Locks</string>
-    <string name="btn_accessible_locks">Accessible\n Locks</string>
-    <string name="btn_temp">button_name\n here</string>
+    <string name="btn_own_locks">Owned Locks</string>
+    <string name="btn_accessible_locks">Accessible Locks</string>
+    <string name="btn_temp">button_name_here</string>
     <!--Strings for settings -->
     <string name="title_activity_SettingsView">Settings</string>
     <string name="set_change_passwd">Change Password</string>
