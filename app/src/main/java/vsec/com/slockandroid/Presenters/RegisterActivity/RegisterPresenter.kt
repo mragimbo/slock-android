@@ -38,9 +38,11 @@ class RegisterPresenter(private val view: View) : AsyncTask<User, Void, Boolean>
                 """!#¤%&/()=?{}<>|@£${"$"}€+~""" + "\"" + "\\\\"
 
 
-        if( element.matches( Regex(".*["+forbiddenChars+"].*") ) ) { return false }
-            return true
+        if( element.matches( Regex(".*["+forbiddenChars+"].*") ) ) {
+            return false
         }
+        return true
+    }
 
 
     fun sendRegisterRequestToApi(): Boolean {

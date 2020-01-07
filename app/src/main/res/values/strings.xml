@@ -40,4 +40,6 @@
     <string name="set_logout">Log Out</string>
 
 
+    <string name="registerable_device_not_found">No registerable devices found</string>
+    <string name="registerable_device_found">registerable lock found</string>
 </resources>

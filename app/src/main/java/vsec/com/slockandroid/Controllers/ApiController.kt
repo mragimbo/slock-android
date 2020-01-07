@@ -1,6 +1,7 @@
 package vsec.com.slockandroid.Controllers
 
-
+import android.util.Log
+import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
 import java.io.BufferedReader
 import java.io.DataOutputStream
@@ -16,9 +17,10 @@ object ApiController {
     private val apiPort: Int = 443//54319
 
     fun loginUser(user: User): String {
-        val url = URL("http://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
 
-        with(url.openConnection() as HttpURLConnection) {
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "POST"
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
@@ -32,22 +34,26 @@ object ApiController {
             }catch (exeption: Exception){
 
             }
+            try {
+                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val output: String = reader.readLine()
+                Log.e("error: ", output)
+            }catch (e: Exception){
+                var s = e
+            }
 
-            if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
+            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
-
-                    println("There was error while connecting the chat $output")
-                    System.exit(0)
-
+                    return "200"
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the notification  $exception.message")
+                    throw Exception("Exception while push the reading package  $exception.message")
                 }
             }
-
+            return responseCode.toString()
         }
-        return ""
+        return "500"
     }
 
     fun registerUser(user: User): Boolean {
@@ -69,6 +75,13 @@ object ApiController {
                 val e = exeption
             }
 
+            try {
+                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val output: String = reader.readLine()
+                Log.e("error: ", output)
+            }catch (e: Exception){
+                var s = e
+            }
             if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
@@ -85,5 +98,9 @@ object ApiController {
         }
 
         return false
+    }
+
+    fun registerLock(lock: Lock): Boolean{
+        return true
     }
 }

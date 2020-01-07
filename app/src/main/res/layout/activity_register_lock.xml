@@ -6,4 +6,111 @@
         android:layout_height="match_parent"
         tools:context=".Presenters.RegisterLockActivity.RegisterLockView">
 
+    <Button
+            android:id="@+id/btn_register_lock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_shape_button_primary"
+            android:enabled="false"
+            android:text="Register lock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+            android:id="@+id/in_lock_name"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Lock name"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintTop_toBottomOf="@+id/img_spinner"
+            tools:layout_editor_absoluteX="49dp" />
+
+    <EditText
+            android:id="@+id/in_lock_country"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Country"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
+            app:layout_constraintStart_toStartOf="@+id/in_lock_name"
+            app:layout_constraintTop_toBottomOf="@+id/in_lock_name" />
+
+    <EditText
+            android:id="@+id/in_lock_city"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/in_lock_name"
+            app:layout_constraintTop_toBottomOf="@+id/in_lock_country" />
+
+    <EditText
+            android:id="@+id/in_lock_street"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Street"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/in_lock_name"
+            app:layout_constraintTop_toBottomOf="@+id/in_lock_city" />
+
+    <EditText
+            android:id="@+id/in_lock_streetNumber"
+            android:layout_width="327dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Street number"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/in_lock_name"
+            app:layout_constraintTop_toBottomOf="@+id/in_lock_street" />
+
+    <TextView
+            android:id="@+id/tv_connected_to_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Searching for Slocks"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextDark"
+            android:textSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/img_spinner"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/vsec_spinner_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_connected_to_lock" />
+
 </android.support.constraint.ConstraintLayout>

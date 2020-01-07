@@ -55,6 +55,7 @@ class User {
     }
 
     fun toJSON(): String {
-        return Json.stringify(serializer(), this);
+        var json = Json.stringify(serializer(), this)
+        return json
     }
 }
