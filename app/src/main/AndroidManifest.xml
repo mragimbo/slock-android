@@ -26,7 +26,6 @@
             android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/MyTheme">
-        <activity android:name=".Presenters.RegisterLockActivity.RegisterLockView"></activity>
         <activity
                 android:name=".Presenters.SettingsActivity.SettingsView"
                 android:screenOrientation="portrait"/>
@@ -34,7 +33,6 @@
                 android:name=".Presenters.RegisterLockActivity.RegisterLockView"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".Presenters.OwnedLocksActivity.OwnedLocksActivity"
                 android:name=".Presenters.OwnedLocksActivity.OwnedLocksView"
                 android:label="@string/title_activity_owned_locks"
                 android:screenOrientation="portrait"

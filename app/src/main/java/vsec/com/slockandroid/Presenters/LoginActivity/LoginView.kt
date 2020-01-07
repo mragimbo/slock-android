@@ -37,11 +37,6 @@ class LoginView : Activity(), LoginPresenter.View {
         }else{
             this.onRequestPermissionsResult(0,Array<String>(1){""}, IntArray(0))
         }
-
-        val m: PackageManager = getPackageManager()
-        var s: String = getPackageName()
-        val p = m.getPackageInfo(s, 0)
-        s = p.applicationInfo.dataDir
     }
 
     override fun onRequestPermissionsResult(
