@@ -16,8 +16,6 @@ object ApiController {
     private val apiPort: Int = 8080
 
     fun loginUser(user: User): Boolean {
-        return true;
-
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login");
 
         with(url.openConnection() as HttpsURLConnection) {

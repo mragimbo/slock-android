@@ -5,29 +5,29 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 class Lock {
-    @Transient private var uuid: String? = null
+    private var bleUuid: String? = null
     private var secret: String? = null
-    private var description: String? = null
     private var name: String? = null
+    private var discription: String? = null
 
     @Serializer(forClass = User::class)
     companion object: KSerializer<Lock> {
         override fun serialize(output: Encoder, obj: Lock) {
             val elemOutput = output.beginStructure(descriptor)
-            if (obj.uuid != null) elemOutput.encodeStringElement(descriptor, 0, obj.uuid as String)
+            if (obj.bleUuid != null) elemOutput.encodeStringElement(descriptor, 0, obj.bleUuid as String)
             if (obj.secret != null) elemOutput.encodeStringElement(descriptor, 1, obj.secret as String)
-            if (obj.description != null) elemOutput.encodeStringElement(descriptor, 2, obj.description as String)
             if (obj.name != null) elemOutput.encodeStringElement(descriptor, 2, obj.name as String)
+            if (obj.discription != null) elemOutput.encodeStringElement(descriptor, 2, obj.discription as String)
 
             elemOutput.endStructure(descriptor)
         }
     }
     fun setUuid(uuid: String){
-        this.uuid = "SLOCK_$uuid"
+        this.bleUuid = "SLOCK_$uuid"
     }
 
     fun getUuid(): String?{
-        return this.uuid
+        return this.bleUuid
     }
 
     fun setSecret(secret: String){
@@ -38,18 +38,20 @@ class Lock {
         return this.secret
     }
 
-    fun setDiscription(lastName: String){
-        this.description = lastName
-    }
-
     fun setName(name: String){
         this.name = name
     }
 
+    fun setDiscription(coutry: String, city: String, street: String, streetNumber: String){
+        this.discription = "coutry: " + coutry +
+                "\nity: " + city +
+                "\nstreet: " + street +
+                "\nstreetnumber: " + streetNumber
+    }
+
     fun clear(){
-        this.uuid = null
+        this.bleUuid = null
         this.secret = null
-        this.description = null
     }
 
     fun toJSON(): String {
