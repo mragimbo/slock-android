@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
@@ -37,6 +38,10 @@ class LoginView : Activity(), LoginPresenter.View {
             this.onRequestPermissionsResult(0,Array<String>(1){""}, IntArray(0))
         }
 
+        val m: PackageManager = getPackageManager()
+        var s: String = getPackageName()
+        val p = m.getPackageInfo(s, 0)
+        s = p.applicationInfo.dataDir
     }
 
     override fun onRequestPermissionsResult(

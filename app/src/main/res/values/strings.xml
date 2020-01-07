@@ -6,6 +6,7 @@
     <string name="action_sign_up">Sign up</string>
     <string name="action_sign_in">Sign in</string>
     <string name="not_a_user_yet">Not a user yet?</string>
+    <!--Strings related to register-->
     <string name="reg_firstName">first name</string>
     <string name="reg_lastName">last name</string>
     <string name="reg_email">email</string>
@@ -14,10 +15,31 @@
     <string name="reg_screen2">Step 2</string>
     <string name="reg_screen1_next">Next</string>
     <string name="reg_screen1_logo">Register</string>
+    <string name="reg_screen2_passwd_empty">Empty</string>
+    <string name="reg_screen2_passwd_weak">Weak</string>
+    <string name="reg_screen2_passwd_avg">Average</string>
+    <string name="reg_screen2_passwd_strong">Strong</string>
+    <string name="reg_screen2_passwd_marv">Marvelous</string>
+    <string name="reg_screen2_passwd_too_long">Too long!</string>
     <string name="reg_screen2_register">Register!</string>
     <string name="reg_screen2_passwd">Password</string>
     <string name="reg_screen2_conf_passwd">Confirm Password</string>
-    <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+    <string name="title_activity_owned_locks" translatable="false">OwnedLocksActivity</string>
+    <!-- Strings related to HomeView -->
+    <string name="title_activity_HomeView">Welcome!</string>
+    <string name="title_activity_HomeView_additional"></string>
+    <string name="btn_own_locks">Owned Locks</string>
+    <string name="btn_accessible_locks">Accessible Locks</string>
+    <string name="btn_temp">button_name_here</string>
+    <!--Strings for settings -->
+    <string name="title_activity_SettingsView">Settings</string>
+    <string name="set_change_passwd">Change Password</string>
+    <string name="set_old_passwd">Old Password</string>
+    <string name="set_new_passwd">New Password</string>
+    <string name="set_conf_passwd">Confirm Password</string>
+    <string name="set_logout">Log Out</string>
+
+
     <string name="registerable_device_not_found">No registerable devices found</string>
     <string name="registerable_device_found">registerable lock found</string>
 </resources>

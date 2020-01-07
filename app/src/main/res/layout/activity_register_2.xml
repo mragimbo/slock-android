@@ -17,10 +17,12 @@
             android:inputType="textPassword"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorBackgroundSecondaryDark"
-            app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tx_step2" />
+
+            app:layout_constraintTop_toBottomOf="@+id/reg_progressBar_step2"
+            app:layout_constraintStart_toStartOf="@+id/reg_progressBar_step2"
+            app:layout_constraintEnd_toEndOf="@+id/reg_progressBar_step2"/>
 
     <EditText
             android:id="@+id/in_reg_conf_passwd"
@@ -32,9 +34,9 @@
             android:inputType="textPassword"
             android:textColor="@color/colorTextDark"
             android:textColorHint="@color/colorBackgroundSecondaryDark"
-            app:layout_constraintEnd_toEndOf="@+id/in_reg_passwd"
-            app:layout_constraintStart_toStartOf="@+id/in_reg_passwd"
-            app:layout_constraintTop_toBottomOf="@+id/in_reg_passwd" />" />
+            app:layout_constraintEnd_toEndOf="@id/tx_passwd_strength"
+            app:layout_constraintStart_toStartOf="@id/tx_passwd_strength"
+            app:layout_constraintTop_toBottomOf="@id/tx_passwd_strength" />" />
 
     <TextView
             android:id="@+id/tx_step2"
@@ -63,26 +65,50 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-            android:id="@+id/reg_progressBar"
+            android:id="@+id/reg_progressBar_step2"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="276dp"
             android:layout_height="51dp"
             android:layout_marginTop="16dp"
             android:background="#00FDFDFD"
             android:progressTint="#4CAF50"
-            app:layout_constraintEnd_toEndOf="@+id/btn_finish"
-            app:layout_constraintStart_toStartOf="@+id/btn_finish"
-            app:layout_constraintTop_toBottomOf="@+id/btn_finish" />
+            app:layout_constraintEnd_toEndOf="@+id/tx_step2"
+            app:layout_constraintStart_toStartOf="@+id/tx_step2"
+            app:layout_constraintTop_toBottomOf="@+id/tx_step2"
+            android:min = "0"
+            android:max = "8"/>
 
     <Button
-            android:id="@+id/btn_finish"
+            android:id="@+id/btn_finish_reg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_shape_button_primary"
-            android:text="register!"
+            android:text="@string/reg_screen2_register"
             app:layout_constraintEnd_toEndOf="@+id/in_reg_conf_passwd"
             app:layout_constraintStart_toStartOf="@+id/in_reg_conf_passwd"
             app:layout_constraintTop_toBottomOf="@+id/in_reg_conf_passwd" />
+
+    <ProgressBar
+            android:id="@+id/passwdBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/in_reg_passwd"
+            app:layout_constraintStart_toStartOf="@+id/in_reg_passwd"
+            app:layout_constraintTop_toBottomOf="@+id/in_reg_passwd"
+            android:min = "0"
+            android:max = "4"/>
+
+    <TextView
+            android:id="@+id/tx_passwd_strength"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBackgroundSecondaryDark"
+            android:textAlignment="center"
+            android:text="Empty"
+            app:layout_constraintEnd_toEndOf="@id/passwdBar"
+            app:layout_constraintStart_toStartOf="@id/passwdBar"
+            app:layout_constraintTop_toBottomOf="@id/passwdBar" />
 
 </android.support.constraint.ConstraintLayout>

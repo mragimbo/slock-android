@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slock Android</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Sähköposti</string>
+    <string name="prompt_password">Salasana</string>
+    <string name="action_sign_up">Rekisteröidy</string>
+    <string name="action_sign_in">Kirjaudu</string>
+    <string name="not_a_user_yet">Luo tili?</string>
+    <!--Strings related to register-->
+    <string name="reg_firstName">etunimi</string>
+    <string name="reg_lastName">sukunimi</string>
+    <string name="reg_email">sähköposti</string>
+    <string name="reg_conf_email">vahvista sähköposti</string>
+    <string name="reg_screen1">Vaihe 1</string>
+    <string name="reg_screen2">Vaihe 2</string>
+    <string name="reg_screen1_next">Seuraava</string>
+    <string name="reg_screen1_logo">Rekisteröidy</string>
+    <string name="reg_screen2_passwd_empty">Tyhjä</string>
+    <string name="reg_screen2_passwd_weak">Heikko</string>
+    <string name="reg_screen2_passwd_avg">Kohtalainen</string>
+    <string name="reg_screen2_passwd_strong">Vahva</string>
+    <string name="reg_screen2_passwd_marv">Loistava</string>
+    <string name="reg_screen2_passwd_too_long">Liian pitkä!</string>
+    <string name="reg_screen2_register">Rekisteröidy!</string>
+    <string name="reg_screen2_passwd">Salasana</string>
+    <string name="reg_screen2_conf_passwd">Vahvista salasana</string>
+    <string name="title_activity_owned_locks">OwnedLocksActivity</string>
+    <!-- Strings related to HomeView -->
+    <string name="title_activity_HomeView">Tervetuloa!</string>
+    <string name="title_activity_HomeView_additional"></string>
+    <string name="btn_own_locks">Omat lukot</string>
+    <string name="btn_accessible_locks">hallittavat\n lukot</string>
+    <string name="btn_temp">painikkeen_nimi</string>
+</resources>
