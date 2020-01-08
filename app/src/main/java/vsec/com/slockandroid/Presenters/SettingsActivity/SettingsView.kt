@@ -4,21 +4,14 @@ import android.app.Activity
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextUtils.isEmpty
 import android.text.TextWatcher
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_register_2.*
-import kotlinx.android.synthetic.main.activity_register_2.passwdBar
-import kotlinx.android.synthetic.main.activity_register_2.tx_passwd_strength
 import kotlinx.android.synthetic.main.activity_settings.*
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Controllers.PasswordEvaluator
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
-import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
-import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.PasswordScore
@@ -34,13 +27,15 @@ class SettingsView : Activity(), SettingsPresenter.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         btn_set_change_passwd.isEnabled = false
+        this.presenter = SettingsPresenter(this)
 
         //TODO("API controlling and old passwd handling")
 
         in_old_passwd.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(p0!!.isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
+                if(p0.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
                 else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
+                updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -51,7 +46,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
             override fun afterTextChanged(p0: Editable?) {
                 val passwdScore = PasswordEvaluator.gradePassword(p0.toString())
                 val gradeEnum = Helpers.checkPasswordIsStrong(passwdScore)
-                updateButtonState()
                 passwd = p0.toString()
 
                 if (gradeEnum == PasswordScore.WEAK){
@@ -85,6 +79,15 @@ class SettingsView : Activity(), SettingsPresenter.View {
                         tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_empty)
                         set_passwdBar.progress = 0}
                 }
+
+                val bool = presenter.assertEqual(p0.toString(), in_new_conf_passwd.text.toString())
+                if (bool && buttonState.contains(ButtonState.PASSWORD_VALID)){buttonState.add(ButtonState.PASSWORD_EQUAL)}
+                else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
+
+
+                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
+                else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
+                updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -96,6 +99,10 @@ class SettingsView : Activity(), SettingsPresenter.View {
                 val bool = presenter.assertEqual(p0.toString(), in_new_passwd.text.toString())
                 if (bool && buttonState.contains(ButtonState.PASSWORD_VALID)){buttonState.add(ButtonState.PASSWORD_EQUAL)}
                 else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
+
+                var old = in_old_passwd.text.toString()
+                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
+                else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
                 updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
