@@ -25,6 +25,10 @@ class RegisterPresenter(private val view: View) {
         user.setHashedPassword(Helpers.makeSha512Hash(passwd,user.salt))
     }
 
+    fun updateUsername(uname: String){
+        user.setUsername(uname)
+    }
+
     fun assertEqual(element1: String, element2: String): Boolean = (element1 == element2)
 
     fun checkEmailValidity(element: String): Boolean {

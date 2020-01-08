@@ -109,6 +109,7 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             presenter.updateFirstName(firstName)
             presenter.updateLastName(lastName)
             presenter.updateEmail(email)
+            presenter.updateUsername(email)
             presenter.updatePasswd(passwd)
             val success = presenter.sendRegisterRequestToApi()
             if(success){
