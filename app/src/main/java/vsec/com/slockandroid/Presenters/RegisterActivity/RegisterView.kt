@@ -131,4 +131,7 @@ class RegisterView : Activity(), RegisterPresenter.View {
         startActivity(intent)
     }
 
+    override fun toastLong(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 }
