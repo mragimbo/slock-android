@@ -44,7 +44,7 @@ class User {
     }
 
     fun setHashedPassword(password: String){
-        this.password = password;
+        this.password = password
     }
 
     fun clear(){

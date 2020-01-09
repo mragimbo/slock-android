@@ -25,7 +25,7 @@ object ApiController {
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
             setRequestProperty("charset", "utf-8")
-            setRequestProperty("content-lenght", postData.size.toString())
+            setRequestProperty("content-length", postData.size.toString())
             setRequestProperty("Content-Type", "application/json")
             try{
                 val outputStream: DataOutputStream = DataOutputStream(outputStream)
