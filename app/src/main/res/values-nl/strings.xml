@@ -4,8 +4,8 @@
     <string name="action_sign_in">Aanmelden</string>
     <string name="action_sign_up">Registreren</string>
     <string name="btn_own_locks">Eigen Sloten</string>
-    <string name="btn_accessible_locks">Toegankelijke Sloten</string>
-    <string name="btn_temp">knopnaam hier tovoegen</string>
+    <string name="btn_accessible_locks">Toegankelijke\nSloten</string>
+    <string name="btn_temp">Kompt\n binnenkort!</string>
     <string name="not_a_user_yet">Ben je nog geen gebruiker?</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Wachtwoord</string>
