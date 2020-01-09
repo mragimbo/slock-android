@@ -89,6 +89,11 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
                     tx_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_empty)
                     passwdBar.progress = 0}
                 }
+
+                val bool = presenter.assertEqual(p0.toString(), in_reg_conf_passwd.text.toString())
+                if (bool && buttonState.contains(ButtonState.PASSWORD_VALID)){buttonState.add(ButtonState.PASSWORD_EQUAL)}
+                else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
+                updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -109,6 +114,7 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             presenter.updateFirstName(firstName)
             presenter.updateLastName(lastName)
             presenter.updateEmail(email)
+            presenter.updateUsername(email)
             presenter.updatePasswd(passwd)
             val success = presenter.sendRegisterRequestToApi()
             if(success){
