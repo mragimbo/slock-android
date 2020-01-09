@@ -34,13 +34,6 @@ object ApiController {
             }catch (exeption: Exception){
 
             }
-            try {
-                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val output: String = reader.readLine()
-                Log.e("error: ", output)
-            }catch (e: Exception){
-                var s = e
-            }
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
@@ -52,7 +45,6 @@ object ApiController {
             }
             return responseCode.toString()
         }
-        return "500"
     }
 
     fun registerUser(user: User): String {
