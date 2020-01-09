@@ -50,7 +50,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.contains("SLOCK") }
         if(lock != null){
             view.onRegisterableLockFound(lock)
-        }else{
+        }else {
             this.view.onNoRegisterableDeviceFound()
         }
     }
