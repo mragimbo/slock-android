@@ -22,7 +22,7 @@ class LoginPresenter(private val view: View) {
 
     fun sendLoginRequestToApi(){
         this.task.execute(this.user)
-        this.task = Task(this.view)
+        //this.task = Task(this.view)
     }
 
     fun checkEmailValid(email: String): Boolean{
@@ -34,7 +34,6 @@ class LoginPresenter(private val view: View) {
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
-        fun toastLong(message: String)
     }
 
 
@@ -45,18 +44,11 @@ class LoginPresenter(private val view: View) {
         }
 
         override fun onPostExecute(result: String) {
+            //local storage safe token
             super.onPostExecute(result)
             //if user is authenticated or
-            when (result) {
-                "200" -> {
-                    this.view.changeActivity(HomeView::class.java  as Class<Activity>)
-                }
-                "412" -> {
-                    this.view.toastLong("verifiy your email first")
-                }
-                else -> {
-                    this.view.toastLong("Invalid login")
-                }
+            if(result.equals(200)){
+                this.view.changeActivity(HomeView::class.java  as Class<Activity>)
             }
         }
     }

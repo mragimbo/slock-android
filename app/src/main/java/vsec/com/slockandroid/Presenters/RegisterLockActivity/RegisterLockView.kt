@@ -99,14 +99,14 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
     }
 
     private fun updateButtonState(){
-        btn_register_lock.isEnabled = true/*(
+        btn_register_lock.isEnabled = (
                 buttonState.contains(ButtonState.LOCK_NAME_VALID) &&
                 buttonState.contains(ButtonState.REGISTERABLE_LOCK_FOUND) &&
                 buttonState.contains(ButtonState.LOCK_COUNTRY_VALID) &&
                 buttonState.contains(ButtonState.LOCK_CITY_VALID) &&
                 buttonState.contains(ButtonState.LOCK_STREET_VALID) &&
                 buttonState.contains(ButtonState.LOCK_STREET_NUMBER_VALID)
-        )*/
+        )
     }
 
     override fun changeActivity(toActivity: Class<Activity>, extraPayload: Map<String, String>) {

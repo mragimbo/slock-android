@@ -2,7 +2,6 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
-import android.os.AsyncTask
 import android.util.Log
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
@@ -10,10 +9,8 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
-import vsec.com.slockandroid.Presenters.LoginActivity.LoginPresenter
 import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.Lock
-import vsec.com.slockandroid.generalModels.User
 import java.util.*
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
@@ -33,10 +30,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         this.lock.setSecret(Helpers.newBase64Token())
         this.lock.setDiscription(this.coutry, this.city, this.street, this.streetNumber)
         ApiController.registerLock(this.lock)
-        val gatt = lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
-        if(gatt != null){
-            //BluetoothController.refreshDeviceCache(gatt)
-        }
+        lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
     }
 
     fun onRegistrationDone() {
@@ -56,8 +50,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     }
 
     fun onScanDoneValidate(){
-        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.address == "30:AE:A4:CE:F9:0E"}
-        val name = lock?.name
+        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.equals("SLOCK_" + this.lock.getUuid()) }
         if(lock != null){
             this.view.changeActivity(HomeView::class.java as Class<Activity>)
         }
@@ -73,25 +66,5 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         fun onRegisterableLockFound(lock: BluetoothDevice)
         fun onNoRegisterableDeviceFound()
         fun checkLock()
-    }
-
-    inner class Task(private var view: RegisterLockPresenter.View) : AsyncTask<Lock, Void, String>() {
-
-        override fun doInBackground(vararg params: Lock): String {
-            return ApiController.registerLock(params[0])
-        }
-
-        override fun onPostExecute(result: String) {
-            super.onPostExecute(result)
-            //if user is authenticated or
-            when (result) {
-                "200" -> {
-                    //this.view.changeActivity(HomeView::class.java  as Class<Activity>)
-                }
-                else -> {
-                    //this.view.toastLong("Invalid login")
-                }
-            }
-        }
     }
 }
