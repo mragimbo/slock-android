@@ -23,7 +23,7 @@ class Lock {
         }
     }
     fun setUuid(uuid: String){
-        this.bleUuid = "SLOCK_$uuid"
+        this.bleUuid = "SLOCK_$uuid".substring(0,26)
     }
 
     fun getUuid(): String?{
