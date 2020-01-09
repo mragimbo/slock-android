@@ -43,15 +43,15 @@ class User {
     }
 
     fun setHashedPassword(password: String){
-        this.password = password;
+        this.password = password
     }
 
     fun clear(){
-        this.username = null;
-        this.firstName = null;
-        this.lastName = null;
-        this.email = null;
-        this.password = null;
+        this.username = null
+        this.firstName = null
+        this.lastName = null
+        this.email = null
+        this.password = null
     }
 
     fun toJSON(): String {

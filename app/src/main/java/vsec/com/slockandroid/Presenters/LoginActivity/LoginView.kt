@@ -1,8 +1,10 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 
+import BluetoothTest
 import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -13,6 +15,8 @@ import android.text.TextWatcher
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
+import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
+import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
@@ -37,6 +41,27 @@ class LoginView : Activity(), LoginPresenter.View {
         }else{
             this.onRequestPermissionsResult(0,Array<String>(1){""}, IntArray(0))
         }
+    }
+
+
+    fun bleTest(){
+        BluetoothController.scanLeDevice(true, ::scanDone)
+    }
+
+    fun scanDone(){
+        val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
+        val name = devices[0].name
+        //val name1 = devices[1].name
+
+        val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
+        val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
+        if(gatt != null)
+            BluetoothController.refreshDeviceCache(gatt)
+    }
+
+
+    fun testDone(){
+
     }
 
     override fun onRequestPermissionsResult(
@@ -87,6 +112,8 @@ class LoginView : Activity(), LoginPresenter.View {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+        //
+        // this.bleTest()
     }
 
     fun updateButtonState(){
@@ -99,6 +126,10 @@ class LoginView : Activity(), LoginPresenter.View {
             intent.putExtra(extra.key, extra.value)
         }
         startActivity(intent)
+    }
+
+    override fun toastLong(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 }
