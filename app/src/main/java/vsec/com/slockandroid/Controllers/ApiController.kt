@@ -17,7 +17,6 @@ object ApiController {
     private val apiPort: Int = 443//54319
 
     fun loginUser(user: User): String {
-        return "200"
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
 
         with(url.openConnection() as HttpsURLConnection) {
@@ -35,6 +34,13 @@ object ApiController {
             }catch (exeption: Exception){
 
             }
+            try {
+                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                val output: String = reader.readLine()
+                Log.e("error: ", output)
+            }catch (e: Exception){
+                var s = e
+            }
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
@@ -47,6 +53,7 @@ object ApiController {
             }
             return responseCode.toString()
         }
+        return "500"
     }
 
     fun registerUser(user: User): Boolean {
@@ -87,40 +94,13 @@ object ApiController {
                     throw Exception("Exception while push the notification  $exception.message")
                 }
             }
+
         }
+
         return false
     }
 
-    fun registerLock(lock: Lock): String{
-        return "200"
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/register")
-
-        with(url.openConnection() as HttpsURLConnection) {
-            sslSocketFactory = KeyStoreController.sslContext.socketFactory
-            requestMethod = "POST"
-
-            val postData: ByteArray = lock.toJSON().toByteArray(StandardCharsets.UTF_8)
-            setRequestProperty("charset", "utf-8")
-            setRequestProperty("content-lenght", postData.size.toString())
-            setRequestProperty("Content-Type", "application/json")
-            try{
-                val outputStream: DataOutputStream = DataOutputStream(outputStream)
-                outputStream.write(postData)
-                outputStream.flush()
-            }catch (exeption: Exception){
-
-            }
-
-            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
-                try {
-                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
-                    return "200"
-                } catch (exception: Exception) {
-                    throw Exception("Exception while push the reading package  $exception.message")
-                }
-            }
-            return responseCode.toString()
-        }
+    fun registerLock(lock: Lock): Boolean{
+        return true
     }
 }

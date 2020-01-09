@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Handler
 import android.util.Log
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
-import java.lang.reflect.Method
 
 
 //private const val SCAN_PERIOD: Long = 10000
@@ -64,17 +63,6 @@ object BluetoothController {
                 bluetoothScanner?.flushPendingScanResults(BluetoothScanCallback)
                 bluetoothScanner?.stopScan(BluetoothScanCallback)
             }
-        }
-    }
-
-    fun refreshDeviceCache(gatt: BluetoothGatt) {
-        try {
-            var localMethod: Method? = gatt::class.java.getMethod("refresh")
-            if(localMethod != null) {
-                localMethod.invoke(gatt)
-            }
-        } catch(e: Exception) {
-            e.printStackTrace()
         }
     }
 }
