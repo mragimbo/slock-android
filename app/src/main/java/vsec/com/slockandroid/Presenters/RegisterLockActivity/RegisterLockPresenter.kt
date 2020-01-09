@@ -11,6 +11,7 @@ import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.Lock
+import java.lang.Exception
 import java.util.*
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
@@ -30,7 +31,11 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         this.lock.setSecret(Helpers.newBase64Token())
         this.lock.setDiscription(this.coutry, this.city, this.street, this.streetNumber)
         ApiController.registerLock(this.lock)
-        lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
+        try{
+            lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     fun onRegistrationDone() {
@@ -41,7 +46,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     }
 
     fun onScanDoneRegister(){
-        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.contains("SLOCK") }
+        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.contains("SLOCK") && it.address == "30:AE:A4:CE:F9:0E"  }//"SLOCK-ALPHA-v1") }
         if(lock != null){
             view.onRegisterableLockFound(lock)
         }else {
@@ -50,7 +55,10 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     }
 
     fun onScanDoneValidate(){
-        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.equals("SLOCK_" + this.lock.getUuid()) }
+        val locks: List<BluetoothDevice> = BluetoothScanCallback.scannedBleDevices.filter { it.address == "30:AE:A4:CE:F9:0E" }
+        val lock = locks[0]
+        val l = lock?.name
+       // val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.equals("SLOCK_" + this.lock.getUuid()) }
         if(lock != null){
             this.view.changeActivity(HomeView::class.java as Class<Activity>)
         }

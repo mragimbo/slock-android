@@ -3,9 +3,6 @@ package vsec.com.slockandroid.Controllers.Callback
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
-import android.util.Log
-import vsec.com.slockandroid.Controllers.BluetoothController
-
 
 object BluetoothScanCallback: ScanCallback() {
     var scannedBleDevices: ArrayList<BluetoothDevice> = ArrayList()

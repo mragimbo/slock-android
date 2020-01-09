@@ -43,7 +43,6 @@ object BluetoothController {
             // no scanner found
             return
         }
-        Log.e("Callback", "pre callback")
 
         when (enable) {
             true -> {
