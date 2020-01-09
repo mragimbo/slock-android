@@ -6,7 +6,7 @@ import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
 import vsec.com.slockandroid.generalModels.User
 
-class SettingsPresenter(private val view: RegisterPresenter.View) {
+class SettingsPresenter(private val view: View) {
     private val user: User
     init {
         user = User()
@@ -17,10 +17,6 @@ class SettingsPresenter(private val view: RegisterPresenter.View) {
     }
 
     fun assertEqual(element1: String, element2: String): Boolean = (element1 == element2)
-
-
-
-
 
 
     interface View {
