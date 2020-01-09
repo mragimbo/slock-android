@@ -11,7 +11,7 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 //private const val SCAN_PERIOD: Long = 10000
 //const val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
 //const val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
-private const val SCAN_PERIOD: Long = 10000
+private const val SCAN_PERIOD: Long = 15000
 
 object BluetoothController {
 
@@ -38,7 +38,7 @@ object BluetoothController {
     }
 
 
-    fun scanLeDevice(enable: Boolean) {
+    fun scanLeDevice(enable: Boolean, onScanDone: () -> Unit) {
         if(this.bluetoothScanner == null){
             // no scanner found
             return
@@ -53,13 +53,14 @@ object BluetoothController {
                     mScanning = false
                     bluetoothScanner?.stopScan(BluetoothScanCallback)
                     bluetoothScanner?.flushPendingScanResults(BluetoothScanCallback)
-                    BluetoothScanCallback.connectGatt("SLOCK-ALPHA-v1")
+                    onScanDone()
                 }, SCAN_PERIOD)
                 mScanning = true
                 bluetoothScanner?.startScan(BluetoothScanCallback)
             }
             else -> {
                 mScanning = false
+                bluetoothScanner?.flushPendingScanResults(BluetoothScanCallback)
                 bluetoothScanner?.stopScan(BluetoothScanCallback)
             }
         }
