@@ -1,6 +1,7 @@
 package vsec.com.slockandroid.Presenters.SettingsActivity
 
 import android.app.Activity
+import android.app.TaskStackBuilder
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_settings.*
+import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Controllers.PasswordEvaluator
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
@@ -100,7 +102,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
                 if (bool && buttonState.contains(ButtonState.PASSWORD_VALID)){buttonState.add(ButtonState.PASSWORD_EQUAL)}
                 else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
 
-                var old = in_old_passwd.text.toString()
                 if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
                 else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
                 updateButtonState()
@@ -110,8 +111,16 @@ class SettingsView : Activity(), SettingsPresenter.View {
         })
 
         btn_settings_logout.setOnClickListener{
-            changeActivity(LoginView::class.java as Class<Activity>)
-            //TODO api call to logout session
+
+            //TODO: get session token from other Views
+            val session = "Session token here"
+            val response = ApiController.LogoutUser(session)
+            if (response.contains("200")){
+                changeActivity(LoginView::class.java as Class<Activity>)}
+            else{
+                Toast.makeText(this, "Logout failed for unknown reason: $response",
+                    Toast.LENGTH_LONG).show()
+            }
         }
 
         btn_set_change_passwd.setOnClickListener{
@@ -137,6 +146,7 @@ class SettingsView : Activity(), SettingsPresenter.View {
             }
         }
         startActivity(intent)
+        finishAffinity()
     }
 
 

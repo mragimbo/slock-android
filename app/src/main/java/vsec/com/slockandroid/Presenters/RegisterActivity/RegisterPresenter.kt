@@ -50,7 +50,8 @@ class RegisterPresenter(private val view: View) : AsyncTask<User, Void, Boolean>
 
 
     fun sendRegisterRequestToApi(): Boolean {
-        this.execute(this.user)
+        //TODO: the line below crashes the current activity
+        //this.execute(this.user)
         return true
     }
 

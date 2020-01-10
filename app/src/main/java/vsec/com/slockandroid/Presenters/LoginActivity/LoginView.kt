@@ -126,6 +126,7 @@ class LoginView : Activity(), LoginPresenter.View {
             intent.putExtra(extra.key, extra.value)
         }
         startActivity(intent)
+        finishAffinity()
     }
 
     override fun toastLong(message: String) {
