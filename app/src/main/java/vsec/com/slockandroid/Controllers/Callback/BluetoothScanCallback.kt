@@ -8,7 +8,7 @@ import vsec.com.slockandroid.Controllers.BluetoothController
 
 
 object BluetoothScanCallback: ScanCallback() {
-    private var scannedBleDevices: ArrayList<BluetoothDevice> = ArrayList()
+    var scannedBleDevices: ArrayList<BluetoothDevice> = ArrayList()
 
     override fun onBatchScanResults(results: MutableList<ScanResult>?) {
         super.onBatchScanResults(results)
@@ -33,10 +33,10 @@ object BluetoothScanCallback: ScanCallback() {
         //b?.connectGatt(BluetoothController.context,false,BluetoothGattConnectCallback)
     }
 
-    fun connectGatt(name: String){
-        Log.e("test", "t: " + this.scannedBleDevices.find { it.name == name }?.name)
-        this.scannedBleDevices.find { it.name == name }?.connectGatt(BluetoothController.context, false, BluetoothGattConnectCallback)
-    }
+    //fun connectGatt(name: String){
+    //    Log.e("test", "t: " + this.scannedBleDevices.find { it.name == name }?.name)
+    //    this.scannedBleDevices.find { it.name == name }?.connectGatt(BluetoothController.context, false, BluetoothGattConnectCallback)
+    //}
     fun clearScannedDevices(){
         this.scannedBleDevices.clear()
     }

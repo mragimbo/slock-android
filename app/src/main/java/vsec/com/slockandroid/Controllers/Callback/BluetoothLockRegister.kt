@@ -3,15 +3,18 @@ package vsec.com.slockandroid.Controllers.Callback
 import android.bluetooth.*
 import android.content.ContentValues
 import android.util.Log
+import vsec.com.slockandroid.Controllers.Helpers
+import vsec.com.slockandroid.generalModels.Lock
 import java.util.*
 import kotlin.collections.ArrayList
 
 private const val SERVICE_REGISTER_ID = "7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
 private const val CHARACTERISTIC_REGISTER_NAME = "c3465381-d3fe-4234-bd2b-a642eaedb1fe"
-private const val CHARACTERISTIC_REGISTER_SECRET = "7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
+private const val CHARACTERISTIC_REGISTER_SECRET = "1f894374-6b00-4c13-9782-bfa63a479ed6"
 
 
-object BluetoothGattConnectCallback: BluetoothGattCallback() {
+class BluetoothLockRegister(private val lock: Lock, private val registerDone: () -> Unit): BluetoothGattCallback() {
+
     override fun onConnectionStateChange(
         gatt: BluetoothGatt,
         status: Int,
@@ -19,12 +22,21 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
     ) {
         when (newState) {
             BluetoothProfile.STATE_CONNECTED -> {
-                gatt.beginReliableWrite()
-                gatt.discoverServices()
+                gatt.requestMtu(64)
+                Log.i(ContentValues.TAG, "connected from GATT server.")
+
             }
             BluetoothProfile.STATE_DISCONNECTED -> {
                 Log.i(ContentValues.TAG, "Disconnected from GATT server.")
             }
+        }
+    }
+
+    override fun onMtuChanged(gatt: BluetoothGatt?, mtu: Int, status: Int) {
+        super.onMtuChanged(gatt, mtu, status)
+        if(mtu >= 64) {
+            gatt?.beginReliableWrite()
+            gatt?.discoverServices()
         }
     }
 
@@ -60,9 +72,8 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
 
         val registerservice: BluetoothGattService = gatt.getService(UUID.fromString(SERVICE_REGISTER_ID))
 
-        val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(
-            CHARACTERISTIC_REGISTER_NAME))
-        registerNameCharacteristic.setValue("uuid")
+        val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(CHARACTERISTIC_REGISTER_NAME))
+        registerNameCharacteristic.setValue(this.lock.getUuid())
 
         gatt.writeCharacteristic(registerNameCharacteristic)
     }
@@ -74,7 +85,13 @@ object BluetoothGattConnectCallback: BluetoothGattCallback() {
         val registerservice: BluetoothGattService = gatt.getService(UUID.fromString(SERVICE_REGISTER_ID))
 
         val registerSecretCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(UUID.fromString(CHARACTERISTIC_REGISTER_SECRET))
-        registerSecretCharacteristic.setValue("tokenseed")
+        registerSecretCharacteristic.setValue(this.lock.getSecret())
         gatt.writeCharacteristic(registerSecretCharacteristic)
+    }
+
+    override fun onReliableWriteCompleted(gatt: BluetoothGatt?, status: Int) {
+        super.onReliableWriteCompleted(gatt, status)
+        gatt?.close()
+        this.registerDone()
     }
 }

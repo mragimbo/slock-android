@@ -9,8 +9,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Check if device supports BLE -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <uses-feature
             android:name="android.hardware.bluetooth_le"
             android:required="true" />
@@ -31,7 +33,7 @@
                 android:name=".Presenters.RegisterLockActivity.RegisterLockView"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".Presenters.OwnedLocksActivity.OwnedLocksActivity"
+                android:name=".Presenters.OwnedLocksActivity.OwnedLocksView"
                 android:label="@string/title_activity_owned_locks"
                 android:screenOrientation="portrait"
                 android:theme="@style/MyTheme.NoActionBar" />
