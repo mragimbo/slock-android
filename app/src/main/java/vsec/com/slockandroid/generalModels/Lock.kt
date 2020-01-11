@@ -11,6 +11,7 @@ class Lock {
     private var secret: String? = null
     private var name: String? = null
     private var discription: String? = null
+    private var productKey: String? = null
 
     @Serializer(forClass = Lock::class)
     companion object: KSerializer<Lock> {
@@ -21,7 +22,7 @@ class Lock {
             if (obj.secret != null) elemOutput.encodeStringElement(descriptor, 2, obj.secret as String)
             if (obj.name != null) elemOutput.encodeStringElement(descriptor, 3, obj.name as String)
             if (obj.discription != null) elemOutput.encodeStringElement(descriptor, 4, obj.discription as String)
-
+            if (obj.productKey != null) elemOutput.encodeStringElement(descriptor, 5, obj.productKey as String)
 
             elemOutput.endStructure(descriptor)
         }
@@ -32,6 +33,10 @@ class Lock {
 
     fun getUuid(): String?{
         return this.bleUuid
+    }
+
+    fun setProductKey(key: String){
+        this.productKey = productKey
     }
 
     fun setBleAddress(address: String){

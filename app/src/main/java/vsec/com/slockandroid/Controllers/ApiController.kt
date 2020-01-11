@@ -15,9 +15,9 @@ import javax.net.ssl.HttpsURLConnection
 object ApiController {
     private val apiDomain: String =  "slock.wtf"
     private val apiPort: Int = 443//54319
+    private var sessionToken: String = ""
 
     fun loginUser(user: User): String {
-        return "200"
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
 
         with(url.openConnection() as HttpsURLConnection) {
@@ -33,15 +33,16 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-
+                exeption.printStackTrace()
             }
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
+                    val sessionToken: String = reader.readLine()
+                    ApiController.sessionToken = sessionToken
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the reading package  $exception.message")
+                    exception.printStackTrace()
                 }
             }
             return responseCode.toString()
@@ -57,40 +58,57 @@ object ApiController {
 
             val postData: ByteArray = user.toJSON().toByteArray(StandardCharsets.UTF_8)
             setRequestProperty("charset", "utf-8")
-            setRequestProperty("content-lenght", postData.size.toString())
+            setRequestProperty("content-length", postData.size.toString())
             setRequestProperty("Content-Type", "application/json")
             try{
                 val outputStream: DataOutputStream = DataOutputStream(outputStream)
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-                val e = exeption
+                exeption.printStackTrace()
             }
 
-            try {
-                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val output: String = reader.readLine()
-                Log.e("error: ", output)
-            }catch (e: Exception){
-                var s = e
-            }
             if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
 
-                    println("There was error while connecting the chat $output")
-                    System.exit(0)
-
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the notification  $exception.message")
+                    exception.printStackTrace()
                 }
             }
             return responseCode.toString()
         }
     }
 
-    fun registerLock(lock: Lock): Boolean{
-        return true
+    fun registerLock(lock: Lock): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/activate")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "POST"
+
+            val postData: ByteArray = lock.toJSON().toByteArray(StandardCharsets.UTF_8)
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("content-length", postData.size.toString())
+            setRequestProperty("Content-Type", "application/json")
+            try{
+                val outputStream: DataOutputStream = DataOutputStream(outputStream)
+                outputStream.write(postData)
+                outputStream.flush()
+            }catch (exeption: Exception){
+                exeption.printStackTrace()
+            }
+
+            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
+                try {
+                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val sessionToken: String = reader.readLine()
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
+            }
+            return responseCode.toString()
+        }
     }
 }
