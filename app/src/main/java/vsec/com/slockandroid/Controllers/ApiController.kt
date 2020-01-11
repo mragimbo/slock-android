@@ -40,17 +40,15 @@ object ApiController {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
-                    return "200"
                 } catch (exception: Exception) {
                     throw Exception("Exception while push the reading package  $exception.message")
                 }
             }
             return responseCode.toString()
         }
-        return "500"
     }
 
-    fun registerUser(user: User): Boolean {
+    fun registerUser(user: User): String {
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/register")
 
         with(url.openConnection() as HttpsURLConnection) {
@@ -88,10 +86,8 @@ object ApiController {
                     throw Exception("Exception while push the notification  $exception.message")
                 }
             }
-
+            return responseCode.toString()
         }
-
-        return false
     }
 
     fun registerLock(lock: Lock): Boolean{

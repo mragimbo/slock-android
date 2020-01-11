@@ -34,6 +34,7 @@ class LoginPresenter(private val view: View) {
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+        fun toastLong(message: String)
     }
 
 
@@ -47,8 +48,16 @@ class LoginPresenter(private val view: View) {
             //local storage safe token
             super.onPostExecute(result)
             //if user is authenticated or
-            if(result.equals("200")){
-                this.view.changeActivity(HomeView::class.java  as Class<Activity>)
+            when (result) {
+                "200" -> {
+                    this.view.changeActivity(HomeView::class.java  as Class<Activity>)
+                }
+                "412" -> {
+                    this.view.toastLong("verifiy your email first")
+                }
+                else -> {
+                    this.view.toastLong("Invalid login")
+                }
             }
         }
     }
