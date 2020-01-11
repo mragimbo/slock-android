@@ -18,30 +18,34 @@
             android:required="true" />
 
     <application
+            android:usesCleartextTraffic="true"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
             android:roundIcon="@mipmap/ic_launcher_round"
+            android:screenOrientation="portrait"
             android:supportsRtl="true"
             android:theme="@style/MyTheme">
         <activity
-                android:name=".Presenters.RegisterLockActivity.RegisterLockView"
-                android:screenOrientation="portrait"></activity>
-        <activity
-                android:name=".Presenters.OwnedLocksActivity.OwnedLocksActivity"
-                android:label="@string/title_activity_owned_locks"
-                android:theme="@style/MyTheme.NoActionBar"
+                android:name=".Presenters.SettingsActivity.SettingsView"
                 android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.RegisterLockActivity.RegisterLockView"
+                android:screenOrientation="portrait" />
+        <activity
+                android:name=".Presenters.OwnedLocksActivity.OwnedLocksView"
+                android:label="@string/title_activity_owned_locks"
+                android:screenOrientation="portrait"
+                android:theme="@style/MyTheme.NoActionBar" />
         <activity
                 android:name=".Presenters.RegisterActivity.RegisterViewStep2"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".Presenters.RegisterActivity.RegisterView"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".Presenters.HomeActivity.HomeView"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".Presenters.LoginActivity.LoginView"
                 android:screenOrientation="portrait">

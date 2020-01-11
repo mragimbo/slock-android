@@ -76,6 +76,12 @@ class RegisterView : Activity(), RegisterPresenter.View {
                 if(bool){ buttonState.add(ButtonState.EMAIL_VALID)}
                 else{buttonState.remove(ButtonState.EMAIL_VALID)}
                 updateButtonState()
+
+                val bool2 = this@RegisterView.presenter.assertEqual(p0.toString().trim(),
+                    this@RegisterView.in_reg_conf_email.text.toString())
+                if (bool2){buttonState.add(ButtonState.EMAIL_EQUAL)}
+                else{buttonState.remove(ButtonState.EMAIL_EQUAL)}
+                updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -125,4 +131,7 @@ class RegisterView : Activity(), RegisterPresenter.View {
         startActivity(intent)
     }
 
+    override fun toastLong(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 }

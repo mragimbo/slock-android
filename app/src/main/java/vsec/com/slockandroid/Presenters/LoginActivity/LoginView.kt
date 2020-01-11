@@ -4,13 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
@@ -28,16 +26,14 @@ class LoginView : Activity(), LoginPresenter.View {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
+        this.presenter = LoginPresenter(this)
+        setContentView(R.layout.activity_login)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(Array<String>(1){ Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION)
         }else{
             this.onRequestPermissionsResult(0,Array<String>(1){""}, IntArray(0))
         }
-
-        val m: PackageManager = getPackageManager()
-        var s: String = getPackageName()
-        val p = m.getPackageInfo(s, 0)
-        s = p.applicationInfo.dataDir
     }
 
     override fun onRequestPermissionsResult(
@@ -51,19 +47,15 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
-        BluetoothController.scanLeDevice(true)
-
-        this.presenter = LoginPresenter(this)
-        setContentView(R.layout.activity_login)
 
         btn_login.setOnClickListener{
             this.presenter.updateEmail(in_email.text.toString())
             this.presenter.updatePassword(in_password.text.toString())
-            in_password.text.clear();
+            in_password.text.clear()
             this.presenter.sendLoginRequestToApi()
         }
 
-        btn_register.setOnClickListener{
+        btn_register_lock.setOnClickListener{
             this.changeActivity(RegisterView::class.java as Class<Activity>)
         }
 
@@ -106,4 +98,7 @@ class LoginView : Activity(), LoginPresenter.View {
         startActivity(intent)
     }
 
+    override fun toastLong(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 }
