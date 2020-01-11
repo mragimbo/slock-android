@@ -2,6 +2,7 @@ package vsec.com.slockandroid.Controllers.Callback
 
 import android.bluetooth.*
 import android.content.ContentValues
+import android.os.Handler
 import android.util.Log
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.generalModels.Lock
@@ -61,9 +62,6 @@ class BluetoothLockRegister(private val lock: Lock, private val registerDone: ()
 
     override fun onReliableWriteCompleted(gatt: BluetoothGatt?, status: Int) {
         super.onReliableWriteCompleted(gatt, status)
-        gatt?.close()
-        /*val refresh: Method = gatt!!::class.java.getMethod("refresh")
-        refresh.invoke(gatt)*/
         this.registerDone()
     }
 

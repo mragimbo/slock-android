@@ -44,53 +44,14 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
-        in_lock_country.addTextChangedListener(object : TextWatcher {
+        in_lock_description.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if(!p0.isNullOrEmpty()){
-                    buttonState.add(ButtonState.LOCK_COUNTRY_VALID)
+                    buttonState.add(ButtonState.LOCK_DESCRIPTION_VALID)
                 }else{
-                    buttonState.remove(ButtonState.LOCK_COUNTRY_VALID)
+                    buttonState.remove(ButtonState.LOCK_DESCRIPTION_VALID)
                 }
-                presenter.updateLockCountry(p0.toString())
-                updateButtonState()
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-        in_lock_city.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if(!p0.isNullOrEmpty()){
-                    buttonState.add(ButtonState.LOCK_CITY_VALID)
-                }else{
-                    buttonState.remove(ButtonState.LOCK_CITY_VALID)
-                }
-                presenter.updateLockCity(p0.toString())
-                updateButtonState()
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-        in_lock_street.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if(!p0.isNullOrEmpty()){
-                    buttonState.add(ButtonState.LOCK_STREET_VALID)
-                }else{
-                    buttonState.remove(ButtonState.LOCK_STREET_VALID)
-                }
-                presenter.updateLockStreet(p0.toString())
-                updateButtonState()
-            }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-        in_lock_streetNumber.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                if(!p0.isNullOrEmpty()){
-                    buttonState.add(ButtonState.LOCK_STREET_NUMBER_VALID)
-                }else{
-                    buttonState.remove(ButtonState.LOCK_STREET_NUMBER_VALID)
-                }
-                presenter.updateLockStreetNumber(p0.toString())
+                presenter.updateDescription(p0.toString())
                 updateButtonState()
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -102,10 +63,7 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         btn_register_lock.isEnabled = (
                 buttonState.contains(ButtonState.LOCK_NAME_VALID) &&
                 buttonState.contains(ButtonState.REGISTERABLE_LOCK_FOUND) &&
-                buttonState.contains(ButtonState.LOCK_COUNTRY_VALID) &&
-                buttonState.contains(ButtonState.LOCK_CITY_VALID) &&
-                buttonState.contains(ButtonState.LOCK_STREET_VALID) &&
-                buttonState.contains(ButtonState.LOCK_STREET_NUMBER_VALID)
+                buttonState.contains(ButtonState.LOCK_DESCRIPTION_VALID)
         )
     }
 

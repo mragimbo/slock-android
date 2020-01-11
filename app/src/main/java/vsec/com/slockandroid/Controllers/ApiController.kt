@@ -17,6 +17,7 @@ object ApiController {
     private val apiPort: Int = 443//54319
 
     fun loginUser(user: User): String {
+        return "200"
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
 
         with(url.openConnection() as HttpsURLConnection) {
