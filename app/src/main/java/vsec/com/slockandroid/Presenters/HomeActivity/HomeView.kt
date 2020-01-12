@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
 import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksView
-import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
 import vsec.com.slockandroid.Presenters.SettingsActivity.SettingsView
 import vsec.com.slockandroid.R
+import java.lang.Exception
 
 class HomeView : Activity(), HomePresenter.View  {
 
@@ -23,19 +23,19 @@ class HomeView : Activity(), HomePresenter.View  {
         btn_own_locks.setOnClickListener{
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
-            this.changeActivity(OwnedLocksView::class.java as Class<Activity>,extras)
+            this.changeActivity(OwnedLocksView::class.java,extras)
         }
 
         btn_settings.setOnClickListener{
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
-            this.changeActivity(SettingsView::class.java as Class<Activity>,extras)
+            this.changeActivity(SettingsView::class.java, extras)
         }
 
     }
 
 
-    override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {
+    override fun <T> changeActivity(toActivity: Class<T>, extra: Map<String, String>) {
         val intent: Intent = Intent(this, toActivity).apply{
             for(e in extra){
                 putExtra(e.key, e.value)

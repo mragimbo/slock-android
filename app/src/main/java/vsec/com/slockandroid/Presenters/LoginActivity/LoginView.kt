@@ -1,8 +1,10 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 
+import BluetoothTest
 import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -44,11 +46,9 @@ class LoginView : Activity(), LoginPresenter.View {
     }
 
     fun scanDone(){
-        val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
-        val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
-        val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
-        if(gatt != null)
-            BluetoothController.refreshDeviceCache(gatt)
+        //val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
+        //val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
+        //val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
     }
 
 
@@ -77,7 +77,7 @@ class LoginView : Activity(), LoginPresenter.View {
         }
 
         btn_register_lock.setOnClickListener{
-            this.changeActivity(RegisterView::class.java as Class<Activity>)
+            this.changeActivity(RegisterView::class.java)
         }
 
         in_email.addTextChangedListener(object : TextWatcher {
@@ -111,7 +111,7 @@ class LoginView : Activity(), LoginPresenter.View {
         btn_login.isEnabled = buttonState.contains(ButtonState.EMAIL_VALID) && buttonState.contains(ButtonState.PASSWORD_VALID)
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
+    override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {
         var intent: Intent = Intent(this, toActivity)
         for(extra in extras){
             intent.putExtra(extra.key, extra.value)

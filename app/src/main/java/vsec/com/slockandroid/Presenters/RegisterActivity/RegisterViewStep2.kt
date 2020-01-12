@@ -119,11 +119,11 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             val success = presenter.sendRegisterRequestToApi()
 
             if(success){
-                var extras: MutableMap<String, String> = mutableMapOf()
-                extras.put("firstName", firstName)
-                extras.put("lastName", lastName)
-                extras.put("email", email)
-                this.changeActivity(HomeView::class.java as Class<Activity>, extras)
+                val extra: MutableMap<String, String> = mutableMapOf()
+                extra["firstName"] = firstName
+                extra["lastName"] = lastName
+                extra["email"] = email
+                this.changeActivity(HomeView::class.java, extra)
             }
             else{
                 Toast.makeText(this, "Register Failed", Toast.LENGTH_LONG).show()
@@ -145,9 +145,9 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
         updateProgressbar()
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {
+    override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {
         val intent: Intent = Intent(this, toActivity).apply{
-            for(e in extra){
+            for(e in extras){
                 putExtra(e.key, e.value)
             }
         }

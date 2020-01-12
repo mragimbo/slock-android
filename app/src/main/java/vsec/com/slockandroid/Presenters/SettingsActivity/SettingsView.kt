@@ -144,9 +144,9 @@ class SettingsView : Activity(), SettingsPresenter.View {
                 && buttonState.contains(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {
+    override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {
         val intent: Intent = Intent(this, toActivity).apply{
-            for(e in extra){
+            for(e in extras){
                 putExtra(e.key, e.value)
             }
         }

@@ -12,8 +12,8 @@ import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
 
 class SettingsPresenter(private val view: View) {
-    private lateinit var changePasswordModel: ChangePasswordModel
-    private lateinit var logoutTask: LogoutTask
+    private var changePasswordModel: ChangePasswordModel
+    private var logoutTask: LogoutTask
     init {
         logoutTask = LogoutTask(view)
         changePasswordModel = ChangePasswordModel()
@@ -39,37 +39,39 @@ class SettingsPresenter(private val view: View) {
 
 
     interface View {
-        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+        fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String> = HashMap())
         fun toastLong(message: String)
     }
 
-    inner class LogoutTask(private var view: SettingsPresenter.View) : AsyncTask<Void, Void, String>() {
+    companion object{
+        class LogoutTask(private var view: SettingsPresenter.View) : AsyncTask<Void, Void, String>() {
 
-        override fun doInBackground(vararg params: Void?): String? {
-            return ApiController.LogoutUser()
+            override fun doInBackground(vararg params: Void?): String? {
+                return ApiController.LogoutUser()
+            }
+
+            override fun onPostExecute(result: String) {
+                super.onPostExecute(result)
+                when (result) {
+                    "200" -> this.view.changeActivity(LoginView::class.java)
+                    else -> this.view.toastLong("Logout Failed")
+                }
+            }
         }
 
-        override fun onPostExecute(result: String) {
-            super.onPostExecute(result)
-            when (result) {
-                "200" -> this.view.changeActivity(LoginView::class.java as Class<Activity>)
-                else -> this.view.toastLong("Logout Failed")
+        class ChangeDetailTask(private var view: SettingsPresenter.View) : AsyncTask<ChangePasswordModel, Void, String>() {
+
+            override fun doInBackground(vararg params: ChangePasswordModel): String? {
+                return ApiController.ChangeDetails(params[0])
             }
+
+            override fun onPostExecute(result: String) {
+                super.onPostExecute(result)
+                when (result) {
+                    "200" -> this.view.toastLong("Your password has been changed")
+                    else -> this.view.toastLong("Could not change your password")
+                }
         }
     }
-
-    inner class ChangeDetailTask(private var view: SettingsPresenter.View) : AsyncTask<ChangePasswordModel, Void, String>() {
-
-        override fun doInBackground(vararg params: ChangePasswordModel): String? {
-                return ApiController.ChangeDetails(params[0])
-        }
-
-        override fun onPostExecute(result: String) {
-            super.onPostExecute(result)
-            when (result) {
-                "200" -> this.view.toastLong("Your password has been changed")
-                else -> this.view.toastLong("Could not change your password")
-            }
-        }
     }
 }

@@ -6,7 +6,7 @@ class HomePresenter(private val view: View) {
 
 
     interface View {
-        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>)
+        fun <T> changeActivity(toActivity: Class<T>, extra: Map<String, String>)
     }
 
 }

@@ -87,15 +87,6 @@ object ApiController {
                 exeption.printStackTrace()
             }
 
-            if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
-                try {
-                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
-
-                } catch (exception: Exception) {
-                    exception.printStackTrace()
-                }
-            }
             return responseCode.toString()
         }
     }
@@ -122,7 +113,7 @@ object ApiController {
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val sessionToken: String = reader.readLine()
+                    ApiController.sessionToken = reader.readLine()
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }

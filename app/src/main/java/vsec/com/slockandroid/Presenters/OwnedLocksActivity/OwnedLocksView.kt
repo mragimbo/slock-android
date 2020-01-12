@@ -20,13 +20,13 @@ class OwnedLocksView : Activity(), OwnedLocksPresenter.View {
 
         btn_add_lock.setOnClickListener {
             var extras: MutableMap<String, String> = mutableMapOf()
-            extras.put("empty_field", "")
-            changeActivity(RegisterLockView::class.java as Class<Activity>, extras)
+            extras["empty_field"] = ""
+            changeActivity(RegisterLockView::class.java, extras)
 
         }
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
+    override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {
         val intent: Intent = Intent(this, toActivity).apply{
             for(e in extras){
                 putExtra(e.key, e.value)

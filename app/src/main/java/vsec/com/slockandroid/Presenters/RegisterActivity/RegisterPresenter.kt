@@ -25,7 +25,7 @@ class RegisterPresenter(private val view: View) {
         user.setEmail(email)
     }
     fun updatePasswd(passwd: String){
-        user.setHashedPassword(Helpers.makeSha512Hash(passwd,user.salt))
+        user.setHashedPassword(Helpers.makeSha512Hash(passwd,User.salt))
     }
 
     fun updateUsername(uname: String){
@@ -56,29 +56,31 @@ class RegisterPresenter(private val view: View) {
     }
 
     interface View {
-        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+        fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String> = HashMap())
         fun toastLong(message: String)
     }
 
-    inner class Task(private var view: View) : AsyncTask<User, Void, String>() {
+    companion object{
+        class Task(private var view: View) : AsyncTask<User, Void, String>() {
 
-        override fun doInBackground(vararg params: User): String {
-            return ApiController.registerUser(params[0])
-        }
-
-        override fun onPostExecute(result: String) {
-            super.onPostExecute(result)
-            //if user is authenticated or
-            when (result) {
-                "200" -> {
-                    this.view.toastLong("please check your mail")
-                    this.view.changeActivity(LoginView::class.java  as Class<Activity>)
-                }
-                "400" -> {
-                    this.view.toastLong("account already exists")
-                }else -> {
-                    this.view.toastLong("internal error")
+            override fun doInBackground(vararg params: User): String {
+                return ApiController.registerUser(params[0])
             }
+
+            override fun onPostExecute(result: String) {
+                super.onPostExecute(result)
+                //if user is authenticated or
+                when (result) {
+                    "200" -> {
+                        this.view.toastLong("please check your mail")
+                        this.view.changeActivity(LoginView::class.java)
+                    }
+                    "400" -> {
+                        this.view.toastLong("account already exists")
+                    }else -> {
+                        this.view.toastLong("internal error")
+                }
+                }
             }
         }
     }

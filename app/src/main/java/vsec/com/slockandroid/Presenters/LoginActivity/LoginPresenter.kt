@@ -17,7 +17,7 @@ class LoginPresenter(private val view: View) {
     }
 
     fun updatePassword(password: String) {
-        user.setHashedPassword(Helpers.makeSha512Hash(password,user.salt))
+        user.setHashedPassword(Helpers.makeSha512Hash(password,User.salt))
     }
 
     fun sendLoginRequestToApi(){
@@ -33,30 +33,32 @@ class LoginPresenter(private val view: View) {
     }
 
     interface View {
-        fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+        fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String> = HashMap())
         fun toastLong(message: String)
     }
 
 
-    inner class Task(private var view: View) : AsyncTask<User, Void, String>() {
+    companion object{
+        class Task(private var view: View) : AsyncTask<User, Void, String>() {
 
-        override fun doInBackground(vararg params: User): String {
-            return ApiController.loginUser(params[0])
-        }
+            override fun doInBackground(vararg params: User): String {
+                return ApiController.loginUser(params[0])
+            }
 
-        override fun onPostExecute(result: String) {
-            //local storage safe token
-            super.onPostExecute(result)
-            //if user is authenticated or
-            when (result) {
-                "200" -> {
-                    this.view.changeActivity(HomeView::class.java  as Class<Activity>)
-                }
-                "412" -> {
-                    this.view.toastLong("verifiy your email first")
-                }
-                else -> {
-                    this.view.toastLong("Invalid login")
+            override fun onPostExecute(result: String) {
+                //local storage safe token
+                super.onPostExecute(result)
+                //if user is authenticated or
+                when (result) {
+                    "200" -> {
+                        this.view.changeActivity(HomeView::class.java)
+                    }
+                    "412" -> {
+                        this.view.toastLong("verifiy your email first")
+                    }
+                    else -> {
+                        this.view.toastLong("Invalid login")
+                    }
                 }
             }
         }
