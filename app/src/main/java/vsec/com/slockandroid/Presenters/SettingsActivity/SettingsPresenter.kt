@@ -7,25 +7,34 @@ import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
 import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockPresenter
+import vsec.com.slockandroid.generalModels.ChangePasswordModel
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
 
 class SettingsPresenter(private val view: View) {
-    private val user: User
+    private lateinit var changePasswordModel: ChangePasswordModel
     private lateinit var logoutTask: LogoutTask
     init {
-        user = User()
         logoutTask = LogoutTask(view)
+        changePasswordModel = ChangePasswordModel()
     }
 
-    fun updatePasswd(passwd: String){
-        user.setHashedPassword(Helpers.makeSha512Hash(passwd,user.salt))
+    fun updateOldPassword(passwd: String){
+        changePasswordModel.setOldHashedPassword(Helpers.makeSha512Hash(passwd,User.salt))
+    }
+
+    fun updateNewPassword(passwd: String){
+        changePasswordModel.setNewHashedPassword(Helpers.makeSha512Hash(passwd, User.salt))
     }
 
     fun assertEqual(element1: String, element2: String): Boolean = (element1 == element2)
     fun logOutUser() {
         this.logoutTask.execute()
         this.logoutTask = LogoutTask(this.view)
+    }
+
+    fun sendPasswordUpdateRequest() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
@@ -45,6 +54,21 @@ class SettingsPresenter(private val view: View) {
             when (result) {
                 "200" -> this.view.changeActivity(LoginView::class.java as Class<Activity>)
                 else -> this.view.toastLong("Logout Failed")
+            }
+        }
+    }
+
+    inner class ChangeDetailTask(private var view: SettingsPresenter.View) : AsyncTask<ChangePasswordModel, Void, String>() {
+
+        override fun doInBackground(vararg params: ChangePasswordModel): String? {
+                return ApiController.ChangeDetails(params[0])
+        }
+
+        override fun onPostExecute(result: String) {
+            super.onPostExecute(result)
+            when (result) {
+                "200" -> this.view.toastLong("Your password has been changed")
+                else -> this.view.toastLong("Could not change your password")
             }
         }
     }

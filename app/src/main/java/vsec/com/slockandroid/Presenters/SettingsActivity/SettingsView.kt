@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
@@ -126,10 +127,12 @@ class SettingsView : Activity(), SettingsPresenter.View {
         }
 
         btn_set_change_passwd.setOnClickListener{
-            Toast.makeText(this, "Password changed Successfully", Toast.LENGTH_LONG).show()
+            this.presenter.updateOldPassword(in_old_passwd.text.toString())
+            this.presenter.updateNewPassword(in_new_passwd.text.toString())
             in_old_passwd.text.clear()
             in_new_passwd.text.clear()
             in_new_conf_passwd.text.clear()
+            this.presenter.sendPasswordUpdateRequest()
             updateButtonState()
         }
     }
@@ -138,7 +141,7 @@ class SettingsView : Activity(), SettingsPresenter.View {
     fun updateButtonState(){
         btn_set_change_passwd.isEnabled = buttonState.contains(ButtonState.PASSWORD_VALID)
                 && buttonState.contains(ButtonState.PASSWORD_EQUAL)
-                && buttonState.contains(ButtonState.LOGIN_BUTTON_OK)
+                && buttonState.contains(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
     }
 
     override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {

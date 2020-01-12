@@ -5,7 +5,7 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 class User {
-    @Transient val salt: String = "ad18cbd8676391bf70b196e6df30065b"
+
     private var username: String? = null
     private var firstName: String? = null
     private var lastName: String? = null
@@ -14,6 +14,8 @@ class User {
 
     @Serializer(forClass = User::class)
     companion object: KSerializer<User> {
+        @Transient val salt: String = "ad18cbd8676391bf70b196e6df30065b"
+
         override fun serialize(output: Encoder, obj: User) {
             val elemOutput = output.beginStructure(descriptor)
             if (obj.username != null) elemOutput.encodeStringElement(descriptor, 0, obj.username as String)

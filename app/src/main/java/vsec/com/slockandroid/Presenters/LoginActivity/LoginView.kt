@@ -6,7 +6,6 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
@@ -15,9 +14,7 @@ import android.text.TextWatcher
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
-import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
-import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
@@ -50,9 +47,6 @@ class LoginView : Activity(), LoginPresenter.View {
 
     fun scanDone(){
         val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
-        val name = devices[0].name
-        //val name1 = devices[1].name
-
         val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
         val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
         if(gatt != null)
@@ -80,6 +74,7 @@ class LoginView : Activity(), LoginPresenter.View {
             this.presenter.updateEmail(in_email.text.toString())
             this.presenter.updatePassword(in_password.text.toString())
             in_password.text.clear()
+            updateButtonState()
             this.presenter.sendLoginRequestToApi()
         }
 

@@ -1,6 +1,8 @@
 package vsec.com.slockandroid.Controllers
 
+import android.service.voice.AlwaysOnHotwordDetector
 import android.util.Log
+import vsec.com.slockandroid.generalModels.ChangePasswordModel
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
 import java.io.BufferedReader
@@ -138,6 +140,29 @@ object ApiController {
                 } catch (exception: Exception) {
                     throw Exception("Exception while push the reading package  $exception.message")
                 }
+            }
+            return responseCode.toString()
+        }
+    }
+
+    fun ChangeDetails(changeObject: ChangePasswordModel): String? {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/changeDetails")
+        val postData: ByteArray = changeObject.toJSON().toByteArray(StandardCharsets.UTF_8)
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("content-length", postData.size.toString())
+            setRequestProperty("token", ApiController.sessionToken )
+
+            try{
+                val outputStream: DataOutputStream = DataOutputStream(outputStream)
+                outputStream.write(postData)
+                outputStream.flush()
+            }catch (exception: Exception){
+
             }
             return responseCode.toString()
         }
