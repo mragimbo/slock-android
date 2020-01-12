@@ -37,7 +37,6 @@ object ApiController {
     }
 
     fun loginUser(user: User): String {
-        return "200"
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/login")
 
         with(url.openConnection() as HttpsURLConnection) {
@@ -53,15 +52,16 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-
+                exeption.printStackTrace()
             }
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
+                    val sessionToken: String = reader.readLine()
+                    ApiController.sessionToken = sessionToken
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the reading package  $exception.message")
+                    exception.printStackTrace()
                 }
             }
             return responseCode.toString()
@@ -84,35 +84,24 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-                val e = exeption
+                exeption.printStackTrace()
             }
 
-            try {
-                val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val output: String = reader.readLine()
-                Log.e("error: ", output)
-            }catch (e: Exception){
-                var s = e
-            }
             if (responseCode != HttpsURLConnection.HTTP_OK && responseCode != HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
                     val output: String = reader.readLine()
 
-                    println("There was error while connecting the chat $output")
-                    System.exit(0)
-
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the notification  $exception.message")
+                    exception.printStackTrace()
                 }
             }
             return responseCode.toString()
         }
     }
 
-    fun registerLock(lock: Lock): String{
-        return "200"
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/register")
+    fun registerLock(lock: Lock): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/activate")
 
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
@@ -127,16 +116,15 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exeption: Exception){
-
+                exeption.printStackTrace()
             }
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
-                    return "200"
+                    val sessionToken: String = reader.readLine()
                 } catch (exception: Exception) {
-                    throw Exception("Exception while push the reading package  $exception.message")
+                    exception.printStackTrace()
                 }
             }
             return responseCode.toString()
