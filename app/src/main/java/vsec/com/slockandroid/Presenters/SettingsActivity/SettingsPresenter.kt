@@ -54,7 +54,13 @@ class SettingsPresenter(private val view: View) {
                 super.onPostExecute(result)
                 when (result) {
                     "200" -> this.view.changeActivity(LoginView::class.java)
+                    "401" -> {
+                        this.view.toastLong("please login again")
+                        ApiController.clearSession()
+                        this.view.changeActivity(LoginView::class.java)
+                    }
                     else -> this.view.toastLong("Logout Failed")
+
                 }
             }
         }
@@ -69,6 +75,11 @@ class SettingsPresenter(private val view: View) {
                 super.onPostExecute(result)
                 when (result) {
                     "200" -> this.view.toastLong("Your password has been changed")
+                    "401" -> {
+                        this.view.toastLong("please login again")
+                        ApiController.clearSession()
+                        this.view.changeActivity(LoginView::class.java)
+                    }
                     else -> this.view.toastLong("Could not change your password")
                 }
         }

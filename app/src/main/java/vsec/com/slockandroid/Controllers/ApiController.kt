@@ -1,5 +1,7 @@
 package vsec.com.slockandroid.Controllers
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.service.voice.AlwaysOnHotwordDetector
 import android.util.Log
 import vsec.com.slockandroid.generalModels.ChangePasswordModel
@@ -13,11 +15,18 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import javax.net.ssl.HttpsURLConnection
+const val SESSION_TOKEN_PREFERENCE = "session-token-preference"
 
 object ApiController {
     private val apiDomain: String =  "slock.wtf"
     private val apiPort: Int = 443//54319
     private var sessionToken: String = ""
+    private lateinit var slockPreferences: SharedPreferences
+
+    fun initApiController(context: Context){
+        this.slockPreferences = context.getSharedPreferences("slock",Context.MODE_PRIVATE)
+        this.sessionToken = this.slockPreferences.getString(SESSION_TOKEN_PREFERENCE,"") as String
+    }
 
     fun LogoutUser(): String {
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/logout")
@@ -30,7 +39,7 @@ object ApiController {
             setRequestProperty("token", ApiController.sessionToken )
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
-                ApiController.sessionToken = ""
+                ApiController.clearSession()
             }
             return responseCode.toString()
         }
@@ -58,8 +67,7 @@ object ApiController {
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val sessionToken: String = reader.readLine()
-                    ApiController.sessionToken = sessionToken
+                    ApiController.setSessionToken(reader.readLine())
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }
@@ -113,7 +121,7 @@ object ApiController {
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    ApiController.sessionToken = reader.readLine()
+                    ApiController.setSessionToken(reader.readLine())
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }
@@ -143,5 +151,19 @@ object ApiController {
             }
             return responseCode.toString()
         }
+    }
+
+    fun clearSession() {
+        this.sessionToken = ""
+        this.slockPreferences.edit().remove(SESSION_TOKEN_PREFERENCE).apply()
+    }
+
+    private fun setSessionToken(token: String){
+        this.sessionToken = token
+        this.slockPreferences.edit().putString(SESSION_TOKEN_PREFERENCE, token).apply()
+    }
+
+    fun hasSessionToken(): Boolean{
+        return this.sessionToken.isNotEmpty()
     }
 }
