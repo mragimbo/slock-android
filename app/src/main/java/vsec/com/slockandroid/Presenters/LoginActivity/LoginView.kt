@@ -11,6 +11,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
+import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
@@ -36,6 +37,24 @@ class LoginView : Activity(), LoginPresenter.View {
         }
     }
 
+
+    fun bleTest(){
+        BluetoothController.scanLeDevice(true, ::scanDone)
+    }
+
+    fun scanDone(){
+        val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
+        val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
+        val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
+        if(gatt != null)
+            BluetoothController.refreshDeviceCache(gatt)
+    }
+
+
+    fun testDone(){
+
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -52,6 +71,7 @@ class LoginView : Activity(), LoginPresenter.View {
             this.presenter.updateEmail(in_email.text.toString())
             this.presenter.updatePassword(in_password.text.toString())
             in_password.text.clear()
+            updateButtonState()
             this.presenter.sendLoginRequestToApi()
         }
 
@@ -96,6 +116,7 @@ class LoginView : Activity(), LoginPresenter.View {
             intent.putExtra(extra.key, extra.value)
         }
         startActivity(intent)
+        finishAffinity()
     }
 
     override fun toastLong(message: String) {
