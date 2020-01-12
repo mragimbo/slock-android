@@ -1,6 +1,7 @@
 package vsec.com.slockandroid.Presenters.SettingsActivity
 
 import android.app.Activity
+import android.app.TaskStackBuilder
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -8,7 +9,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Controllers.PasswordEvaluator
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
@@ -33,8 +36,8 @@ class SettingsView : Activity(), SettingsPresenter.View {
 
         in_old_passwd.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                if(p0.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
-                else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
+                if(p0.toString().isNotEmpty()){buttonState.add(ButtonState.CHANGE_PASSWORD_BUTTON_OK)}
+                else{buttonState.remove(ButtonState.CHANGE_PASSWORD_BUTTON_OK)}
                 updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -54,30 +57,34 @@ class SettingsView : Activity(), SettingsPresenter.View {
                     set_passwdBar.setProgressTintList(ColorStateList.valueOf(Color.RED))
                     buttonState.remove(ButtonState.PASSWORD_VALID)
                 }
-                if (gradeEnum == PasswordScore.AVERAGE){
+                else if (gradeEnum == PasswordScore.AVERAGE){
                     tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_avg)
                     set_passwdBar.progress = 2
                     set_passwdBar.setProgressTintList(ColorStateList.valueOf(Color.YELLOW))
                     buttonState.add(ButtonState.PASSWORD_VALID)
                 }
-                if (gradeEnum == PasswordScore.STRONG){
+                else if (gradeEnum == PasswordScore.STRONG){
                     tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_strong)
                     set_passwdBar.progress = 3
                     set_passwdBar.setProgressTintList(ColorStateList.valueOf(Color.GREEN))
+                    buttonState.add(ButtonState.PASSWORD_VALID)
                 }
-                if (gradeEnum == PasswordScore.MARVELOUS){
+                else if (gradeEnum == PasswordScore.MARVELOUS){
                     tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_marv)
                     set_passwdBar.progress = 4
                     set_passwdBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE))
+                    buttonState.add(ButtonState.PASSWORD_VALID)
                     if (in_new_passwd.text.length > 50){
                         tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_too_long)
                         set_passwdBar.progress = 0
+                        buttonState.remove(ButtonState.PASSWORD_VALID)
                     }
                 }
                 else{
                     if (in_new_passwd.text.isEmpty()){
                         tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_empty)
                         set_passwdBar.progress = 0}
+                    buttonState.remove(ButtonState.PASSWORD_VALID)
                 }
 
                 val bool = presenter.assertEqual(p0.toString(), in_new_conf_passwd.text.toString())
@@ -85,8 +92,10 @@ class SettingsView : Activity(), SettingsPresenter.View {
                 else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
 
 
-                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
-                else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
+                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty())
+                    buttonState.add(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
+                else
+                    buttonState.remove(ButtonState.LOGIN_BUTTON_OK)
                 updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -97,12 +106,16 @@ class SettingsView : Activity(), SettingsPresenter.View {
             override fun afterTextChanged(p0: Editable?) {
                 presenter = SettingsPresenter(this@SettingsView)
                 val bool = presenter.assertEqual(p0.toString(), in_new_passwd.text.toString())
-                if (bool && buttonState.contains(ButtonState.PASSWORD_VALID)){buttonState.add(ButtonState.PASSWORD_EQUAL)}
-                else{buttonState.remove(ButtonState.PASSWORD_EQUAL)}
+                if (bool && buttonState.contains(ButtonState.PASSWORD_VALID))
+                    buttonState.add(ButtonState.PASSWORD_EQUAL)
+                else
+                    buttonState.remove(ButtonState.PASSWORD_EQUAL)
 
-                var old = in_old_passwd.text.toString()
-                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty()){buttonState.add(ButtonState.LOGIN_BUTTON_OK)}
-                else{buttonState.remove(ButtonState.LOGIN_BUTTON_OK)}
+                if(in_old_passwd.toString().isNotEmpty() && in_old_passwd.text.toString().isNotEmpty())
+                    buttonState.add(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
+                else
+                    buttonState.remove(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
+
                 updateButtonState()
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -110,24 +123,25 @@ class SettingsView : Activity(), SettingsPresenter.View {
         })
 
         btn_settings_logout.setOnClickListener{
-            changeActivity(LoginView::class.java as Class<Activity>)
-            //TODO api call to logout session
+            this.presenter.logOutUser()
         }
 
         btn_set_change_passwd.setOnClickListener{
-            Toast.makeText(this,
-                "Password changed Successfully",
-                     Toast.LENGTH_LONG).show()
-                    in_old_passwd.text.clear()
-                    in_new_passwd.text.clear()
-                    in_new_conf_passwd.text.clear()
-                    updateButtonState()
+            this.presenter.updateOldPassword(in_old_passwd.text.toString())
+            this.presenter.updateNewPassword(in_new_passwd.text.toString())
+            in_old_passwd.text.clear()
+            in_new_passwd.text.clear()
+            in_new_conf_passwd.text.clear()
+            this.presenter.sendPasswordUpdateRequest()
+            updateButtonState()
         }
-        }
+    }
+
+
     fun updateButtonState(){
         btn_set_change_passwd.isEnabled = buttonState.contains(ButtonState.PASSWORD_VALID)
                 && buttonState.contains(ButtonState.PASSWORD_EQUAL)
-                && buttonState.contains(ButtonState.LOGIN_BUTTON_OK)
+                && buttonState.contains(ButtonState.CHANGE_PASSWORD_BUTTON_OK)
     }
 
     override fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String>) {
@@ -137,6 +151,11 @@ class SettingsView : Activity(), SettingsPresenter.View {
             }
         }
         startActivity(intent)
+        finishAffinity()
+    }
+
+    override fun toastLong(message: String) {
+        Toast.makeText(this,message, Toast.LENGTH_LONG).show()
     }
 
 

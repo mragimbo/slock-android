@@ -117,6 +117,7 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             presenter.updateUsername(email)
             presenter.updatePasswd(passwd)
             val success = presenter.sendRegisterRequestToApi()
+
             if(success){
                 var extras: MutableMap<String, String> = mutableMapOf()
                 extras.put("firstName", firstName)
@@ -151,5 +152,10 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             }
         }
         startActivity(intent)
+        finishAffinity()
+    }
+
+    override fun toastLong(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 }

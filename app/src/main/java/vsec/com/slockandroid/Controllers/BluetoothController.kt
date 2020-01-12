@@ -11,7 +11,7 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 //private const val SCAN_PERIOD: Long = 10000
 //const val ACTION_GATT_CONNECTED = "com.example.bluetooth.le.ACTION_GATT_CONNECTED"
 //const val ACTION_GATT_DISCONNECTED = "com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"
-private const val SCAN_PERIOD: Long = 15000
+private const val SCAN_PERIOD: Long = 5000
 
 object BluetoothController {
 
@@ -43,7 +43,6 @@ object BluetoothController {
             // no scanner found
             return
         }
-        Log.e("Callback", "pre callback")
 
         when (enable) {
             true -> {

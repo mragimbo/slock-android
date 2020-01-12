@@ -2,9 +2,11 @@ package vsec.com.slockandroid.Controllers.Callback
 
 import android.bluetooth.*
 import android.content.ContentValues
+import android.os.Handler
 import android.util.Log
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.generalModels.Lock
+import java.lang.reflect.Method
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,12 +53,16 @@ class BluetoothLockRegister(private val lock: Lock, private val registerDone: ()
 
         if(hasName && hasSecret){
             gatt?.executeReliableWrite()
-            this.registerDone()
         }else if(hasName) {
             sendSecretCharacteristic(gatt)
         }else if(hasSecret){
             sendNameCharacteristic(gatt)
         }
+    }
+
+    override fun onReliableWriteCompleted(gatt: BluetoothGatt?, status: Int) {
+        super.onReliableWriteCompleted(gatt, status)
+        this.registerDone()
     }
 
     fun sendNameCharacteristic(gatt: BluetoothGatt?){
