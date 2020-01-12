@@ -1,9 +1,7 @@
 import android.bluetooth.*
 import android.content.ContentValues
 import android.util.Log
-import vsec.com.slockandroid.generalModels.Lock
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
 

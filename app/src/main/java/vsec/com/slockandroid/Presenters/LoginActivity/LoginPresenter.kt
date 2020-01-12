@@ -45,6 +45,7 @@ class LoginPresenter(private val view: View) {
         }
 
         override fun onPostExecute(result: String) {
+            //local storage safe token
             super.onPostExecute(result)
             //if user is authenticated or
             when (result) {

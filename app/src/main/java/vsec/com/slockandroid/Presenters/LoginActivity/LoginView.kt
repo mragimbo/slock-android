@@ -1,17 +1,14 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 
-import BluetoothTest
 import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
@@ -107,8 +104,6 @@ class LoginView : Activity(), LoginPresenter.View {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
-        //
-        // this.bleTest()
     }
 
     fun updateButtonState(){
@@ -127,5 +122,4 @@ class LoginView : Activity(), LoginPresenter.View {
     override fun toastLong(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
 }

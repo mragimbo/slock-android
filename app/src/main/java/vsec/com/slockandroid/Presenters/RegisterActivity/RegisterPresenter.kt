@@ -3,14 +3,15 @@ import android.app.Activity
 import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
-import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.generalModels.User
 import java.lang.Class
 
-class RegisterPresenter(private val view: View) : AsyncTask<User, Void, Boolean>(){
+class RegisterPresenter(private val view: View) {
 
     private val user: User
+    private var task: Task = Task(this.view)
+
     init {
         user = User()
     }
@@ -50,23 +51,35 @@ class RegisterPresenter(private val view: View) : AsyncTask<User, Void, Boolean>
 
 
     fun sendRegisterRequestToApi(): Boolean {
-        //TODO: the line below crashes the current activity
-        //this.execute(this.user)
+        this.task.execute(this.user)
         return true
     }
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extra: Map<String, String> = HashMap())
+        fun toastLong(message: String)
     }
 
-    override fun onPostExecute(result: Boolean?) {
-        this.view.changeActivity(LoginView::class.java  as Class<Activity>)
-    }
+    inner class Task(private var view: View) : AsyncTask<User, Void, String>() {
 
-    override fun doInBackground(vararg params: User?): Boolean {
-        if(params[0] != null){
-            return ApiController.registerUser(params[0] as User)
+        override fun doInBackground(vararg params: User): String {
+            return ApiController.registerUser(params[0])
         }
-        return false
+
+        override fun onPostExecute(result: String) {
+            super.onPostExecute(result)
+            //if user is authenticated or
+            when (result) {
+                "200" -> {
+                    this.view.toastLong("please check your mail")
+                    this.view.changeActivity(LoginView::class.java  as Class<Activity>)
+                }
+                "400" -> {
+                    this.view.toastLong("account already exists")
+                }else -> {
+                    this.view.toastLong("internal error")
+            }
+            }
+        }
     }
 }
