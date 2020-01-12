@@ -15,9 +15,9 @@ import javax.net.ssl.HttpsURLConnection
 object ApiController {
     private val apiDomain: String =  "slock.wtf"
     private val apiPort: Int = 443//54319
+    private var sessionToken: String = ""
 
-    fun LogoutUser(session: String): String {
-        return "200"
+    fun LogoutUser(): String {
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/logout")
 
         with(url.openConnection() as HttpsURLConnection) {
@@ -25,22 +25,13 @@ object ApiController {
             requestMethod = "GET"
 
             setRequestProperty("charset", "utf-8")
-            setRequestProperty("Session-Token", session)
+            setRequestProperty("token", ApiController.sessionToken )
 
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
-                try {
-                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val output: String = reader.readLine()
-                    return "200"
-                } catch (exception: Exception) {
-                    throw Exception("Exception while push the reading package  $exception.message")
-                }
+                ApiController.sessionToken = ""
             }
             return responseCode.toString()
         }
-
-
-
     }
 
     fun loginUser(user: User): String {

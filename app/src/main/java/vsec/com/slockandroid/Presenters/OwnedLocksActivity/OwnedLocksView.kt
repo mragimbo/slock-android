@@ -11,7 +11,7 @@ import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockView
 import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockPresenter
 import vsec.com.slockandroid.R
 
-class OwnedLocksView : Activity(), RegisterLockPresenter.View {
+class OwnedLocksView : Activity(), OwnedLocksPresenter.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +33,5 @@ class OwnedLocksView : Activity(), RegisterLockPresenter.View {
             }
         }
         startActivity(intent)
-    }
-
-    override fun onRegisterableLockFound(lock: BluetoothDevice) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun onNoRegisterableDeviceFound() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun checkLock() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
