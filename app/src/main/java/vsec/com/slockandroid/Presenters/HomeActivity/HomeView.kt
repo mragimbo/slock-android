@@ -4,11 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
-import vsec.com.slockandroid.AccessibleLocksActivity.AccessibleLocksView
+import vsec.com.slockandroid.Presenters.AccessibleLocksActivity.AccessibleLocksView
 import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksView
 import vsec.com.slockandroid.Presenters.SettingsActivity.SettingsView
 import vsec.com.slockandroid.R
-import java.lang.Exception
 
 class HomeView : Activity(), HomePresenter.View  {
 
