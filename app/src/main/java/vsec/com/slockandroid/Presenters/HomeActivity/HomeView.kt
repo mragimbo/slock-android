@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_home.*
+import vsec.com.slockandroid.AccessibleLocksActivity.AccessibleLocksView
 import vsec.com.slockandroid.Presenters.OwnedLocksActivity.OwnedLocksView
 import vsec.com.slockandroid.Presenters.SettingsActivity.SettingsView
 import vsec.com.slockandroid.R
@@ -24,6 +25,12 @@ class HomeView : Activity(), HomePresenter.View  {
             var extras: MutableMap<String, String> = mutableMapOf()
             extras.put("empty_field", "")
             this.changeActivity(OwnedLocksView::class.java,extras)
+        }
+
+        btn_accessible_locks.setOnClickListener{
+            var extras: MutableMap<String, String> = mutableMapOf()
+        extras.put("empty_field", "")
+        this.changeActivity(AccessibleLocksView::class.java,extras)
         }
 
         btn_settings.setOnClickListener{

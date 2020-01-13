@@ -39,6 +39,7 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     // https://mvnrepository.com/artifact/com.fasterxml.uuid/java-uuid-generator
     implementation group: 'com.fasterxml.uuid', name: 'java-uuid-generator', version: '3.1.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 
 
 }
