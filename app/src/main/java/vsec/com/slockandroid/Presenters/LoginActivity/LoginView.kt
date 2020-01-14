@@ -13,8 +13,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
+import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
+import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
@@ -32,6 +34,7 @@ class LoginView : Activity(), LoginPresenter.View {
 
         this.presenter = LoginPresenter(this)
         setContentView(R.layout.activity_login)
+        ApiController.initApiController(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(Array<String>(1){ Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION)
@@ -66,6 +69,10 @@ class LoginView : Activity(), LoginPresenter.View {
         if(!bleSucceeded){
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
+        }
+
+        if(ApiController.hasSessionToken()){
+            this.changeActivity(HomeView::class.java)
         }
 
         btn_login.setOnClickListener{
