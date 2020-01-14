@@ -51,7 +51,7 @@ class LoginView : Activity(), LoginPresenter.View {
 
     fun scanDone(){
         val devices = BluetoothScanCallback.scannedBleDevices
-        val lock: BluetoothDevice? = devices.find { it.address.equals("30:AE:A4:CE:F9:0E") }
+        val lock: BluetoothDevice? = devices.find { it.address.equals("24:6F:28:D1:97:A2") }//("30:AE:A4:CE:F9:0E") }
         val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
     }
 

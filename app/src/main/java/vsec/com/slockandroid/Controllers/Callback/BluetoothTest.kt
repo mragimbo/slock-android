@@ -97,7 +97,6 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
         characteristic: BluetoothGattCharacteristic?,
         status: Int
     ) {
-        //super.onCharacteristicWrite(gatt, characteristic, status)
         gatt?.executeReliableWrite()
     }
 
@@ -105,7 +104,6 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
         gatt: BluetoothGatt?,
         characteristic: BluetoothGattCharacteristic?
     ) {
-        //super.onCharacteristicChanged(gatt, characteristic)
         Log.e("","")
     }
 }
