@@ -1,7 +1,12 @@
 package vsec.com.slockandroid.Controllers
 
 import android.service.voice.AlwaysOnHotwordDetector
+import android.util.JsonReader
 import android.util.Log
+import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.serializer
+import org.json.JSONArray
 import vsec.com.slockandroid.generalModels.ChangePasswordModel
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
@@ -144,4 +149,52 @@ object ApiController {
             return responseCode.toString()
         }
     }
+
+    fun GetAccessibleLocks(): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me/rentedlockes")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("token", ApiController.sessionToken )
+
+            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
+                try {
+                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val jsonData = reader.readLine().toString()
+                    return jsonData
+
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
+        };return responseCode.toString()
+    }
+    }
+
+    fun GetOwnedLocks():String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me/ownedlocks")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("token", ApiController.sessionToken )
+
+            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
+                try {
+                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    val jsonData = reader.readLine().toString()
+                    return jsonData
+
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+
+                }
+            };return responseCode.toString()
+        }
+    }
 }
+
