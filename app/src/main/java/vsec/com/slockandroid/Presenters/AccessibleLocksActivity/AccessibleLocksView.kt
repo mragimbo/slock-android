@@ -8,23 +8,18 @@ import vsec.com.slockandroid.R
 
 class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
 
-
+    private lateinit var presenter: AccessibleLocksPresenter;
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_accessible_locks)
+        this.presenter = AccessibleLocksPresenter(this)
 
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
 
-        //Test data for recyclerView
-        var locks =  HashMap<String, String>()
-        locks.put("lock_1","token_1")
-        locks.put("lock_2", "token_2")
-        locks.put("lock_3", "token_3")
-
-        val accLockAdapter = AddLocksRecyclerAdapter(locks)
+        val accLockAdapter = AddLocksRecyclerAdapter(this.presenter)
         recyclerView.adapter = accLockAdapter
     }
 
