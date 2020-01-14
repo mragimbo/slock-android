@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatDelegate
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import vsec.com.slockandroid.Controllers.ApiController
@@ -49,14 +50,14 @@ class LoginView : Activity(), LoginPresenter.View {
     }
 
     fun scanDone(){
-        //val devices = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }
-        //val lock: BluetoothDevice? = devices.find { it.name.equals("SLOCK_") }
-        //val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
+        val devices = BluetoothScanCallback.scannedBleDevices
+        val lock: BluetoothDevice? = devices.find { it.address.equals("30:AE:A4:CE:F9:0E") }
+        val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
     }
 
 
     fun testDone(){
-
+        Log.e("","")
     }
 
     override fun onRequestPermissionsResult(
@@ -70,6 +71,7 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
+        bleTest()
 
         if(ApiController.hasSessionToken()){
             this.changeActivity(HomeView::class.java)
