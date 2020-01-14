@@ -38,8 +38,8 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
     override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
         Log.e("on services discoverd", status.toString())
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            sendAuthCharacteristic(gatt)
-            /*val registerservice: BluetoothGattService = gatt.getService(
+            //sendAuthCharacteristic(gatt)
+            val registerservice: BluetoothGattService = gatt.getService(
                 UUID.fromString(
                     //"7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
                     "ec01579e-4928-48ee-bed0-e68237efa95d"
@@ -66,8 +66,8 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
         descriptor: BluetoothGattDescriptor?,
         status: Int
     ) {
-        //super.onDescriptorWrite(gatt, descriptor, status)
-        //sendAuthCharacteristic(gatt)
+        super.onDescriptorWrite(gatt, descriptor, status)
+        sendAuthCharacteristic(gatt)
     }
 
     fun sendAuthCharacteristic(gatt: BluetoothGatt?){
