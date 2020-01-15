@@ -50,9 +50,8 @@ class RegisterPresenter(private val view: View) {
     }
 
 
-    fun sendRegisterRequestToApi(): Boolean {
+    fun sendRegisterRequestToApi() {
         this.task.execute(this.user)
-        return true
     }
 
     interface View {
@@ -77,6 +76,7 @@ class RegisterPresenter(private val view: View) {
                     }
                     "400" -> {
                         this.view.toastLong("account already exists")
+                        this.view.changeActivity(RegisterView::class.java)
                     }else -> {
                         this.view.toastLong("internal error")
                 }

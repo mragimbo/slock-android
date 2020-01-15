@@ -116,7 +116,9 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             presenter.updateEmail(email)
             presenter.updateUsername(email)
             presenter.updatePasswd(passwd)
-            val success = presenter.sendRegisterRequestToApi()
+
+            presenter.sendRegisterRequestToApi()
+            /*val success = presenter.sendRegisterRequestToApi()
 
             if(success){
                 val extra: MutableMap<String, String> = mutableMapOf()
@@ -127,7 +129,7 @@ class RegisterViewStep2 : Activity(), RegisterPresenter.View {
             }
             else{
                 Toast.makeText(this, "Register Failed", Toast.LENGTH_LONG).show()
-            }
+            }*/
         }
     }
 
