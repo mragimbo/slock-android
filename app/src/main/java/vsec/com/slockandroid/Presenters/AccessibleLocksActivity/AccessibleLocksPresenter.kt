@@ -19,9 +19,11 @@ class AccessibleLocksPresenter(private val view: View) {
 
     private var getLocksTask: GetLocksTask
     private lateinit var executeLockCommandTask: ExecuteLockCommandTask
+    private var ratchetTickTask: RatchetTickTask
 
     init {
         getLocksTask = GetLocksTask(this)
+        ratchetTickTask = RatchetTickTask(this.view)
     }
 
     fun fetchAccessibleLocks() {
@@ -43,6 +45,8 @@ class AccessibleLocksPresenter(private val view: View) {
     
     fun onNotification(lock: vsec.com.slockandroid.generalModels.Lock, command: String){
         if (command.startsWith("200")){
+            ratchetTickTask.execute(lock.getId())
+            ratchetTickTask = RatchetTickTask(this.view)
             //do ratchetTick
         }else{
             //do sync call
@@ -88,6 +92,7 @@ class AccessibleLocksPresenter(private val view: View) {
                         ApiController.clearSession()
                     }
                     "500" -> this.presenter.view.toastLong("Something went wrong")
+                    "502" -> this.presenter.view.toastLong("Something went wrong")
                     else -> this.presenter.setLocks(result)
                 }
             }
@@ -122,7 +127,7 @@ class AccessibleLocksPresenter(private val view: View) {
             }
         }
 
-        class RatchetTickTask(private var presenter: AccessibleLocksPresenter): AsyncTask<Int, Void, String>(){
+        class RatchetTickTask(private var view: AccessibleLocksPresenter.View): AsyncTask<Int, Void, String>(){
             override fun doInBackground(vararg params: Int?): String {
                 if(params.isNotEmpty())
                     return ApiController.DoRatchetTick(params[0] as Int)
@@ -136,16 +141,16 @@ class AccessibleLocksPresenter(private val view: View) {
                         Log.e("ratchet syns", "ratchet synced")
                     }
                     "400" -> {
-                        this.presenter.view.changeActivity(LoginView::class.java)
+                        this.view.changeActivity(LoginView::class.java)
                         ApiController.clearSession()
                     }
                     "401" -> {
-                        this.presenter.view.changeActivity(LoginView::class.java)
+                        this.view.changeActivity(LoginView::class.java)
                         ApiController.clearSession()
                     }
-                    "500" -> this.presenter.view.toastLong("Something went wrong")
+                    "500" -> this.view.toastLong("Something went wrong")
                     else -> {
-                        this.presenter.view.toastLong("Unexpected result")
+                        this.view.toastLong("Unexpected result")
                     }
                 }
             }
