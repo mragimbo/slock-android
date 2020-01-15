@@ -38,6 +38,15 @@
     <string name="set_new_passwd">New Password</string>
     <string name="set_conf_passwd">Confirm Password</string>
     <string name="set_logout">Log Out</string>
+    <!--Strings for renting -->
+    <string name="rent_header">Rent A lock</string>
+    <string name="rent_button">Confirm</string>
+    <string name="rent_strt_time_info">Access starts:</string>
+    <string name="rent_end_time_info">Access ends:</string>
+    <string name="rent_date">Date: YYYY-MM-dd</string>
+    <string name="rent_time">Time: HH:mm</string>
+    <string name="rent_renter">Rent to user:</string>
+
 
 
     <string name="registerable_device_not_found">No registerable devices found</string>
