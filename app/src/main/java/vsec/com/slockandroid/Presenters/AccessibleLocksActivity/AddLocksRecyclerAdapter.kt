@@ -9,8 +9,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.accessible_locks_recyclerview_item_row.view.*
 import vsec.com.slockandroid.R
 
-class AddLocksRecyclerAdapter(private val presenter: AccessibleLocksPresenter): RecyclerView.Adapter<AddLocksRecyclerAdapter.ViewHolder>() {
-    private val data = presenter.getLocks()
+class AddLocksRecyclerAdapter(private val data: HashMap<String, String>): RecyclerView.Adapter<AddLocksRecyclerAdapter.ViewHolder>() {
+
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,13 +40,11 @@ class AddLocksRecyclerAdapter(private val presenter: AccessibleLocksPresenter): 
 
         //buttonListeners for opening and closing
         p0.btn_open.setOnClickListener(){
-            this.presenter.executeLockCommand(1)
             p0.toast.setText("Open: "+data.get(data.keys.elementAt(p1)))
             p0.toast.show()
         }
 
         p0.btn_close.setOnClickListener(){
-            this.presenter.executeLockCommand(-1)
             p0.toast.setText("Close: "+data.get(data.keys.elementAt(p1)))
             p0.toast.show()
         }

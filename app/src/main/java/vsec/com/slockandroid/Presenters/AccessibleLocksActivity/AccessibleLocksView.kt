@@ -10,6 +10,7 @@ class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
 
     private lateinit var presenter: AccessibleLocksPresenter;
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var presenter: AccessibleLocksPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +19,19 @@ class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
 
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
+        this.presenter = AccessibleLocksPresenter(this)
 
-        val accLockAdapter = AddLocksRecyclerAdapter(this.presenter)
+        val lock_data = presenter.GetAccessibleLocks()
+        //TODO String to JSON
+        //TODO JSON to Hashmap like below
+
+        //Test data for recyclerView
+        var locks =  HashMap<String, String>()
+        locks.put("lock_1","token_1")
+        locks.put("lock_2", "token_2")
+        locks.put("lock_3", "token_3")
+
+        val accLockAdapter = AccessibleLocksRecyclerAdapter(locks)
         recyclerView.adapter = accLockAdapter
     }
 
