@@ -2,9 +2,13 @@ import android.bluetooth.*
 import android.content.ContentValues
 import android.util.Log
 import java.util.*
+import android.bluetooth.BluetoothGattDescriptor
+
+
 
 class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
 
+    private var blueActive: Boolean = false
     override fun onConnectionStateChange(
         gatt: BluetoothGatt,
         status: Int,
@@ -24,7 +28,8 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
 
     override fun onMtuChanged(gatt: BluetoothGatt?, mtu: Int, status: Int) {
         super.onMtuChanged(gatt, mtu, status)
-        if(mtu >= 128) {
+        if(mtu >= 128 && !this.blueActive) {
+            this.blueActive = true
             gatt?.beginReliableWrite()
             gatt?.discoverServices()
         }
@@ -33,15 +38,42 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
     override fun onServicesDiscovered(gatt: BluetoothGatt, status: Int) {
         Log.e("on services discoverd", status.toString())
         if (status == BluetoothGatt.GATT_SUCCESS) {
-            sendNameCharacteristic(gatt)
+            //sendAuthCharacteristic(gatt)
+            val registerservice: BluetoothGattService = gatt.getService(
+                UUID.fromString(
+                    //"7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
+                    "ec01579e-4928-48ee-bed0-e68237efa95d"
+                ))
+
+            val registerNameCharacteristic: BluetoothGattCharacteristic = registerservice.getCharacteristic(
+                UUID.fromString(
+                    //"c3465381-d3fe-4234-bd2b-a642eaedb1fe"
+                    "b3d709fe-de1c-46db-9b13-a39aac60de42"
+                ))
+
+
+            gatt?.setCharacteristicNotification(registerNameCharacteristic, true)
+            val uuid = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")
+            val descriptor = registerNameCharacteristic?.getDescriptor(uuid)
+            descriptor?.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE)
+            gatt?.writeDescriptor(descriptor)
+            //this.onDescriptorWrite(gatt,descriptor,0)*/
         }
     }
 
-    fun sendNameCharacteristic(gatt: BluetoothGatt?){
+    override fun onDescriptorWrite(
+        gatt: BluetoothGatt?,
+        descriptor: BluetoothGattDescriptor?,
+        status: Int
+    ) {
+        super.onDescriptorWrite(gatt, descriptor, status)
+        sendAuthCharacteristic(gatt)
+    }
+
+    fun sendAuthCharacteristic(gatt: BluetoothGatt?){
         if(gatt == null)
             return
-
-        val registerservice: BluetoothGattService = gatt.getService(
+            val registerservice: BluetoothGattService = gatt.getService(
             UUID.fromString(
                 //"7c3e0e35-996f-4745-a62f-ecb0d6e971b2"
                 "ec01579e-4928-48ee-bed0-e68237efa95d"
@@ -52,7 +84,9 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
                 //"c3465381-d3fe-4234-bd2b-a642eaedb1fe"
                 "b3d709fe-de1c-46db-9b13-a39aac60de42"
             ))
-        registerNameCharacteristic.setValue("test")
+        gatt?.setCharacteristicNotification(registerNameCharacteristic, true)
+
+        registerNameCharacteristic.setValue("eDHvQAzF9R6uPTR/gUBiLj0x5JoTho1r6rukGhB7SDS9IQi/XQ4vlb4GoKdNsF4nzgw4vaw1Tam5rM5T3GSM6A==;1")
 
         gatt.writeCharacteristic(registerNameCharacteristic)
 
@@ -63,7 +97,13 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
         characteristic: BluetoothGattCharacteristic?,
         status: Int
     ) {
-        super.onCharacteristicWrite(gatt, characteristic, status)
         gatt?.executeReliableWrite()
+    }
+
+    override fun onCharacteristicChanged(
+        gatt: BluetoothGatt?,
+        characteristic: BluetoothGattCharacteristic?
+    ) {
+        Log.e("","")
     }
 }
