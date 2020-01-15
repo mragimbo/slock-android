@@ -2,13 +2,6 @@ package vsec.com.slockandroid.Controllers
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.service.voice.AlwaysOnHotwordDetector
-import android.util.JsonReader
-import android.util.Log
-import kotlinx.serialization.ImplicitReflectionSerializer
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
-import org.json.JSONArray
 import vsec.com.slockandroid.generalModels.ChangePasswordModel
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
@@ -16,7 +9,6 @@ import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader
 import java.lang.Exception
-import java.net.HttpURLConnection
 import java.net.URL
 import java.nio.charset.StandardCharsets
 import javax.net.ssl.HttpsURLConnection
@@ -174,7 +166,7 @@ object ApiController {
 
     fun GetAccessibleLocks(): String {
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me/rentedlockes")
-
+        var jsonData: String? = null
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "GET"
@@ -185,14 +177,18 @@ object ApiController {
             if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
                 try {
                     val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                    val jsonData = reader.readLine().toString()
-                    return jsonData
+                    jsonData = reader.readLine().toString()
 
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }
-        };return responseCode.toString()
-    }
+            }
+
+            if(jsonData != null){
+                return jsonData as String
+            }
+            return responseCode.toString()
+        }
     }
 
     fun GetOwnedLocks():String {
@@ -215,7 +211,39 @@ object ApiController {
                     exception.printStackTrace()
 
                 }
-            };return responseCode.toString()
+            }
+            return responseCode.toString()
+        }
+    }
+
+    fun GetLockToken(lock: Lock, command: Int?): String {
+        if(lock.getId() == null || command == null){
+            return "500"
+        }
+        var response: String? = null
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/" + lock.getId() + "/token")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("token", ApiController.sessionToken )
+
+            if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
+                try {
+                    val reader: BufferedReader = BufferedReader(InputStreamReader(inputStream))
+                    response = reader.readLine().toString()
+
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+
+                }
+            }
+            if(response != null){
+                return response as String + ";" + command
+            }
+                return responseCode.toString()
         }
     }
 }

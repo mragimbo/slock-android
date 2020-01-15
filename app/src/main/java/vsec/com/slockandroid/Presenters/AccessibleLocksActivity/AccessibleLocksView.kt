@@ -1,14 +1,16 @@
 package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_accessible_locks.*
 import vsec.com.slockandroid.R
+import java.util.concurrent.locks.Lock
 
 class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
 
-    private lateinit var presenter: AccessibleLocksPresenter;
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var presenter: AccessibleLocksPresenter
 
@@ -21,25 +23,27 @@ class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
         recyclerView.layoutManager = linearLayoutManager
         this.presenter = AccessibleLocksPresenter(this)
 
-        val lock_data = presenter.GetAccessibleLocks()
+        presenter.fetchAccessibleLocks()
+
         //TODO String to JSON
         //TODO JSON to Hashmap like below
-
-        //Test data for recyclerView
-        var locks =  HashMap<String, String>()
-        locks.put("lock_1","token_1")
-        locks.put("lock_2", "token_2")
-        locks.put("lock_3", "token_3")
-
-        val accLockAdapter = AccessibleLocksRecyclerAdapter(locks)
-        recyclerView.adapter = accLockAdapter
     }
 
     override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val intent: Intent = Intent(this, toActivity).apply{
+            for(e in extras){
+                putExtra(e.key, e.value)
+            }
+        }
+        startActivity(intent)
     }
 
     override fun toastLong(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun refreshList(locks: List<vsec.com.slockandroid.generalModels.Lock>) {
+        val accLockAdapter = AddLocksRecyclerAdapter(this.presenter,locks)
+        recyclerView.adapter = accLockAdapter
     }
 }

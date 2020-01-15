@@ -6,11 +6,13 @@ import kotlin.jvm.Transient
 
 @Serializable
 class Lock {
+
     private var bleUuid: String? = null
     @Transient private var uuid: String? = null
+    @Transient private var id: Int? = null
     private var secret: String? = null
-    private var name: String? = null
-    private var discription: String? = null
+    private var displayName: String? = null
+    private var description: String? = null
     private var productKey: String? = null
 
     @Serializer(forClass = Lock::class)
@@ -20,8 +22,8 @@ class Lock {
             if (obj.bleUuid != null) elemOutput.encodeStringElement(descriptor, 0, obj.bleUuid as String)
             if (obj.uuid != null) elemOutput.encodeStringElement(descriptor, 1, obj.uuid as String)
             if (obj.secret != null) elemOutput.encodeStringElement(descriptor, 2, obj.secret as String)
-            if (obj.name != null) elemOutput.encodeStringElement(descriptor, 3, obj.name as String)
-            if (obj.discription != null) elemOutput.encodeStringElement(descriptor, 4, obj.discription as String)
+            if (obj.displayName != null) elemOutput.encodeStringElement(descriptor, 3, obj.displayName as String)
+            if (obj.description != null) elemOutput.encodeStringElement(descriptor, 4, obj.description as String)
             if (obj.productKey != null) elemOutput.encodeStringElement(descriptor, 5, obj.productKey as String)
 
             elemOutput.endStructure(descriptor)
@@ -56,11 +58,15 @@ class Lock {
     }
 
     fun setName(name: String){
-        this.name = name
+        this.displayName = name
+    }
+
+    fun getName(): String? {
+        return this.displayName
     }
 
     fun setDiscription(description: String){
-        this.discription = description
+        this.description = description
     }
 
     fun clear(){
@@ -70,5 +76,9 @@ class Lock {
 
     fun toJSON(): String {
         return Json.stringify(serializer(), this)
+    }
+
+    fun getId(): Int? {
+        return this.id
     }
 }

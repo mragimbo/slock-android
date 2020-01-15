@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.accessible_locks_recyclerview_item_row.view.*
 import vsec.com.slockandroid.R
+import java.util.concurrent.locks.Lock
 
-class AddLocksRecyclerAdapter(private val data: HashMap<String, String>): RecyclerView.Adapter<AddLocksRecyclerAdapter.ViewHolder>() {
+class AddLocksRecyclerAdapter( private val presenter: AccessibleLocksPresenter, private val data: List<vsec.com.slockandroid.generalModels.Lock>): RecyclerView.Adapter<AddLocksRecyclerAdapter.ViewHolder>() {
 
 
 
@@ -30,23 +30,26 @@ class AddLocksRecyclerAdapter(private val data: HashMap<String, String>): Recycl
     }
 
     override fun getItemCount(): Int {
-        return data.keys.size
+        return data.size
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
 
-        p0.lockname.text = data.keys.elementAt(p1)
+        p0.lockname.text = data[p1].getName()
 
 
         //buttonListeners for opening and closing
-        p0.btn_open.setOnClickListener(){
-            p0.toast.setText("Open: "+data.get(data.keys.elementAt(p1)))
+        p0.btn_open.setOnClickListener{
+            p0.toast.setText("Open: "+ data[p1].getName())
             p0.toast.show()
+            this.presenter.executeCommand(data[p1],1)
+
         }
 
         p0.btn_close.setOnClickListener(){
-            p0.toast.setText("Close: "+data.get(data.keys.elementAt(p1)))
+            p0.toast.setText("Close: "+ data[p1].getName())
             p0.toast.show()
+            this.presenter.executeCommand(data[p1], -1)
         }
 
 }
