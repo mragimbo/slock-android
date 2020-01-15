@@ -3,6 +3,7 @@ package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 import BluetoothCommandCallback
 import android.bluetooth.BluetoothDevice
 import android.os.AsyncTask
+import android.util.Log
 import android.widget.Toast
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
@@ -94,7 +95,6 @@ class AccessibleLocksPresenter(private val view: View) {
 
         class ExecuteLockCommandTask(private val lock: vsec.com.slockandroid.generalModels.Lock, private val presenter: AccessibleLocksPresenter) : AsyncTask<Int, Void, String>() {
             override fun doInBackground(vararg params: Int?): String? {
-                //returns responsebody, else responsecode
                 return ApiController.GetLockToken(this.lock, params[0])
             }
 
@@ -117,12 +117,39 @@ class AccessibleLocksPresenter(private val view: View) {
                             this.presenter.view.toastLong("Error")
                         }
                         BluetoothController.scanLeDevice(true) { this.presenter.onScanDone(this.lock, result) }
-
-                        this.presenter.view.toastLong(result)
-                        //send this result over ble
                     }
                 }
             }
+        }
+
+        class RatchetTickTask(private var presenter: AccessibleLocksPresenter): AsyncTask<Int, Void, String>(){
+            override fun doInBackground(vararg params: Int?): String {
+                if(params.isNotEmpty())
+                    return ApiController.DoRatchetTick(params[0] as Int)
+                return "400"
+            }
+
+            override fun onPostExecute(result: String) {
+                super.onPostExecute(result)
+                when (result) {
+                    "200" -> {
+                        Log.e("ratchet syns", "ratchet synced")
+                    }
+                    "400" -> {
+                        this.presenter.view.changeActivity(LoginView::class.java)
+                        ApiController.clearSession()
+                    }
+                    "401" -> {
+                        this.presenter.view.changeActivity(LoginView::class.java)
+                        ApiController.clearSession()
+                    }
+                    "500" -> this.presenter.view.toastLong("Something went wrong")
+                    else -> {
+                        this.presenter.view.toastLong("Unexpected result")
+                    }
+                }
+            }
+
         }
     }
 }

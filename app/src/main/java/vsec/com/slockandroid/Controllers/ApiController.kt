@@ -246,5 +246,19 @@ object ApiController {
                 return responseCode.toString()
         }
     }
+
+    fun DoRatchetTick(lockId: Int): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/" + lockId + "/ratchettick")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("token", ApiController.sessionToken )
+
+            return responseCode.toString()
+        }
+    }
 }
 
