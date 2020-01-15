@@ -1,12 +1,17 @@
 package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
+import BluetoothCommandCallback
+import android.bluetooth.BluetoothDevice
 import android.os.AsyncTask
 import android.widget.Toast
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parseList
 import vsec.com.slockandroid.Controllers.ApiController
+import vsec.com.slockandroid.Controllers.BluetoothController
+import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
+import java.util.concurrent.locks.Lock
 
 class AccessibleLocksPresenter(private val view: View) {
     private var lock_data: List<vsec.com.slockandroid.generalModels.Lock> = emptyList()
@@ -33,11 +38,26 @@ class AccessibleLocksPresenter(private val view: View) {
     fun executeCommand(lock: vsec.com.slockandroid.generalModels.Lock, i: Int) {
         this.executeLockCommandTask = ExecuteLockCommandTask(lock, this)
         this.executeLockCommandTask.execute(i)
-        /*when(i){
-            1 -> //open
-            0 -> //idle
-            -1 -> //close
-        }*/
+    }
+    
+    fun onNotification(lock: vsec.com.slockandroid.generalModels.Lock, command: String){
+        if (command.startsWith("200")){
+            //do ratchetTick
+        }else{
+            //do sync call
+        }
+    }
+
+    fun onScanDone(lock: vsec.com.slockandroid.generalModels.Lock, command: String){
+        if(lock.getBleAddress() == null) {
+            this.view.toastLong("something went wrong")
+            return
+        }
+        var lockuuid: String = lock.getBleAddress() as String
+        val bleDevice: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.address == lockuuid }
+
+        bleDevice?.connectGatt(BluetoothController.context,false, BluetoothCommandCallback(lock, command, ::onNotification))
+
     }
 
     interface View {
@@ -94,7 +114,10 @@ class AccessibleLocksPresenter(private val view: View) {
                     else -> {
                         if(result.length < 90){
                             //this is not aan command send error
+                            this.presenter.view.toastLong("Error")
                         }
+                        BluetoothController.scanLeDevice(true) { this.presenter.onScanDone(this.lock, result) }
+
                         this.presenter.view.toastLong(result)
                         //send this result over ble
                     }

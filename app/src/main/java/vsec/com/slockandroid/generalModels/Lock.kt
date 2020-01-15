@@ -30,15 +30,15 @@ class Lock {
         }
     }
     fun setUuid(uuid: String){
-        this.bleUuid = "SLOCK_$uuid".substring(0,26)
+        this.uuid = "SLOCK_$uuid".substring(0,26)
     }
 
     fun getUuid(): String?{
-        return this.bleUuid
+        return this.uuid
     }
 
     fun setProductKey(key: String){
-        this.productKey = productKey
+        this.productKey = key
     }
 
     fun setBleAddress(address: String){

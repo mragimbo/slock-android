@@ -1,6 +1,6 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
 
-import BluetoothTest
+import BluetoothCommandCallback
 import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
@@ -44,22 +44,6 @@ class LoginView : Activity(), LoginPresenter.View {
         }
     }
 
-
-    fun bleTest(){
-        BluetoothController.scanLeDevice(true, ::scanDone)
-    }
-
-    fun scanDone(){
-        val devices = BluetoothScanCallback.scannedBleDevices
-        val lock: BluetoothDevice? = devices.find { it.address.equals("24:6F:28:D1:97:A2") }//("30:AE:A4:CE:F9:0E") }
-        val gatt = lock?.connectGatt(BluetoothController.context,false, BluetoothTest( ::testDone), BluetoothDevice.TRANSPORT_LE)
-    }
-
-
-    fun testDone(){
-        Log.e("","")
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -71,7 +55,6 @@ class LoginView : Activity(), LoginPresenter.View {
             val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivity(enableBtIntent)
         }
-        bleTest()
 
         if(ApiController.hasSessionToken()){
             this.changeActivity(HomeView::class.java)

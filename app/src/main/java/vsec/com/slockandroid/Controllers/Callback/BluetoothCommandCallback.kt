@@ -1,12 +1,13 @@
+import android.app.Notification
 import android.bluetooth.*
 import android.content.ContentValues
 import android.util.Log
 import java.util.*
 import android.bluetooth.BluetoothGattDescriptor
+import vsec.com.slockandroid.generalModels.Lock
 
 
-
-class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
+class BluetoothCommandCallback(private val lock: Lock, private val command: String, private val onNotification: (lock: Lock, msg: String) -> Unit): BluetoothGattCallback() {
 
     private var blueActive: Boolean = false
     override fun onConnectionStateChange(
@@ -104,6 +105,9 @@ class BluetoothTest( private val done: () -> Unit): BluetoothGattCallback() {
         gatt: BluetoothGatt?,
         characteristic: BluetoothGattCharacteristic?
     ) {
-        Log.e("","")
+        if(characteristic != null){
+            var msg = String(characteristic.value)
+            this.onNotification(this.lock,msg)
+        }
     }
 }
