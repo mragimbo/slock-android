@@ -14,9 +14,9 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
     private lateinit var ratchetTickTask: RatchetTickTask
 
 
-    fun executeGetLocks(){
+    fun executeGetLocks(path: String){
         this.getLocksTask = GetLocksTask(presenter)
-        this.getLocksTask.execute()
+        this.getLocksTask.execute(path)
     }
 
     fun executeLockCommand(lock: Lock, command: Int){
@@ -30,11 +30,13 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
     }
 
     companion object{
-        class GetLocksTask(private var presenter: _LocksOverviewPresenter) : AsyncTask<Void, Void, String>() {
+        class GetLocksTask(private var presenter: _LocksOverviewPresenter) : AsyncTask<String, Void, String>() {
 
-            override fun doInBackground(vararg params: Void?): String? {
+            override fun doInBackground(vararg params: String?): String? {
                 //returns responsebody, else responsecode
-                return ApiController.GetAccessibleLocks()
+                if(params.isNotEmpty())
+                    return ApiController.GetAccessibleLocks(params[0] as String)
+                return "500"
             }
 
             @ImplicitReflectionSerializer
@@ -94,7 +96,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
             override fun doInBackground(vararg params: Int?): String {
                 if(params.isNotEmpty())
                     return ApiController.DoRatchetTick(params[0] as Int)
-                return "400"
+                return "500"
             }
 
             override fun onPostExecute(result: String) {

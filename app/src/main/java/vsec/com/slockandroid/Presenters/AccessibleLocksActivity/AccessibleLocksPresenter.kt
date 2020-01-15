@@ -36,7 +36,7 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
     }
 
     fun fetchAccessibleLocks() {
-        this.lockAuthController.executeGetLocks()
+        this.lockAuthController.executeGetLocks("/rentedlockes")
     }
 
     fun executeCommand(lock: vsec.com.slockandroid.generalModels.Lock, command: Int) {

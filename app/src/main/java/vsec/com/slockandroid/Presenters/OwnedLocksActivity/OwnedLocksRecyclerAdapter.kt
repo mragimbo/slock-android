@@ -13,7 +13,7 @@ class OwnedLocksRecyclerAdapter(
 ): RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
-        return ViewHolder( LayoutInflater.from(p0.context).inflate(R.layout.accessible_locks_recyclerview_item_row, p0, false))
+        return ViewHolder( LayoutInflater.from(p0.context).inflate(R.layout.owned_locks_recyclerview_item_row, p0, false))
     }
 
     override fun getItemCount(): Int {
