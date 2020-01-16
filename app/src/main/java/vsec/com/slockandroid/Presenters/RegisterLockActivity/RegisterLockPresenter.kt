@@ -67,6 +67,9 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
 
     fun updateLockName(lockName: String) { this.lock.setName(lockName)}
     fun updateDescription(description: String){ this.lock.setDiscription(description) }
+    fun updateProductKey(productKey: String) {
+        this.lock.setProductKey(productKey)
+    }
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String> = emptyMap())

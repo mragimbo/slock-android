@@ -43,7 +43,9 @@ class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
     }
 
     override fun refreshList(locks: List<vsec.com.slockandroid.generalModels.Lock>) {
-        val accLockAdapter = AccessibleLocksRecyclerAdapter(this.presenter,locks)
-        recyclerView.adapter = accLockAdapter
+        this.runOnUiThread {
+            val accLockAdapter = AccessibleLocksRecyclerAdapter(this.presenter,locks)
+            recyclerView.adapter = accLockAdapter
+        }
     }
 }

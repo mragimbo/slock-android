@@ -20,7 +20,10 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
         this.getLocksTask.execute(path)
     }
 
-    fun executeLockCommand(lock: Lock, command: Int){
+    fun executeLockCommand(
+        lock: Lock,
+        command: Int
+    ){
         this.executeLockCommandTask = ExecuteLockCommandTask(lock, presenter)
         this.executeLockCommandTask.execute(command)
     }
@@ -31,8 +34,8 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
     }
 
     fun executeRatchetsync(lockId: Int, status: String) {
-        this.ratchetSyncTask - RatchetSyncTask(lockId, presenter)
-        this.ratchetSyncTask.execute(RatchetSyncBody(status.split(";")[1], status.split(";")[2]))
+        this.ratchetSyncTask = RatchetSyncTask(lockId, presenter)
+        this.ratchetSyncTask.execute(RatchetSyncBody(status.split(";")[2], status.split(";")[1]))
     }
 
     companion object{

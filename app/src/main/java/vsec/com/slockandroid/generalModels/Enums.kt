@@ -19,6 +19,8 @@ enum class ButtonState {
     START_DATE_VALID,
     START_TIME_VALID,
     END_DATE_VALID,
-    END_TIME_VALID
+    END_TIME_VALID,
+
+    LOCK_PRODUCTKEY_VALID
 }
 

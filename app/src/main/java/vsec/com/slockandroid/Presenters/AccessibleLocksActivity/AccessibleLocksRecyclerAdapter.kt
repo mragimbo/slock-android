@@ -1,5 +1,7 @@
 package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
+import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -22,21 +24,31 @@ class AccessibleLocksRecyclerAdapter(
         return data.size
     }
 
+
+    fun changeEnableStateButtons(viewHolder: ViewHolder, state: Boolean) {
+        viewHolder.btn_open.isEnabled = state
+        viewHolder.btn_close.isEnabled = state
+    }
+
+
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
 
         p0.lockname.text = data[p1].getName()
 
         //buttonListeners for opening and closing
         p0.btn_open.setOnClickListener{
-            p0.toast.setText("Open: "+ data[p1].getName())
+            p0.toast.setText("Open sesame: "+ data[p1].getName())
             p0.toast.show()
-            this.presenter.executeCommand(data[p1],1)
+            changeEnableStateButtons(p0,false)
+            this.presenter.executeCommand(data[p1],1, p0, ::changeEnableStateButtons)
         }
+
 
         p0.btn_close.setOnClickListener{
             p0.toast.setText("Close: "+ data[p1].getName())
             p0.toast.show()
-            this.presenter.executeCommand(data[p1], -1)
+            changeEnableStateButtons(p0,false)
+            this.presenter.executeCommand(data[p1], -1, p0, ::changeEnableStateButtons)
         }
     }
 

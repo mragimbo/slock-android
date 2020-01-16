@@ -2,26 +2,26 @@ package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
 import BluetoothCommandCallback
 import android.bluetooth.BluetoothDevice
-import android.os.AsyncTask
-import android.util.Log
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parseList
-import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.LockAuthController
-import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
+import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
 class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) : _LocksOverviewPresenter {
-    private var lockData: List<vsec.com.slockandroid.generalModels.Lock> = emptyList()
+    private var lockData: List<Lock> = emptyList()
+    private lateinit var changeButtonState: (viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder, state: Boolean) -> Unit
+    private lateinit var viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder
 
     private var lockAuthController: LockAuthController = LockAuthController(this)
 
-    override fun onScanDone(lock: vsec.com.slockandroid.generalModels.Lock, command: String){
+    override fun onScanDone(lock: Lock, command: String){
         if(lock.getBleAddress() == null) {
             this.view.toastLong("something went wrong")
+            this.view.refreshList(this.lockData)
             return
         }
         var lockUuid: String = lock.getBleAddress() as String
@@ -39,18 +39,22 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
         this.lockAuthController.executeGetLocks("/rentedlockes")
     }
 
-    fun executeCommand(lock: vsec.com.slockandroid.generalModels.Lock, command: Int) {
+    fun executeCommand(lock: Lock, command: Int, viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder, changeButtonState:(view: AccessibleLocksRecyclerAdapter.ViewHolder, state: Boolean) -> Unit) {
+        this.changeButtonState = changeButtonState
+        this.viewHolder = viewHolder
         this.lockAuthController.executeLockCommand(lock,command)
     }
-    
-    private fun onNotification(lock: vsec.com.slockandroid.generalModels.Lock, status: String){
+
+    private fun onNotification(lock: Lock, status: String){
         if (status.startsWith("200")){
             if(lock.getId() != null){
                 this.lockAuthController.executeRatchetTick(lock.getId() as Int)
             }
         }else if(status.startsWith("401")){
             this.lockAuthController.executeRatchetsync(lock.getId() as Int,status)
+            this.view.toastLong("Lock synced up try again")
             //do sync call
         }
+        this.view.refreshList(this.lockData)
     }
 }

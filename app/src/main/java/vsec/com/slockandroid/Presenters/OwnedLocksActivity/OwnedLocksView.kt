@@ -54,7 +54,9 @@ class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
     }
 
     override fun refreshList(locks: List<Lock>) {
-        val accLockAdapter = OwnedLocksRecyclerAdapter(this.presenter,locks)
-        recyclerView.adapter = accLockAdapter
+        this.runOnUiThread {
+            val accLockAdapter = OwnedLocksRecyclerAdapter(this.presenter, locks)
+            recyclerView.adapter = accLockAdapter
+        }
     }
 }

@@ -109,6 +109,6 @@ class BluetoothCommandCallback(private val lock: Lock, private val command: Stri
             var msg = String(characteristic.value)
             this.onNotification(this.lock,msg)
         }
-        gatt?.close()
+        gatt?.disconnect()
     }
 }

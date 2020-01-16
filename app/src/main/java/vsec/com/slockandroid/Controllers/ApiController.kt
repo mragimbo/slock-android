@@ -267,8 +267,8 @@ object ApiController {
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "POST"
-
-            val postData: ByteArray = ratchetSyncBody.toJSON().toByteArray(StandardCharsets.UTF_8)
+            var json = ratchetSyncBody.toJSON()
+            val postData: ByteArray = json.toByteArray(StandardCharsets.UTF_8)
             setRequestProperty("charset", "utf-8")
             setRequestProperty("content-length", postData.size.toString())
             setRequestProperty("Content-Type", "application/json")
