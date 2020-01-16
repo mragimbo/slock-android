@@ -164,8 +164,8 @@ object ApiController {
         return this.sessionToken.isNotEmpty()
     }
 
-    fun GetAccessibleLocks(): String {
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me/rentedlockes")
+    fun GetAccessibleLocks(path: String): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me" + path)
         var jsonData: String? = null
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
@@ -244,6 +244,20 @@ object ApiController {
                 return response as String + ";" + command
             }
                 return responseCode.toString()
+        }
+    }
+
+    fun DoRatchetTick(lockId: Int): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/" + lockId + "/ratchettick")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "GET"
+
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("token", ApiController.sessionToken )
+
+            return responseCode.toString()
         }
     }
 }

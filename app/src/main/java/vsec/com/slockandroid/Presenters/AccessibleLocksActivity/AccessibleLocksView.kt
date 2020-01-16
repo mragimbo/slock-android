@@ -7,9 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_accessible_locks.*
 import vsec.com.slockandroid.R
-import java.util.concurrent.locks.Lock
+import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
-class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
+class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var presenter: AccessibleLocksPresenter
@@ -43,7 +43,7 @@ class AccessibleLocksView : AppCompatActivity(), AccessibleLocksPresenter.View {
     }
 
     override fun refreshList(locks: List<vsec.com.slockandroid.generalModels.Lock>) {
-        val accLockAdapter = AddLocksRecyclerAdapter(this.presenter,locks)
+        val accLockAdapter = AccessibleLocksRecyclerAdapter(this.presenter,locks)
         recyclerView.adapter = accLockAdapter
     }
 }

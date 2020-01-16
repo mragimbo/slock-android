@@ -87,7 +87,7 @@ class BluetoothCommandCallback(private val lock: Lock, private val command: Stri
             ))
         gatt?.setCharacteristicNotification(registerNameCharacteristic, true)
 
-        registerNameCharacteristic.setValue("eDHvQAzF9R6uPTR/gUBiLj0x5JoTho1r6rukGhB7SDS9IQi/XQ4vlb4GoKdNsF4nzgw4vaw1Tam5rM5T3GSM6A==;1")
+        registerNameCharacteristic.setValue(this.command)//"eDHvQAzF9R6uPTR/gUBiLj0x5JoTho1r6rukGhB7SDS9IQi/XQ4vlb4GoKdNsF4nzgw4vaw1Tam5rM5T3GSM6A==;1")
 
         gatt.writeCharacteristic(registerNameCharacteristic)
 
