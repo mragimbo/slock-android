@@ -48,9 +48,8 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
             if(lock.getId() != null){
                 this.lockAuthController.executeRatchetTick(lock.getId() as Int)
             }
-            //ratchetTickTask.execute(lock.getId())
-            //ratchetTickTask = RatchetTickTask(this.view)
-        }else{
+        }else if(status.startsWith("401")){
+            this.lockAuthController.executeRatchetsync(lock.getId() as Int,status)
             //do sync call
         }
     }

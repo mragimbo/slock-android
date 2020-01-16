@@ -5,6 +5,7 @@ import android.util.Log
 import kotlinx.serialization.ImplicitReflectionSerializer
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.generalModels.Lock
+import vsec.com.slockandroid.generalModels.RatchetSyncBody
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
 open class LockAuthController(private var presenter: _LocksOverviewPresenter){
@@ -12,7 +13,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
     private lateinit var getLocksTask: GetLocksTask
     private lateinit var executeLockCommandTask: ExecuteLockCommandTask
     private lateinit var ratchetTickTask: RatchetTickTask
-
+    private lateinit var ratchetSyncTask: RatchetSyncTask
 
     fun executeGetLocks(path: String){
         this.getLocksTask = GetLocksTask(presenter)
@@ -27,6 +28,11 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
     fun executeRatchetTick(lockId: Int){
         this.ratchetTickTask = RatchetTickTask(presenter)
         this.ratchetTickTask.execute(lockId)
+    }
+
+    fun executeRatchetsync(lockId: Int, status: String) {
+        this.ratchetSyncTask - RatchetSyncTask(lockId, presenter)
+        this.ratchetSyncTask.execute(RatchetSyncBody(status.split(";")[1], status.split(";")[2]))
     }
 
     companion object{
@@ -119,7 +125,38 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
                     }
                 }
             }
+        }
 
+        class RatchetSyncTask(
+            private var lockId: Int,
+            private var presenter: _LocksOverviewPresenter): AsyncTask<RatchetSyncBody, Void, String>(){
+
+            override fun doInBackground(vararg params: RatchetSyncBody?): String {
+                if(params.isNotEmpty())
+                    return ApiController.resyncRatchet(lockId, params[0] as RatchetSyncBody)
+                return "500"
+            }
+
+            override fun onPostExecute(result: String) {
+                super.onPostExecute(result)
+                when (result) {
+                    "200" -> {
+                        Log.e("ratchet syns", "ratchet synced")
+                    }
+                    "400" -> {
+                        this.presenter.view.changeActivity(LoginView::class.java)
+                        ApiController.clearSession()
+                    }
+                    "401" -> {
+                        this.presenter.view.changeActivity(LoginView::class.java)
+                        ApiController.clearSession()
+                    }
+                    "500" -> this.presenter.view.toastLong("Something went wrong")
+                    else -> {
+                        this.presenter.view.toastLong("Unexpected result")
+                    }
+                }
+            }
         }
     }
 }
