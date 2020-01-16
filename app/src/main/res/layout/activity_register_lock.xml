@@ -39,8 +39,9 @@
             android:layout_marginTop="32dp"
             android:text="Searching for Slocks"
             android:textAlignment="center"
-            android:textColor="@color/colorTextDark"
             android:textSize="40dp"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,9 +63,26 @@
             android:layout_marginTop="24dp"
             android:ems="10"
             android:gravity="start|top"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            android:hint="Description"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
-            app:layout_constraintHorizontal_bias="0.513"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/in_lock_name"
+            app:layout_constraintTop_toBottomOf="@+id/in_lock_productkey" />
+
+    <EditText
+            android:id="@+id/in_lock_productkey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="productkey: xxxxx-xxxxx-xxxxx"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_lock_name"
             app:layout_constraintStart_toStartOf="@+id/in_lock_name"
             app:layout_constraintTop_toBottomOf="@+id/in_lock_name" />
 

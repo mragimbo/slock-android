@@ -36,7 +36,7 @@ class OwnedLocksPresenter(override val view: _LocksOverviewPresenter.View): _Loc
     }
 
     fun executeCommand(lock: Lock, command: Int) {
-        this.lockAuthController.executeLockCommand(lock,command)
+        this.lockAuthController.executeLockCommand(lock, command)
     }
 
     private fun onNotification(lock: Lock, status: String){
