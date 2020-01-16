@@ -164,8 +164,8 @@ object ApiController {
         return this.sessionToken.isNotEmpty()
     }
 
-    fun GetAccessibleLocks(): String {
-        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me/rentedlockes")
+    fun GetAccessibleLocks(path: String): String {
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/me" + path)
         var jsonData: String? = null
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
