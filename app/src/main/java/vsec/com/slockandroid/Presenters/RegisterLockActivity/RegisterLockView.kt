@@ -4,12 +4,14 @@ import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.btn_register_lock
 import kotlinx.android.synthetic.main.activity_register_lock.*
+import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
 import java.util.*
@@ -44,6 +46,21 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
+        in_lock_productkey.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if(!p0.isNullOrEmpty() && Helpers.isValidProductKeyFormat(p0.toString())){
+                    buttonState.add(ButtonState.LOCK_PRODUCTKEY_VALID)
+                }else{
+                    buttonState.remove(ButtonState.LOCK_PRODUCTKEY_VALID)
+                }
+                presenter.updateProductKey(p0.toString())
+                updateButtonState()
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
         in_lock_description.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 if(!p0.isNullOrEmpty()){
@@ -63,7 +80,8 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         btn_register_lock.isEnabled = (
                 buttonState.contains(ButtonState.LOCK_NAME_VALID) &&
                 buttonState.contains(ButtonState.REGISTERABLE_LOCK_FOUND) &&
-                buttonState.contains(ButtonState.LOCK_DESCRIPTION_VALID)
+                buttonState.contains(ButtonState.LOCK_DESCRIPTION_VALID) &&
+                buttonState.contains(ButtonState.LOCK_PRODUCTKEY_VALID)
         )
     }
 

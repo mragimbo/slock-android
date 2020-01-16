@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Presenters.RentLockActivity.RentLockView">
+
+    <TextView
+            android:id="@+id/tx_rent_view_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/rent_header"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+            android:id="@+id/tx_renter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/rent_renter"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/in_rent_email"
+            app:layout_constraintStart_toStartOf="@+id/in_rent_email"
+            app:layout_constraintTop_toBottomOf="@+id/tx_rent_view_header" />
+
+    <EditText
+            android:id="@+id/in_rent_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/reg_email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_renter" />
+
+    <EditText
+            android:id="@+id/in_conf_rent_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:hint="@string/reg_conf_email"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_rent_email"
+            app:layout_constraintStart_toStartOf="@+id/in_rent_email"
+            app:layout_constraintTop_toBottomOf="@+id/in_rent_email" />
+
+    <TextView
+            android:id="@+id/tx_start_time_inform"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/rent_strt_time_info"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/in_conf_rent_email"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/in_conf_rent_email"
+            app:layout_constraintTop_toBottomOf="@+id/in_conf_rent_email" />
+
+    <EditText
+            android:id="@+id/in_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="@string/rent_date"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/tx_start_time_inform"
+            app:layout_constraintStart_toStartOf="@+id/tx_start_time_inform"
+            app:layout_constraintTop_toBottomOf="@+id/tx_start_time_inform" />
+
+    <EditText
+            android:id="@+id/in_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/rent_time"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            android:inputType="time"
+            app:layout_constraintEnd_toEndOf="@+id/in_start_date"
+            app:layout_constraintStart_toStartOf="@+id/in_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/in_start_date" />
+
+    <TextView
+            android:id="@+id/tx_end_time_inform"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/rent_end_time_info"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="@+id/in_start_time"
+            app:layout_constraintStart_toStartOf="@+id/in_start_time"
+            app:layout_constraintTop_toBottomOf="@+id/in_start_time" />
+
+    <EditText
+            android:id="@+id/in_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="date"
+            android:hint="@string/rent_date"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/tx_end_time_inform"
+            app:layout_constraintStart_toStartOf="@+id/tx_end_time_inform"
+            app:layout_constraintTop_toBottomOf="@+id/tx_end_time_inform" />
+
+    <EditText
+            android:id="@+id/in_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="@string/rent_time"
+            android:textColor="@color/colorTextDark"
+            android:textColorHint="@color/colorBackgroundSecondaryDark"
+            app:layout_constraintEnd_toEndOf="@+id/in_end_date"
+            app:layout_constraintStart_toStartOf="@+id/in_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/in_end_date" />
+
+    <Button
+            android:id="@+id/btn_rent_lock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/rent_button"
+            android:background="@drawable/roundcorner"
+            app:layout_constraintEnd_toEndOf="@+id/in_end_time"
+            app:layout_constraintStart_toStartOf="@+id/in_end_time"
+            app:layout_constraintTop_toBottomOf="@+id/in_end_time" />
+
+
+</android.support.constraint.ConstraintLayout>

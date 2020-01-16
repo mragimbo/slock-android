@@ -25,8 +25,11 @@
             android:supportsRtl="true"
             android:theme="@style/MyTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name="vsec.com.slockandroid.Presenters.AccessibleLocksActivity.AccessibleLocksView"
-                  android:screenOrientation="portrait" />
+        <activity android:name=".Presenters.RentLockActivity.RentLockView"
+                  android:screenOrientation="portrait"/>
+        <activity
+                android:name=".Presenters.AccessibleLocksActivity.AccessibleLocksView"
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".Presenters.SettingsActivity.SettingsView"
                 android:screenOrientation="portrait" />
