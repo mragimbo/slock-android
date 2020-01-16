@@ -2,10 +2,7 @@ package vsec.com.slockandroid.Controllers
 
 import android.content.Context
 import android.content.SharedPreferences
-import vsec.com.slockandroid.generalModels.ChangePasswordModel
-import vsec.com.slockandroid.generalModels.Lock
-import vsec.com.slockandroid.generalModels.RatchetSyncBody
-import vsec.com.slockandroid.generalModels.User
+import vsec.com.slockandroid.generalModels.*
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.InputStreamReader
@@ -268,6 +265,30 @@ object ApiController {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
             requestMethod = "POST"
             var json = ratchetSyncBody.toJSON()
+            val postData: ByteArray = json.toByteArray(StandardCharsets.UTF_8)
+            setRequestProperty("charset", "utf-8")
+            setRequestProperty("content-length", postData.size.toString())
+            setRequestProperty("Content-Type", "application/json")
+            setRequestProperty("token", ApiController.sessionToken)
+            try{
+                val outputStream: DataOutputStream = DataOutputStream(outputStream)
+                outputStream.write(postData)
+                outputStream.flush()
+            }catch (exeption: Exception){
+                exeption.printStackTrace()
+            }
+
+            return responseCode.toString()
+        }
+    }
+
+    fun rentAlock(lockRentBody: LockRentBody): String{
+        val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/locks/" + lockRentBody.getId() + "/share")
+
+        with(url.openConnection() as HttpsURLConnection) {
+            sslSocketFactory = KeyStoreController.sslContext.socketFactory
+            requestMethod = "POST"
+            var json = lockRentBody.toJSON()
             val postData: ByteArray = json.toByteArray(StandardCharsets.UTF_8)
             setRequestProperty("charset", "utf-8")
             setRequestProperty("content-length", postData.size.toString())

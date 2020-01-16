@@ -26,7 +26,12 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
         }
         var lockUuid: String = lock.getBleAddress() as String
         val bleDevice: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.address == lockUuid }
-        bleDevice?.connectGatt(BluetoothController.context,false, BluetoothCommandCallback(lock, command, ::onNotification))
+        if(bleDevice != null)
+            bleDevice.connectGatt(BluetoothController.context,false, BluetoothCommandCallback(lock, command, ::onNotification))
+        else {
+            this.view.toastLong("something went wrong")
+            this.view.refreshList(this.lockData)
+        }
     }
 
     @ImplicitReflectionSerializer
