@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:padding="8dp"
         android:layout_width="match_parent" android:layout_height="wrap_content">
 
@@ -22,30 +21,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-            android:id="@+id/btn_acc_lock_open"
+            android:id="@+id/btn_acc_lock_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/roundcorner"
-            android:text="Open"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_acc_lock_close"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tx_acc_lock_name"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-            android:id="@+id/btn_acc_lock_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/roundcorner_orange"
-            android:text="Close"
+            android:text="Rent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
