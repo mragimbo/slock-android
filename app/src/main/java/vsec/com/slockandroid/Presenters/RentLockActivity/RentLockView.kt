@@ -1,16 +1,18 @@
 package vsec.com.slockandroid.Presenters.RentLockActivity
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_rent_lock.*
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
 import java.util.*
 
 class RentLockView : AppCompatActivity(), RentLockPresenter.View {
-
     private var renter_email = ""
 
 
@@ -125,4 +127,19 @@ class RentLockView : AppCompatActivity(), RentLockPresenter.View {
                 && buttonState.contains(ButtonState.END_DATE_VALID)
                 && buttonState.contains(ButtonState.END_TIME_VALID)
     }
+
+    override fun toastLong(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+    }
+
+    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
+        this.runOnUiThread {
+            var intent: Intent = Intent(this, toActivity)
+            for(extra in extras){
+                intent.putExtra(extra.key, extra.value)
+            }
+            startActivity(intent)
+        }
+    }
+
 }
