@@ -8,7 +8,7 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 class LockRentBody{
-    @Transient private var lockId: Int? = null
+    @Transient private var lockId: String? = null
     private var username: String? = null
     private var startDate: String? = null
     private var endDate: String? = null
@@ -25,7 +25,7 @@ class LockRentBody{
         }
     }
 
-    fun setLockId(id: Int){
+    fun setLockId(id: String){
         this.lockId = id
     }
 
@@ -45,9 +45,7 @@ class LockRentBody{
         return Json.stringify(serializer(),this)
     }
 
-    fun getId(): Int? {
+    fun getId(): String? {
         return this.lockId
-    }
-
     }
 }

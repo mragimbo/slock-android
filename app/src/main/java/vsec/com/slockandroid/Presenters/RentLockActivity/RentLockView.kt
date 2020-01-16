@@ -13,119 +13,130 @@ import vsec.com.slockandroid.generalModels.ButtonState
 import java.util.*
 
 class RentLockView : AppCompatActivity(), RentLockPresenter.View {
-    private var renter_email = ""
-
-
     private lateinit var presenter: RentLockPresenter
     private var buttonState: EnumSet<ButtonState> = EnumSet.noneOf(ButtonState::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rent_lock)
-
         this.presenter = RentLockPresenter(this)
 
-            btn_rent_lock.isEnabled = false
+        val extras = intent.extras
+        val id: String = extras!!.getString("lockId")
+        this.presenter.updateLockId(id)
+
+        btn_rent_lock.isEnabled = false
 
         in_rent_email.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
-                val bool = presenter.checkEmailValidity(p0.toString())
-                renter_email = p0.toString()
+                val email: String = p0.toString()
+                val hasValidEmail: Boolean = presenter.checkEmailValidity(email)
 
-                if(bool){ buttonState.add(ButtonState.EMAIL_VALID)}
-                else{buttonState.remove(ButtonState.EMAIL_VALID)}
-                updateButtonState()
+                presenter.updateEmail(email)
 
-                val bool2 = this@RentLockView.presenter.assertEqual(p0.toString().trim(),
-                    in_conf_rent_email.text.toString())
-                if (bool2){buttonState.add(ButtonState.EMAIL_EQUAL)}
-                else{buttonState.remove(ButtonState.EMAIL_EQUAL)}
+                if(hasValidEmail)
+                    buttonState.add(ButtonState.EMAIL_VALID)
+                else
+                    buttonState.remove(ButtonState.EMAIL_VALID)
+
+                val emailsAreEqual: Boolean = this@RentLockView.presenter.assertEqual(email.trim(), in_conf_rent_email.text.toString().trim())
+
+                if (emailsAreEqual)
+                    buttonState.add(ButtonState.EMAIL_EQUAL)
+                else
+                    buttonState.remove(ButtonState.EMAIL_EQUAL)
                 updateButtonState()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         in_conf_rent_email.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(p0: Editable?) {
-                val bool = this@RentLockView.presenter.assertEqual(p0.toString().trim(),
-                    in_conf_rent_email.text.toString().trim())
-                if (bool){buttonState.add(ButtonState.EMAIL_EQUAL)}
-                else{buttonState.remove(ButtonState.EMAIL_EQUAL)}
+                val areEmailEqual: Boolean = this@RentLockView.presenter.assertEqual(p0.toString().trim(), in_conf_rent_email.text.toString().trim())
+                if (areEmailEqual)
+                    buttonState.add(ButtonState.EMAIL_EQUAL)
+                else
+                    buttonState.remove(ButtonState.EMAIL_EQUAL)
+
                 updateButtonState()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         in_start_date.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun afterTextChanged(p0: Editable?) {
+                presenter.updateStartDate(p0.toString())
+
+                checkDateButtonState()
+                updateButtonState()
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         in_start_time.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun afterTextChanged(p0: Editable?) {
+                presenter.updateStartTime(p0.toString())
+
+                checkDateButtonState()
+                updateButtonState()
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         in_end_date.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun afterTextChanged(p0: Editable?) {
+                presenter.updateEndDate(p0.toString())
+
+                checkDateButtonState()
+                updateButtonState()
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         in_end_time.addTextChangedListener(object: TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun afterTextChanged(p0: Editable?) {
+                presenter.updateEndTime(p0.toString())
+                checkDateButtonState()
+                updateButtonState()
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+
+        btn_rent_lock.setOnClickListener {
+            this.presenter.sendRentLockRequestToApi()
+        }
     }
 
     fun updateButtonState(){
+        var b = buttonState.toString()
         btn_rent_lock.isEnabled = buttonState.contains(ButtonState.EMAIL_VALID)
                 && buttonState.contains(ButtonState.EMAIL_EQUAL)
                 && buttonState.contains(ButtonState.START_DATE_VALID)
-                && buttonState.contains(ButtonState.START_TIME_VALID)
                 && buttonState.contains(ButtonState.END_DATE_VALID)
-                && buttonState.contains(ButtonState.END_TIME_VALID)
+    }
+
+    fun checkDateButtonState(){
+        if(presenter.checkStartDateValidity())
+            buttonState.add(ButtonState.START_DATE_VALID)
+        else
+            buttonState.remove(ButtonState.START_DATE_VALID)
+
+        if(presenter.checkEndDateValidity())
+            buttonState.add(ButtonState.END_DATE_VALID)
+        else
+            buttonState.remove(ButtonState.END_DATE_VALID)
     }
 
     override fun toastLong(message: String) {

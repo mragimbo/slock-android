@@ -8,7 +8,7 @@ import java.util.*
 
 object Helpers {
     private var secureRandom: SecureRandom = SecureRandom()
-    private var regex: Regex = Regex("[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}")
+    private var productKeyRegex: Regex = Regex("[A-Za-z0-9]{5}-[A-Za-z0-9]{5}-[A-Za-z0-9]{5}")
 
     fun makeSha512Hash(payload: String, salt: String): String {
         val md = MessageDigest.getInstance("SHA-512")
@@ -51,6 +51,6 @@ object Helpers {
     }
 
     fun isValidProductKeyFormat(productKey: String): Boolean {
-        return this.regex.matches(productKey)
+        return this.productKeyRegex.matches(productKey)
     }
 }
