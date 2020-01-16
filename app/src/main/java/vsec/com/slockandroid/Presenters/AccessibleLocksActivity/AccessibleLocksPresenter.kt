@@ -31,12 +31,18 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
 
     @ImplicitReflectionSerializer
     override fun setLocks(result: String) {
-        this.lockData = Json.parseList(result)
+        val joined: ArrayList<Lock> = ArrayList()
+        joined.addAll(this.lockData)
+        joined.addAll(Json.parseList<Lock>(result))
+        this.lockData = joined
         this.view.refreshList(this.lockData)
     }
 
     fun fetchAccessibleLocks() {
         this.lockAuthController.executeGetLocks("/rentedlockes")
+        this.lockAuthController.executeGetLocks("/ownedlocks")
+        this.lockData = emptyList()
+
     }
 
     fun executeCommand(lock: Lock, command: Int, viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder, changeButtonState:(view: AccessibleLocksRecyclerAdapter.ViewHolder, state: Boolean) -> Unit) {
