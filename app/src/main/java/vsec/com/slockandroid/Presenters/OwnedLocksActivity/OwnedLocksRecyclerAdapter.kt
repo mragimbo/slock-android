@@ -37,7 +37,7 @@ class OwnedLocksRecyclerAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var lockname: TextView = view.findViewById(R.id.tx_acc_lock_name)
-        var btn_share: TextView = view.findViewById(R.id.btn_acc_lock_share)
+        var btn_share: TextView = view.findViewById(R.id.btn_acc_lock_close)
         var toast = Toast.makeText( view.context, "", Toast.LENGTH_SHORT)
     }
 

@@ -95,7 +95,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
 
             override fun doInBackground(vararg params: Int?): String {
                 if(params.isNotEmpty())
-                    return ApiController.DoRatchetTick(params[0] as Int)
+                    return ApiController.doRatchetTick(params[0] as Int)
                 return "500"
             }
 
