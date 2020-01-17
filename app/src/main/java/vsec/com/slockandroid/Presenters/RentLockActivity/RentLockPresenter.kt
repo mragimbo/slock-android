@@ -43,8 +43,19 @@ class RentLockPresenter(private val view: View) {
     fun checkStartDateValidity(): Boolean{
         if(this.startDate == null || this.startTime == null)
             return false
+        if(!Helpers.validateDate(startDate) || !Helpers.validateTime(startTime))
+            return false
+
         try {
-            val startDate: Date = Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
+            //var now: Date = Date.from(Instant.now())
+            //val dateOffset = SimpleDateFormat("Z").format(now)
+            var year = this.startDate!!.split('-')[0].toInt()
+            var month = this.startDate!!.split('-')[1].toInt()
+            var day = this.startDate!!.split('-')[2].toInt()
+
+            var hour = this.startTime!!.split(':')[0].toInt()
+            var minute = this.startTime!!.split(':')[1].toInt()
+            val startDate: Date = Date(year-1900, month-1, day+1, hour, minute)  //Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
             if(startDate.after(Date.from(Instant.now())))
                 return true
             return false
@@ -58,8 +69,25 @@ class RentLockPresenter(private val view: View) {
             return false
 
         try {
-            val startDate: Date = Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
-            val endDate: Date = Date.from(Instant.parse(this.endDate + "T" + this.endTime + ":00.000Z"))
+            //var now: Date = Date.from(Instant.now())
+            ///val dateOffset = SimpleDateFormat("Z").format(now)
+            var year = this.startDate!!.split('-')[0].toInt()
+            var month = this.startDate!!.split('-')[1].toInt()
+            var day = this.startDate!!.split('-')[2].toInt()
+
+            var hour = this.startTime!!.split(':')[0].toInt()
+            var minute = this.startTime!!.split(':')[1].toInt()
+            val startDate: Date = Date(year-1900, month-1, day+1, hour, minute)
+
+            year = this.endDate!!.split('-')[0].toInt()
+            month = this.endDate!!.split('-')[1].toInt()
+            day = this.endDate!!.split('-')[2].toInt()
+
+            hour = this.endTime!!.split(':')[0].toInt()
+            minute = this.endTime!!.split(':')[1].toInt()
+
+            //val startDate: Date = Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
+            val endDate: Date = Date(year -1900, month-1, day+1, hour, minute)//Date.from(Instant.parse(this.endDate + "T" + this.endTime + ":00.000Z"))
             if(endDate.after(startDate))
                 return true
             return false
@@ -93,11 +121,35 @@ class RentLockPresenter(private val view: View) {
     }
 
     fun sendRentLockRequestToApi() {
-        val startDate: Date = Date.from(Instant.parse(this.startDate + "T" + this.startTime+ ":00.000Z"))
-        val endDate: Date = Date.from(Instant.parse(this.endDate + "T" + this.endTime + ":00.000Z"))
-        val formatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-        this.lockRentBody.setStartDate(formatter.format(startDate))
-        this.lockRentBody.setEndDate(formatter.format(endDate))
+        //var now: Date = Date.from(Instant.now())
+       //val dateOffset = SimpleDateFormat("Z").format(now)
+
+        var year = this.startDate!!.split('-')[0].toInt()
+        var month = this.startDate!!.split('-')[1].toInt()
+        var day = this.startDate!!.split('-')[2].toInt()
+
+        var hour = this.startTime!!.split(':')[0].toInt()
+        var minute = this.startTime!!.split(':')[1].toInt()
+        val startDate: Date = Date(year - 1900, month -1, day+1, hour, minute)
+
+        year = this.endDate!!.split('-')[0].toInt()
+        month = this.endDate!!.split('-')[1].toInt()
+        day = this.endDate!!.split('-')[2].toInt()
+
+        hour = this.endTime!!.split(':')[0].toInt()
+        minute = this.endTime!!.split(':')[1].toInt()
+
+        val endDate: Date = Date(year - 1900, month-1, day +1, hour, minute)
+
+        val tz = TimeZone.getTimeZone("UTC")
+        val df =
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'") // Quoted "Z" to indicate UTC, no timezone offset
+        df.timeZone = tz
+        val nowAsISOstartDate = df.format(startDate)
+        val nowAsISOendDate = df.format(endDate)
+
+        this.lockRentBody.setStartDate(nowAsISOstartDate)
+        this.lockRentBody.setEndDate(nowAsISOendDate)
         this.rentLockTask = RentLockTask(this)
         this.rentLockTask.execute(this.lockRentBody)
     }

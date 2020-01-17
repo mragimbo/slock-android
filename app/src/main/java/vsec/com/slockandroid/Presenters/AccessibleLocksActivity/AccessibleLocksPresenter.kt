@@ -10,6 +10,7 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.LockAuthController
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
+import java.lang.Exception
 
 class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) : _LocksOverviewPresenter {
     private var lockData: List<Lock> = emptyList()
@@ -26,9 +27,17 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
         }
         var lockUuid: String = lock.getBleAddress() as String
         val bleDevice: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.address == lockUuid }
-        if(bleDevice != null)
-            bleDevice.connectGatt(BluetoothController.context,false, BluetoothCommandCallback(lock, command, ::onNotification))
-        else {
+        if(bleDevice != null) {
+            try {
+                bleDevice.connectGatt(
+                    BluetoothController.context,
+                    false,
+                    BluetoothCommandCallback(lock, command, ::onNotification)
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        } else {
             this.view.toastLong("something went wrong")
             this.view.refreshList(this.lockData)
         }
@@ -59,7 +68,7 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
     private fun onNotification(lock: Lock, status: String){
         if (status.startsWith("200")){
             if(lock.getId() != null){
-                this.lockAuthController.executeRatchetTick(lock.getId() as Int)
+                this.lockAuthController.executeRatchetsync(lock.getId() as Int, status)
             }
         }else if(status.startsWith("401")){
             this.lockAuthController.executeRatchetsync(lock.getId() as Int,status)

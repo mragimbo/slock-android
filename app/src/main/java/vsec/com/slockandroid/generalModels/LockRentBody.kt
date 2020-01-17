@@ -17,9 +17,9 @@ class LockRentBody{
     companion object: KSerializer<LockRentBody> {
         override fun serialize(output: Encoder, obj: LockRentBody) {
             val elemOutput = output.beginStructure(descriptor)
-            if (obj.username != null) elemOutput.encodeStringElement(descriptor, 0, obj.username as String)
-            if (obj.startDate != null) elemOutput.encodeStringElement(descriptor, 1, obj.startDate as String)
-            if (obj.endDate != null) elemOutput.encodeStringElement(descriptor, 2, obj.endDate as String)
+            if (obj.username != null) elemOutput.encodeStringElement(descriptor, 1, obj.username as String)
+            if (obj.startDate != null) elemOutput.encodeStringElement(descriptor, 2, obj.startDate as String)
+            if (obj.endDate != null) elemOutput.encodeStringElement(descriptor, 3, obj.endDate as String)
 
             elemOutput.endStructure(descriptor)
         }
