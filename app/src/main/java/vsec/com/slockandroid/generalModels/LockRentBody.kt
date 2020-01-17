@@ -49,5 +49,4 @@ class LockRentBody{
         return this.lockId
     }
 
-    }
 }

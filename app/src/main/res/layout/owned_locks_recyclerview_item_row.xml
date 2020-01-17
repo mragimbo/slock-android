@@ -13,7 +13,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
-            android:text="lock name here"
+            android:text="@string/tx_owned_locks_name_here"
             android:textColor="@color/colorTextDark"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/roundcorner_orange"
-            android:text="Rent"
+            android:text="@string/btn_owned_locks_rent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

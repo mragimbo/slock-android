@@ -35,7 +35,7 @@
             android:textColorHint="@color/colorBackgroundSecondaryDark"
             app:layout_constraintEnd_toEndOf="@+id/in_firstName"
             app:layout_constraintStart_toStartOf="@+id/in_firstName"
-            app:layout_constraintTop_toBottomOf="@+id/in_firstName" />" />
+            app:layout_constraintTop_toBottomOf="@+id/in_firstName" />
 
     <TextView
             android:id="@+id/tx_step1"
