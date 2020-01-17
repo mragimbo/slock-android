@@ -2,6 +2,7 @@ package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
 import BluetoothCommandCallback
 import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothDevice.TRANSPORT_LE
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parseList
@@ -32,7 +33,8 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
                 bleDevice.connectGatt(
                     BluetoothController.context,
                     false,
-                    BluetoothCommandCallback(lock, command, ::onNotification)
+                    BluetoothCommandCallback(lock, command, ::onNotification),
+                    TRANSPORT_LE
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
