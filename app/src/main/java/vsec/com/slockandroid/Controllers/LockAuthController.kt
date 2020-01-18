@@ -80,10 +80,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
             override fun onPostExecute(result: String) {
                 super.onPostExecute(result)
                 when (result) {
-                    "400" -> {
-                        this.presenter.view.changeActivity(LoginView::class.java)
-                        ApiController.clearSession()
-                    }
+                    "400" -> this.presenter.view.toastLong("Something went wrong")
                     "401" -> {
                         this.presenter.view.changeActivity(LoginView::class.java)
                         ApiController.clearSession()
@@ -114,10 +111,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
                     "200" -> {
                         Log.e("ratchet syns", "ratchet synced")
                     }
-                    "400" -> {
-                        this.presenter.view.changeActivity(LoginView::class.java)
-                        ApiController.clearSession()
-                    }
+                    "400" -> this.presenter.view.toastLong("Something went wrong")
                     "401" -> {
                         this.presenter.view.changeActivity(LoginView::class.java)
                         ApiController.clearSession()
@@ -146,10 +140,7 @@ open class LockAuthController(private var presenter: _LocksOverviewPresenter){
                     "200" -> {
                         Log.e("ratchet syns", "ratchet synced")
                     }
-                    "400" -> {
-                        this.presenter.view.changeActivity(LoginView::class.java)
-                        ApiController.clearSession()
-                    }
+                    "400" -> this.presenter.view.toastLong("Something went wrong")
                     "401" -> {
                         this.presenter.view.changeActivity(LoginView::class.java)
                         ApiController.clearSession()

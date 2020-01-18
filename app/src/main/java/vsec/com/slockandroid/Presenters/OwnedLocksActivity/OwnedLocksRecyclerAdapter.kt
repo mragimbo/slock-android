@@ -31,7 +31,6 @@ class OwnedLocksRecyclerAdapter(
             var extras = HashMap<String, String>()
             extras["lockId"] = data[p1].getId().toString()
             this.presenter.view.changeActivity(RentLockView::class.java, extras)
-            this.presenter.executeCommand(data[p1],1)
         }
     }
 

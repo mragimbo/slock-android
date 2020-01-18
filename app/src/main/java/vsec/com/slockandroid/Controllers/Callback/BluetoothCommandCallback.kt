@@ -22,6 +22,7 @@ class BluetoothCommandCallback(private val lock: Lock, private val command: Stri
 
             }
             BluetoothProfile.STATE_DISCONNECTED -> {
+                onNotification(lock,"-1")
                 Log.i(ContentValues.TAG, "Disconnected from GATT server.")
             }
         }
