@@ -7,6 +7,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="not_a_user_yet">Not a user yet?</string>
     <!--Strings related to register-->
+    <string name="reg_passwd_empty">Empty</string>
     <string name="reg_firstName">first name</string>
     <string name="reg_lastName">last name</string>
     <string name="reg_email">email</string>
@@ -46,7 +47,28 @@
     <string name="rent_date">Date: YYYY-MM-dd</string>
     <string name="rent_time">Time: HH:mm</string>
     <string name="rent_renter">Rent to user:</string>
-
+    <!--Strings for AccessibleLocksView-->
+    <string name="lck_name">Lock name here</string>
+    <string name="btn_lck_open">Open</string>
+    <string name="btn_lck_close">Close</string>
+    <!--String for RegisterLock-->
+    <string name="btn_register_lock">Register Lock</string>
+    <string name="in_lock_name">Lock name</string>
+    <string name="tx_searching_locks">Searchig for Slocks</string>
+    <string name="hint_lock_description">Description</string>
+    <string name="hint_lock_productkey">productkey: xxxxx-xxxxx-xxxxx</string>
+    <!--String for ownedlocks recyclerview-->
+    <string name="tx_owned_locks_name_here">lock name here</string>
+    <string name="btn_owned_locks_rent">Rent</string>
+    <!-- Strings for Controllers Toasts-->
+    <string name="lockauth_something_went_wrong">Something went wrong</string>
+    <string name="lockauth_error">Error</string>
+    <string name="lockauth_unexpected">Unexpected result</string>
+    <string name="acc_lock_synced_toast">Lock synced up, try again</string>
+    <string name="acc_lock_open_toast">Opening: </string>
+    <string name="acc_lock_close_toast">Closing: </string>
+    <string name="login_vefify_email_first_toast">verifiy your email first</string>
+    <string name="login_invalid">Invalid login</string>
 
 
     <string name="registerable_device_not_found">No registerable devices found</string>

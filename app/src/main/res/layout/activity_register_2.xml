@@ -36,8 +36,7 @@
             android:textColorHint="@color/colorBackgroundSecondaryDark"
             app:layout_constraintEnd_toEndOf="@id/tx_passwd_strength"
             app:layout_constraintStart_toStartOf="@id/tx_passwd_strength"
-            app:layout_constraintTop_toBottomOf="@id/tx_passwd_strength" />" />
-
+            app:layout_constraintTop_toBottomOf="@id/tx_passwd_strength" />
     <TextView
             android:id="@+id/tx_step2"
             android:layout_width="wrap_content"
@@ -106,7 +105,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorBackgroundSecondaryDark"
             android:textAlignment="center"
-            android:text="Empty"
+            android:text="@string/reg_passwd_empty"
             app:layout_constraintEnd_toEndOf="@id/passwdBar"
             app:layout_constraintStart_toStartOf="@id/passwdBar"
             app:layout_constraintTop_toBottomOf="@id/passwdBar" />
