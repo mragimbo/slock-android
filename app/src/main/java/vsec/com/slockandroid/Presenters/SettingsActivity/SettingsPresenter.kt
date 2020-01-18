@@ -14,8 +14,10 @@ import vsec.com.slockandroid.generalModels.User
 class SettingsPresenter(private val view: View) {
     private var changePasswordModel: ChangePasswordModel
     private var logoutTask: LogoutTask
+    private var changeDetailTask: ChangeDetailTask
     init {
         logoutTask = LogoutTask(view)
+        changeDetailTask = ChangeDetailTask(this.view)
         changePasswordModel = ChangePasswordModel()
     }
 
@@ -34,7 +36,8 @@ class SettingsPresenter(private val view: View) {
     }
 
     fun sendPasswordUpdateRequest() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        changeDetailTask = ChangeDetailTask(this.view)
+        changeDetailTask.execute(this.changePasswordModel)
     }
 
 
