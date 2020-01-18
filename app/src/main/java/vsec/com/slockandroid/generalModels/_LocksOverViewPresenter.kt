@@ -1,7 +1,10 @@
 package vsec.com.slockandroid.generalModels
 
+import vsec.com.slockandroid.Controllers.LockAuthController
+
 interface _LocksOverviewPresenter{
     val view: View
+    var lockAuthController: LockAuthController
 
     fun setLocks(locksJson: String)
     fun onScanDone(lock: Lock, command: String)

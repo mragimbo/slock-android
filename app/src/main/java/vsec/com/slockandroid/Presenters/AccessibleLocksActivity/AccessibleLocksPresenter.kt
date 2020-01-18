@@ -18,7 +18,7 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
     private lateinit var changeButtonState: (viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder, state: Boolean) -> Unit
     private lateinit var viewHolder: AccessibleLocksRecyclerAdapter.ViewHolder
 
-    private var lockAuthController: LockAuthController = LockAuthController(this)
+    override var lockAuthController: LockAuthController = LockAuthController(this)
 
     override fun onScanDone(lock: Lock, command: String){
         if(lock.getBleAddress() == null) {

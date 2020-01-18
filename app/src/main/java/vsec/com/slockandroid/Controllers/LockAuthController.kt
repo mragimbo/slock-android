@@ -8,7 +8,7 @@ import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.RatchetSyncBody
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
-open class LockAuthController(private var presenter: _LocksOverviewPresenter){
+class LockAuthController(private var presenter: _LocksOverviewPresenter){
 
     private lateinit var getLocksTask: GetLocksTask
     private lateinit var executeLockCommandTask: ExecuteLockCommandTask
