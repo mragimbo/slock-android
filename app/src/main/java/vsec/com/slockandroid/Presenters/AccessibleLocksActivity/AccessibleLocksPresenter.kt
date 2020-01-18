@@ -31,7 +31,7 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
         if(bleDevice != null) {
             try {
                 bleDevice.connectGatt(
-                    BluetoothController.context,
+                    this.view.getContext(),
                     false,
                     BluetoothCommandCallback(lock, command, ::onNotification),
                     TRANSPORT_LE
@@ -46,10 +46,10 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
     }
 
     @ImplicitReflectionSerializer
-    override fun setLocks(result: String) {
+    override fun setLocks(locksJSon: String) {
         val joined: ArrayList<Lock> = ArrayList()
         joined.addAll(this.lockData)
-        joined.addAll(Json.parseList<Lock>(result))
+        joined.addAll(Json.parseList<Lock>(locksJSon))
         this.lockData = joined
         this.view.refreshList(this.lockData)
     }

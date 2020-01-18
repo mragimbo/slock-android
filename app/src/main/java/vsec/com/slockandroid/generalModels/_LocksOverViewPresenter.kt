@@ -1,5 +1,6 @@
 package vsec.com.slockandroid.generalModels
 
+import android.content.Context
 import vsec.com.slockandroid.Controllers.LockAuthController
 
 interface _LocksOverviewPresenter{
@@ -13,5 +14,6 @@ interface _LocksOverviewPresenter{
         fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String> = HashMap())
         fun toastLong(message: String)
         fun refreshList(locks: List<Lock>)
+        fun getContext(): Context?
     }
 }

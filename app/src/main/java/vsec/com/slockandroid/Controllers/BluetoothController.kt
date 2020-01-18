@@ -19,14 +19,12 @@ object BluetoothController {
     private var bluetoothScanner: BluetoothLeScanner? = null
     private var mScanning: Boolean = false
     private var handler: Handler = Handler()
-    lateinit var context: Context
 
     private val BluetoothAdapter.isDisabled: Boolean
         get() = !isEnabled
 
 
-    fun initBleAdapter(context: Context): Boolean{
-        this.context = context
+    fun initBleAdapter(context: Context): Boolean {
         val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE){
             val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
             bluetoothManager.adapter

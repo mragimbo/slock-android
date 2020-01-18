@@ -2,6 +2,7 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract
@@ -18,6 +19,10 @@ import java.util.*
 
 
 class RegisterLockView : Activity(), RegisterLockPresenter.View {
+    override fun getContext(): Context {
+        return this
+    }
+
     private var buttonState: EnumSet<ButtonState> = EnumSet.noneOf(ButtonState::class.java)
     private lateinit var presenter: RegisterLockPresenter
     private lateinit var lock: BluetoothDevice
@@ -85,10 +90,10 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         )
     }
 
-    override fun changeActivity(toActivity: Class<Activity>, extraPayload: Map<String, String>) {
+    override fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String>) {
         this.runOnUiThread {
             var intent: Intent = Intent(this, toActivity)
-            for(extra in extraPayload){
+            for(extra in extras){
                 intent.putExtra(extra.key, extra.value)
             }
             startActivity(intent)

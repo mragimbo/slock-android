@@ -39,7 +39,7 @@ class RegisterView : Activity(), RegisterPresenter.View {
             extras.put("lastName", lastName)
             extras.put("email", email)
             extras.put("pBarValue", reg_progressBar_step1.progress.toString())
-            this.changeActivity(RegisterViewStep2::class.java as Class<Activity>, extras)
+            this.changeActivity(RegisterViewStep2::class.java as Class<*>, extras)
         }
 
         in_firstName.addTextChangedListener(object: TextWatcher{

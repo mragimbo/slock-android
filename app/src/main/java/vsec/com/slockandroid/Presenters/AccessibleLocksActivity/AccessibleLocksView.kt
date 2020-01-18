@@ -1,5 +1,6 @@
 package vsec.com.slockandroid.Presenters.AccessibleLocksActivity
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,9 @@ import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
 class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
+    override fun getContext(): Context? {
+        return this
+    }
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var presenter: AccessibleLocksPresenter

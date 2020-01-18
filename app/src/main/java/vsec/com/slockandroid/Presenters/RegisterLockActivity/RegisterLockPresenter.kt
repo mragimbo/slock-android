@@ -2,7 +2,7 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
-import android.util.Log
+import android.content.Context
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetootLockValidate
@@ -10,10 +10,7 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
-import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.Lock
-import java.lang.Exception
-import java.util.*
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     private val lock: Lock = Lock()
@@ -28,7 +25,7 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         this.lock.setBleAddress(lock.address)
         this.lock.setSecret(Helpers.newBase64Token())
         ApiController.registerLock(this.lock)
-        lock.connectGatt(BluetoothController.context,false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
+        lock.connectGatt(this.view.getContext(),false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
     }
 
     fun onRegistrationDone() {
@@ -48,13 +45,10 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     }
 
     fun onScanDoneValidate(){
-        val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.find { it.address == this.lock.getBleAddress()}
-        val l = lock?.name
-        if(lock != null){
-            lock.connectGatt(BluetoothController.context,false,
-                BluetootLockValidate(::onLockValidationDone)
-            )
-        }
+        BluetoothScanCallback.scannedBleDevices.find { it.address == this.lock.getBleAddress()}
+            ?.connectGatt(this.view.getContext(),false,
+            BluetootLockValidate(::onLockValidationDone)
+        )
     }
 
     fun onLockValidationDone(validated: Boolean){
@@ -76,5 +70,6 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
         fun onRegisterableLockFound(lock: BluetoothDevice)
         fun onNoRegisterableDeviceFound()
         fun checkLock()
+        fun getContext(): Context
     }
 }

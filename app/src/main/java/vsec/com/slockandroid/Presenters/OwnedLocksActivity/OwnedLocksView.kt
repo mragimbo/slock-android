@@ -15,10 +15,15 @@ import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 import android.support.v4.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.app.PendingIntent.getActivity
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 
 
 class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
+    override fun getContext(): Context? {
+        return this
+    }
+
     private lateinit var presenter: OwnedLocksPresenter
     private lateinit var linearLayoutManager: LinearLayoutManager
 
