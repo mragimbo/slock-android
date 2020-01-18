@@ -2,19 +2,15 @@ package vsec.com.slockandroid.Presenters.RentLockActivity
 
 import android.app.Activity
 import android.os.AsyncTask
-import android.view.View
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
-import vsec.com.slockandroid.Controllers.LockAuthController
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
 import vsec.com.slockandroid.generalModels.LockRentBody
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.Instant
-import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.logging.SimpleFormatter
-import java.time.format.DateTimeFormatter.ISO_DATE_TIME
+
 
 
 

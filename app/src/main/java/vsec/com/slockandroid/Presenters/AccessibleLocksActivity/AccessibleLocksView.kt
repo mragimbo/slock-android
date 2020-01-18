@@ -28,9 +28,6 @@ class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
         this.presenter = AccessibleLocksPresenter(this)
 
         presenter.fetchAccessibleLocks()
-
-        //TODO String to JSON
-        //TODO JSON to Hashmap like below
     }
 
     override fun <T> changeActivity(toActivity: Class<T>, extras: Map<String, String>) {

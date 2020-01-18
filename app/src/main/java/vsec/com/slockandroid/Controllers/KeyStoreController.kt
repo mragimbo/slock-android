@@ -1,6 +1,5 @@
 package vsec.com.slockandroid.Controllers
 
-import android.content.pm.PackageManager
 import java.io.*
 import java.security.KeyStore
 import java.security.cert.CertificateFactory
@@ -10,7 +9,7 @@ import javax.net.ssl.TrustManagerFactory
 
 
 object KeyStoreController {
-    lateinit var sslContext: SSLContext
+    var sslContext: SSLContext
 
     private const val ca: String = "-----BEGIN CERTIFICATE-----\n" +
             "MIIEqjCCA5KgAwIBAgIQDeD/te5iy2EQn2CMnO1e0zANBgkqhkiG9w0BAQsFADBh\n" +
@@ -46,7 +45,7 @@ object KeyStoreController {
         val cf: CertificateFactory = CertificateFactory.getInstance("X.509")
 
         var f = File(".").absolutePath
-        // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+
         val caInput: InputStream = this.ca.byteInputStream()
 
         val ca: X509Certificate = caInput.use {

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState

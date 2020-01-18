@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothDevice.TRANSPORT_LE
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parseList
-import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.LockAuthController
 import vsec.com.slockandroid.generalModels.Lock
@@ -75,7 +74,6 @@ class AccessibleLocksPresenter(override val view: _LocksOverviewPresenter.View) 
         }else if(status.startsWith("401")){
             this.lockAuthController.executeRatchetsync(lock.getId() as Int,status)
             this.view.toastLong("Lock synced up try again")
-            //do sync call
         }
         this.view.refreshList(this.lockData)
     }
