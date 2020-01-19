@@ -11,6 +11,7 @@ import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 import android.content.Context
+import android.view.View
 
 class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
     override fun getContext(): Context? {
