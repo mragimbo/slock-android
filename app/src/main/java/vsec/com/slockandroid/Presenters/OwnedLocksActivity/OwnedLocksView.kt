@@ -5,21 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
-
 import kotlinx.android.synthetic.main.activity_owned_locks.*
-
 import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 import android.content.Context
-import android.view.View
-import kotlinx.android.synthetic.main.activity_accessible_locks.*
-import kotlinx.android.synthetic.main.activity_owned_locks.recyclerView
-import kotlinx.android.synthetic.main.content_owned_locks.*
-import kotlinx.android.synthetic.main.content_owned_locks.tv_empty_list
-import kotlinx.android.synthetic.main.activity_owned_locks.tv_empty_list as tv_empty_list1
-
 
 class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
     override fun getContext(): Context? {

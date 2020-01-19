@@ -11,12 +11,9 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register_2.*
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Controllers.PasswordEvaluator
-import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
-import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.PasswordScore
-import vsec.com.slockandroid.generalModels.User
 import java.util.*
 
 

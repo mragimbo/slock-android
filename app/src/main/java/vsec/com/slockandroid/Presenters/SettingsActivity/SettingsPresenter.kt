@@ -1,14 +1,10 @@
 package vsec.com.slockandroid.Presenters.SettingsActivity
 
-import android.app.Activity
 import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
-import vsec.com.slockandroid.Presenters.RegisterActivity.RegisterPresenter
-import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockPresenter
 import vsec.com.slockandroid.generalModels.ChangePasswordModel
-import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels.User
 
 class SettingsPresenter(private val view: View) {

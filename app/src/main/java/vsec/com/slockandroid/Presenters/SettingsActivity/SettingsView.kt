@@ -1,7 +1,6 @@
 package vsec.com.slockandroid.Presenters.SettingsActivity
 
 import android.app.Activity
-import android.app.TaskStackBuilder
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -9,12 +8,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_settings.*
-import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Controllers.PasswordEvaluator
-import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.ButtonState
 import vsec.com.slockandroid.generalModels.PasswordScore
@@ -30,8 +26,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
         setContentView(R.layout.activity_settings)
         btn_set_change_passwd.isEnabled = false
         this.presenter = SettingsPresenter(this)
-
-        //TODO("API controlling and old passwd handling")
 
         in_old_passwd.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {

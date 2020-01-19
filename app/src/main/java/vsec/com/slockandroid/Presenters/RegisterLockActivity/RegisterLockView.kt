@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View

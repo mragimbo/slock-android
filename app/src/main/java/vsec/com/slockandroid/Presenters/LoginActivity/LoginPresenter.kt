@@ -1,5 +1,5 @@
 package vsec.com.slockandroid.Presenters.LoginActivity
-import android.app.Activity
+
 import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.Helpers

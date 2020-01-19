@@ -16,7 +16,7 @@ object PasswordEvaluator{
     //between 34 and 55 is marvelous
 
     fun gradePassword(password: String): Int{
-        var score: Double = 0.0
+        var score = 0.0
 
         if(password.length < minPasswordSize){ return password.length }
 
