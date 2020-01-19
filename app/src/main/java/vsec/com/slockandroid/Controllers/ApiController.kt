@@ -127,14 +127,16 @@ object ApiController {
 
     fun ChangeDetails(changeObject: ChangePasswordModel): String? {
         val url = URL("https://" + this.apiDomain + ":" + this.apiPort + "/v1/changeDetails")
-        val postData: ByteArray = changeObject.toJSON().toByteArray(StandardCharsets.UTF_8)
+        val json: String = changeObject.toJSON()
+        val postData: ByteArray = json.toByteArray(StandardCharsets.UTF_8)
 
         with(url.openConnection() as HttpsURLConnection) {
             sslSocketFactory = KeyStoreController.sslContext.socketFactory
-            requestMethod = "GET"
+            requestMethod = "POST"
 
             setRequestProperty("charset", "utf-8")
             setRequestProperty("content-length", postData.size.toString())
+            setRequestProperty("Content-Type", "application/json")
             setRequestProperty("token", ApiController.sessionToken )
 
             try{
@@ -142,7 +144,7 @@ object ApiController {
                 outputStream.write(postData)
                 outputStream.flush()
             }catch (exception: Exception){
-
+                exception.printStackTrace()
             }
             return responseCode.toString()
         }

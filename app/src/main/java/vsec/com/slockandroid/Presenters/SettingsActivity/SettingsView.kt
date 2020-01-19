@@ -24,7 +24,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
 
     private lateinit var presenter: SettingsPresenter
     private var buttonState: EnumSet<ButtonState> = EnumSet.noneOf(ButtonState::class.java)
-    private var passwd = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +48,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
             override fun afterTextChanged(p0: Editable?) {
                 val passwdScore = PasswordEvaluator.gradePassword(p0.toString())
                 val gradeEnum = Helpers.checkPasswordIsStrong(passwdScore)
-                passwd = p0.toString()
 
                 if (gradeEnum == PasswordScore.WEAK){
                     tx_set_passwd_strength.text = resources.getText(R.string.reg_screen2_passwd_weak)
@@ -104,7 +102,6 @@ class SettingsView : Activity(), SettingsPresenter.View {
 
         in_new_conf_passwd.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                presenter = SettingsPresenter(this@SettingsView)
                 val bool = presenter.assertEqual(p0.toString(), in_new_passwd.text.toString())
                 if (bool && buttonState.contains(ButtonState.PASSWORD_VALID))
                     buttonState.add(ButtonState.PASSWORD_EQUAL)

@@ -22,11 +22,11 @@ class SettingsPresenter(private val view: View) {
     }
 
     fun updateOldPassword(passwd: String){
-        changePasswordModel.setOldHashedPassword(Helpers.makeSha512Hash(passwd,User.salt))
+        this.changePasswordModel.setOldHashedPassword(Helpers.makeSha512Hash(passwd,User.salt))
     }
 
     fun updateNewPassword(passwd: String){
-        changePasswordModel.setNewHashedPassword(Helpers.makeSha512Hash(passwd, User.salt))
+        this.changePasswordModel.setNewHashedPassword(Helpers.makeSha512Hash(passwd, User.salt))
     }
 
     fun assertEqual(element1: String, element2: String): Boolean = (element1 == element2)
