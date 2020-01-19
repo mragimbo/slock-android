@@ -25,12 +25,46 @@
         <string name="reg_screen2_register">Registrera!</string>
         <string name="reg_screen2_passwd">Lösenord</string>
         <string name="reg_screen2_conf_passwd">Bekräfta lösenord</string>
-        <string name="title_activity_owned_locks">OwnedLocksActivity</string>
-        <!-- Strings related to HomeView -->
+    <!-- Strings related to HomeView -->
         <string name="title_activity_HomeView">Välkommen!</string>
         <string name="title_activity_HomeView_additional"></string>
         <string name="btn_own_locks">Egna lås</string>
         <string name="btn_accessible_locks">Tillgängliga\lås</string>
         <string name="btn_temp">Kommer\n Snart!</string>
+    <string name="acc_lock_close_toast">Stängning:</string>
+        <string name="acc_lock_open_toast">"  Öppning:"</string>
+        <string name="acc_lock_synced_toast">Lås in synkronisering, försök igen</string>
+        <string name="btn_lck_close">Stänga</string>
+        <string name="btn_lck_open">Öppna</string>
+        <string name="btn_owned_locks_rent">hyra</string>
+        <string name="btn_register_lock">registrera lås</string>
+        <string name="hint_lock_description">beskrivning</string>
+        <string name="hint_lock_productkey">produktnyckel: xxxxx-xxxxx-xxxxx</string>
+        <string name="in_lock_name">låsnamn</string>
+        <string name="lck_name">låsnamn här</string>
+        <string name="lockauth_error">fel</string>
+        <string name="lockauth_something_went_wrong">något gick fel</string>
+        <string name="lockauth_unexpected">oväntat resultat</string>
+        <string name="login_invalid">ogiltig inloggning</string>
+        <string name="login_vefify_email_first_toast">verifiera din e-post först</string>
+        <string name="no_locks_found">inga lås hittade</string>
+        <string name="reg_passwd_empty">tömma</string>
+        <string name="registerable_device_found">registrerbart lås hittades</string>
+        <string name="registerable_device_not_found">Inget registrerbart lås hittades</string>
+        <string name="rent_button">bekräfta</string>
+        <string name="rent_date">Datum: ÅÅÅÅ-MM-dd</string>
+        <string name="rent_end_time_info">Åtkomst slutar:</string>
+        <string name="rent_header">Hyr ett lås</string>
+        <string name="rent_renter">Hyra till användare:</string>
+        <string name="rent_strt_time_info">Åtkomst startar:</string>
+        <string name="rent_time">Tid: HH:mm</string>
+        <string name="set_change_passwd">" Ändra lösenord"</string>
+        <string name="set_conf_passwd">Bekräfta lösenord</string>
+        <string name="set_logout">Logga ut</string>
+        <string name="set_new_passwd">nytt lösenord</string>
+        <string name="set_old_passwd">gammalt lösenord</string>
+        <string name="title_activity_SettingsView">inställningar</string>
+        <string name="tx_owned_locks_name_here">låsnamn här</string>
+        <string name="tx_searching_locks">Söker efter Slocks</string>
 
 </resources>
