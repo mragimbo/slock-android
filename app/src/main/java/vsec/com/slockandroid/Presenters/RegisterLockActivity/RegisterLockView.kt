@@ -25,7 +25,6 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
 
     private var buttonState: EnumSet<ButtonState> = EnumSet.noneOf(ButtonState::class.java)
     private lateinit var presenter: RegisterLockPresenter
-    private lateinit var lock: BluetoothDevice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         this.presenter.lookForRegistrableLock()
 
         btn_register_lock.setOnClickListener{
-            this.presenter.registerLock(this.lock)
+            this.presenter.registerLock()
         }
 
         in_lock_name.addTextChangedListener(object : TextWatcher {
@@ -100,8 +99,7 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         }
     }
 
-    override fun onRegisterableLockFound(lock: BluetoothDevice){
-        this.lock = lock
+    override fun onRegisterableLockFound(){
         buttonState.add(ButtonState.REGISTERABLE_LOCK_FOUND)
         Toast.makeText(this,R.string.registerable_device_found, Toast.LENGTH_SHORT).show()
         this.updateButtonState()
@@ -117,5 +115,9 @@ class RegisterLockView : Activity(), RegisterLockPresenter.View {
         this.runOnUiThread {
             tv_connected_to_lock.text = "Waiting for lock to boot up"
         }
+    }
+
+    override fun toastLong(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 }

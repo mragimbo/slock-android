@@ -3,6 +3,7 @@ package vsec.com.slockandroid.Presenters.RegisterLockActivity
 import android.app.Activity
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.os.AsyncTask
 import vsec.com.slockandroid.Controllers.ApiController
 import vsec.com.slockandroid.Controllers.BluetoothController
 import vsec.com.slockandroid.Controllers.Callback.BluetootLockValidate
@@ -10,22 +11,29 @@ import vsec.com.slockandroid.Controllers.Callback.BluetoothLockRegister
 import vsec.com.slockandroid.Controllers.Callback.BluetoothScanCallback
 import vsec.com.slockandroid.Controllers.Helpers
 import vsec.com.slockandroid.Presenters.HomeActivity.HomeView
+import vsec.com.slockandroid.Presenters.LoginActivity.LoginView
 import vsec.com.slockandroid.generalModels.Lock
 
 class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     private val lock: Lock = Lock()
+    private lateinit var registerLockTask: RegisterLockTask
+    private lateinit var bleLock: BluetoothDevice
 
 
     fun lookForRegistrableLock() {
         BluetoothController.scanLeDevice(true, ::onScanDoneRegister)
     }
 
-    fun registerLock(lock: BluetoothDevice) {
+    fun registerLock() {
         this.lock.setUuid(Helpers.newBase64Uuid())
-        this.lock.setBleAddress(lock.address)
+        this.lock.setBleAddress(bleLock.address)
         this.lock.setSecret(Helpers.newBase64Token())
-        ApiController.registerLock(this.lock)
-        lock.connectGatt(this.view.getContext(),false, BluetoothLockRegister(this.lock, ::onRegistrationDone))
+        this.registerLockTask = RegisterLockTask(this, bleLock)
+        this.registerLockTask.execute(this.lock)
+    }
+
+    private fun lockRegisterdAtApi(lock: BluetoothDevice) {
+        lock.connectGatt(this.view.getContext(),false, BluetoothLockRegister(this.lock, ::onRegistrationDone), BluetoothDevice.TRANSPORT_LE)
     }
 
     fun onRegistrationDone() {
@@ -38,7 +46,8 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
     fun onScanDoneRegister(){
         val lock: BluetoothDevice? = BluetoothScanCallback.scannedBleDevices.filter { it.name != null }.find { it.name.contains("SLOCK") } //&& it.address == "30:AE:A4:CE:F9:0E"  }//"SLOCK-ALPHA-v1") }
         if(lock != null){
-            view.onRegisterableLockFound(lock)
+            this.bleLock = lock
+            view.onRegisterableLockFound()
         }else {
             this.view.onNoRegisterableDeviceFound()
         }
@@ -67,9 +76,34 @@ class RegisterLockPresenter (private val view: RegisterLockPresenter.View){
 
     interface View {
         fun changeActivity(toActivity: Class<Activity>, extras: Map<String, String> = emptyMap())
-        fun onRegisterableLockFound(lock: BluetoothDevice)
+        fun onRegisterableLockFound()
         fun onNoRegisterableDeviceFound()
         fun checkLock()
         fun getContext(): Context
+        fun toastLong(message: String)
+    }
+
+    companion object{
+        class RegisterLockTask(
+            private var presenter: RegisterLockPresenter,
+            private var lock: BluetoothDevice
+        ): AsyncTask<Lock,Void,String>(){
+            override fun doInBackground(vararg params: Lock?): String {
+                if(params.isEmpty())
+                    return "500"
+                return ApiController.registerLock(params[0] as Lock)
+            }
+
+            override fun onPostExecute(result: String?) {
+                if(result == "200")
+                    this.presenter.lockRegisterdAtApi(lock)
+                else if(result == "401"){
+                    ApiController.clearSession()
+                    this.presenter.view.changeActivity(LoginView::class.java as Class<Activity>)
+                }else{
+                    this.presenter.view.toastLong("could not register the slock")
+                }
+            }
+        }
     }
 }
