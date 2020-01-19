@@ -51,6 +51,7 @@
     <string name="lck_name">Lock name here</string>
     <string name="btn_lck_open">Open</string>
     <string name="btn_lck_close">Close</string>
+    <string name="no_locks_found">no locks found</string>
     <!--String for RegisterLock-->
     <string name="btn_register_lock">Register Lock</string>
     <string name="in_lock_name">Lock name</string>

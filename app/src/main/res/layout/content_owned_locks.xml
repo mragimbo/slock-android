@@ -7,5 +7,16 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".Presenters.OwnedLocksActivity.OwnedLocksView"
         tools:showIn="@layout/activity_owned_locks">
+    <TextView
+            android:id="@+id/tv_empty_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/no_locks_found"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/no_locks_found" />
 
 </android.support.constraint.ConstraintLayout>

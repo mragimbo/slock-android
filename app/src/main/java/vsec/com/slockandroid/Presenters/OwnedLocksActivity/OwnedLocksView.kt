@@ -12,11 +12,13 @@ import vsec.com.slockandroid.Presenters.RegisterLockActivity.RegisterLockView
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels.Lock
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
-import android.support.v4.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import android.view.View
+import kotlinx.android.synthetic.main.activity_accessible_locks.*
+import kotlinx.android.synthetic.main.activity_owned_locks.recyclerView
+import kotlinx.android.synthetic.main.content_owned_locks.*
+import kotlinx.android.synthetic.main.content_owned_locks.tv_empty_list
+import kotlinx.android.synthetic.main.activity_owned_locks.tv_empty_list as tv_empty_list1
 
 
 class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
@@ -62,6 +64,11 @@ class OwnedLocksView : Activity(), _LocksOverviewPresenter.View {
         this.runOnUiThread {
             val accLockAdapter = OwnedLocksRecyclerAdapter(this.presenter, locks)
             recyclerView.adapter = accLockAdapter
+            if(locks.isEmpty()) {
+                tv_empty_list.visibility = View.VISIBLE
+                tv_empty_list.bringToFront()
+            }else
+                tv_empty_list.visibility = View.INVISIBLE
         }
     }
 }
