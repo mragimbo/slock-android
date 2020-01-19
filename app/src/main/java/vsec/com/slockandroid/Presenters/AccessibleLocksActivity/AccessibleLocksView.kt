@@ -5,8 +5,10 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_accessible_locks.*
+import kotlinx.android.synthetic.main.activity_accessible_locks.tv_empty_list
 import vsec.com.slockandroid.R
 import vsec.com.slockandroid.generalModels._LocksOverviewPresenter
 
@@ -25,7 +27,6 @@ class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
 
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
-        this.presenter = AccessibleLocksPresenter(this)
 
         presenter.fetchAccessibleLocks()
 
@@ -50,6 +51,13 @@ class AccessibleLocksView : AppCompatActivity(), _LocksOverviewPresenter.View {
         this.runOnUiThread {
             val accLockAdapter = AccessibleLocksRecyclerAdapter(this.presenter,locks)
             recyclerView.adapter = accLockAdapter
+
+            if(locks.isEmpty()){
+                tv_empty_list.visibility = View.VISIBLE
+                tv_empty_list.bringToFront()
+            }else{
+                tv_empty_list.visibility = View.INVISIBLE
+            }
         }
     }
 }

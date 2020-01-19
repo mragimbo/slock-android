@@ -52,6 +52,7 @@ class RegisterPresenter(private val view: View) {
 
     fun sendRegisterRequestToApi() {
         this.task.execute(this.user)
+        this.task = Task(this.view)
     }
 
     interface View {

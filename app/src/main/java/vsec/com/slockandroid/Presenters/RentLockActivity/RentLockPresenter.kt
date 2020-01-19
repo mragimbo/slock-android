@@ -55,7 +55,7 @@ class RentLockPresenter(private val view: View) {
 
             var hour = this.startTime!!.split(':')[0].toInt()
             var minute = this.startTime!!.split(':')[1].toInt()
-            val startDate: Date = Date(year-1900, month-1, day+1, hour, minute)  //Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
+            val startDate: Date = Date(year-1900, month-1, day, hour, minute)  //Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
             if(startDate.after(Date.from(Instant.now())))
                 return true
             return false
@@ -77,7 +77,7 @@ class RentLockPresenter(private val view: View) {
 
             var hour = this.startTime!!.split(':')[0].toInt()
             var minute = this.startTime!!.split(':')[1].toInt()
-            val startDate: Date = Date(year-1900, month-1, day+1, hour, minute)
+            val startDate: Date = Date(year-1900, month-1, day, hour, minute)
 
             year = this.endDate!!.split('-')[0].toInt()
             month = this.endDate!!.split('-')[1].toInt()
@@ -87,7 +87,7 @@ class RentLockPresenter(private val view: View) {
             minute = this.endTime!!.split(':')[1].toInt()
 
             //val startDate: Date = Date.from(Instant.parse(this.startDate + "T" + this.startTime + ":00.000Z"))
-            val endDate: Date = Date(year -1900, month-1, day+1, hour, minute)//Date.from(Instant.parse(this.endDate + "T" + this.endTime + ":00.000Z"))
+            val endDate: Date = Date(year -1900, month-1, day, hour, minute)//Date.from(Instant.parse(this.endDate + "T" + this.endTime + ":00.000Z"))
             if(endDate.after(startDate))
                 return true
             return false
@@ -130,7 +130,7 @@ class RentLockPresenter(private val view: View) {
 
         var hour = this.startTime!!.split(':')[0].toInt()
         var minute = this.startTime!!.split(':')[1].toInt()
-        val startDate: Date = Date(year - 1900, month -1, day+1, hour, minute)
+        val startDate: Date = Date(year - 1900, month -1, day, hour, minute)
 
         year = this.endDate!!.split('-')[0].toInt()
         month = this.endDate!!.split('-')[1].toInt()
@@ -139,7 +139,7 @@ class RentLockPresenter(private val view: View) {
         hour = this.endTime!!.split(':')[0].toInt()
         minute = this.endTime!!.split(':')[1].toInt()
 
-        val endDate: Date = Date(year - 1900, month-1, day +1, hour, minute)
+        val endDate: Date = Date(year - 1900, month-1, day, hour, minute)
 
         val tz = TimeZone.getTimeZone("UTC")
         val df =

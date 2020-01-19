@@ -109,7 +109,7 @@ class LockAuthController(private var presenter: _LocksOverviewPresenter){
                 super.onPostExecute(result)
                 when (result) {
                     "200" -> {
-                        Log.e("ratchet syns", "ratchet synced")
+                        Log.e("ratchet syncs", "ratchet synced")
                     }
                     "400" -> this.presenter.view.toastLong("Something went wrong")
                     "401" -> {
